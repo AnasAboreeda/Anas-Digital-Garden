@@ -1,0 +1,30 @@
+---
+id: 10/08/2022 - Divide And Conquer
+created_date: 10/08/2022
+updated_date: 10/08/2022
+week_number: 202232
+Tags: ["Studying", "Algorithm" ,"Divide_and_Conquer"]
+---
+
+# Divide And Conquer
+
+**Divide:** Break into non-overlapping subproblems of the same type
+
+**Conquer:** solve subproblems
+
+## Strategy
+
+1. Break into non-overlapping subproblems of the same type
+2. Solve subproblems
+3. Combine results
+
+## Master Theorem[^1]
+
+If $T(n) = aT(⌈\frac{n}{b}⌉) + O(n^d )$ (for constants a > 0, b > 1, d ≥ 0), then:
+
+- $T(n) = O(n^d) \quad\quad\quad    if~d~>~log_b~(a)$
+- $T(n) = O(n^d log(n)) \quad if~d~=~log_b~(a)$
+- $T(n) = O(n^{log_b(a)}) \quad if~d~<~log_b~(a)$
+
+
+[^1]: [Master theorem (analysis of algorithms) - Wikipedia](https://en.wikipedia.org/wiki/Master_theorem_(analysis_of_algorithms))

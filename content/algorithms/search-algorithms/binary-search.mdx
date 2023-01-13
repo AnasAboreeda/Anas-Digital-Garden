@@ -1,0 +1,56 @@
+---
+id: 15/07/2022 - Binary Search
+created_date: 15/07/2022
+updated_date: 10/08/2022
+week_number: 202228
+type: Styding Note
+Tags: ["#Studying", "#Algorithm", "#Search_Algorithm", "#Binary_Search", "#Divide_and_Conquer"]
+---
+
+# Binary Search
+
+- It’s a divide and conquer algorithm.
+- The runtime of binary search is **Θ(log n)**.
+
+```java
+public class BinarySearch {
+
+  static int binarySearch(int[] a, int x) {
+    int left = 0, right = a.length - 1;
+    while (left <= right) {
+      int middle = left + (right - left) / 2;
+      if (a[middle] == x) return middle;
+      if (a[middle] > x) right = middle - 1;
+      if (a[middle] < x) left = middle + 1;
+    }
+
+    return -1;
+  }
+}
+```
+
+```java
+public class BinarySearch {
+
+  static int binarySearchRecursive(int[] a, int x, int left, int right) {
+    if (left > right) {
+      return -1;
+    }
+
+    int mid = left + (right - left) / 2;
+
+    if (a[mid] == x) {
+      return mid;
+    }
+
+    if (x > a[mid]) {
+      left = mid + 1;
+    }
+
+    if (x < a[mid]) {
+      right = mid - 1;
+    }
+
+    return binarySearchRecursive(a, x, left, right);
+  }
+```

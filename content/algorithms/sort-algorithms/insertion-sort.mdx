@@ -1,0 +1,43 @@
+---
+id: 15/07/2022 - Insertion Sort
+created_date: 15/07/2022
+updated_date: 10/08/2022
+week_number: 202228
+type: Styding Note
+Tags: ["#Studying", "#Algorithm", "#Sorting_Algorithm"]
+---
+# Insertion Sort
+
+```java
+void insertion_sort ( int A[ ] , int n)
+{
+     for( int i = 0 ;i < n ; i++ ) {
+    /*storing current element whose left side is checked for its
+             correct position .*/
+
+      int temp = A[ i ];
+      int j = i;
+
+       /* check whether the adjacent element on the left side is greater or
+            less than the current element. */
+
+          while(  j > 0  && temp < A[ j -1]) {
+
+           // moving the left side element to one position forward.
+                A[ j ] = A[ j-1];
+                j= j - 1;
+
+           }
+         // moving the current element to its correct position.
+           A[ j ] = temp;
+     }
+}
+```
+
+## Running time:
+
+$$
+O(n^2)
+$$
+
+- [Insertion Sort Animation](https://thumbs.gfycat.com/InsistentDesertedFly-mobile.mp4)
