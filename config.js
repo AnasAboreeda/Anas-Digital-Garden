@@ -9,7 +9,7 @@ const config = {
     logo: 'images/logo.png',
     logoLink: '/',
     title: "Anas's Digital Garden",
-    githubUrl: 'https://github.com/AnasAboureada/digital-garden',
+    githubUrl: 'https://github.com/AnasAboureada/Anas-Digital-Garden',
     helpUrl: '',
     tweetText: '',
     social: `<li>
@@ -54,7 +54,7 @@ const config = {
     title: 'Anas\'s Aboureada Digital Garden',
     description: 'Anas\'s Aboureada study notes, learnings, interests, blog posts, thoughts',
     ogImage: null,
-    docsLocation: 'https://github.com/AnasAboureada/digital-garden/tree/main/content',
+    docsLocation: 'https://github.com/AnasAboureada/Anas-Digital-Garden/tree/main/content',
     favicon: 'images/logo.png',
   },
   pwa: {
