@@ -1,20 +1,23 @@
 ---
-id: 15/07/2022 - BFS Breadth First Search
-created_date: 15/07/2022
-updated_date: 10/08/2022
-week_number: 202228
-type: Styding Note
-Tags: ["Studying", "Algorithm", "Search_Algorithm", "BFS"]
+id: 2023-01-11-bfs-breadth-first-search
+title: bfs breadth first search
+metaTitle: Bfs Breadth First Search | Anas's Digital Garden
+metaDescription: bfs breadth first search | Anas's Digital Garden
+createdDate: 2023-01-11
+updatedDate: 2023-01-15
+weekNumber: 202302
+category: algorithms/search-algorithms
+tags: ["search-algorithms", "bfs-breadth-first-search"]
 ---
 
 # BFS Breadth First Search
 
-## **When to use BFS?**
+## When to use BFS?
 
 - To get the shortest path from A to B
 - For graph of unknown or even infinite size, e.g. knight shortest path
 
-## **BFS on Tree template**
+## BFS on Tree template
 
 We can implement BFS using a queue. Important things to remember:
 
@@ -35,7 +38,7 @@ def bfs_by_queue(root):
     return NOT_FOUND
 ```
 
-## **BFS on graph template**
+## BFS on graph template
 
 The BFS template consists of two core functions:
 
@@ -77,7 +80,7 @@ def bfs(root):
             visited.add(neighbor)
 ```
 
-## **Tracking levels/finding distance**
+## Tracking levels/finding distance
 
 ```java
 import java.util.*;

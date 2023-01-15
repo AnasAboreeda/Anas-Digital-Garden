@@ -4,6 +4,7 @@ import TeX from "@matejmazur/react-katex";
 
 import CodeBlock from './codeBlock';
 import AnchorTag from './anchor';
+import { customIdParser } from '../../utils/customIdParser';
 
 const StyledPre = styled('pre')`
   padding: 16px;
@@ -28,40 +29,22 @@ const appendString = (children) => {
 
 export default {
   h1: (props) => (
-    <h1
-      className="heading1"
-      {...props}
-    />
+    <h1 className="heading1 titleWrapper" id={customIdParser(props.children).id} {...props}>{customIdParser(props.children).content}</h1>
   ),
   h2: (props) => (
-    <h2
-      className="heading2"
-      {...props}
-    />
+    <h2 className="heading2" id={customIdParser(props.children).id} {...props}>{customIdParser(props.children).content}</h2>
   ),
   h3: (props) => (
-    <h3
-      className="heading3"
-      {...props}
-    />
+    <h3 className="heading3" id={customIdParser(props.children).id} {...props}>{customIdParser(props.children).content}</h3>
   ),
   h4: (props) => (
-    <h4
-      className="heading4"
-      {...props}
-    />
+    <h4 className="heading4" id={customIdParser(props.children).id} {...props}>{customIdParser(props.children).content}</h4>
   ),
   h5: (props) => (
-    <h5
-      className="heading5"
-      {...props}
-    />
+    <h5 className="heading5" id={customIdParser(props.children).id} {...props}>{customIdParser(props.children).content}</h5>
   ),
   h6: (props) => (
-    <h6
-      className="heading6"
-      {...props}
-    />
+    <h6 className="heading6" id={customIdParser(props.children).id} {...props}>{customIdParser(props.children).content}</h6>
   ),
   p: (props) => <p className="paragraph" {...props} />,
   pre: (props) => (

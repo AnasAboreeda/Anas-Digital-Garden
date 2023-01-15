@@ -528,6 +528,7 @@ export const baseStyles = css`
     padding-bottom: 40px;
     border-bottom: 1px solid rgb(230, 236, 241);
     margin-bottom: 32px;
+    justify-content: space-between;
   }
 
   .gitBtn {
@@ -674,11 +675,15 @@ export const baseStyles = css`
   }
 
   .heading1 {
-    font-size: 26px;
-    font-weight: 800;
+    font-size: 32px;
     line-height: 1.5;
-    margin-bottom: 16px;
-    margin-top: 32px;
+    font-weight: 500;
+    border-left: 2px solid #1ed3c6;
+    padding: 0 16px;
+    flex: 1;
+    margin-top: 0;
+    padding-top: 0;
+    color: ${(props) => props.theme.colors.heading};
   }
 
   .heading2 {

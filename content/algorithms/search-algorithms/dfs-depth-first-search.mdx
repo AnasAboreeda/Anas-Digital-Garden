@@ -1,10 +1,13 @@
 ---
-id: 15/07/2022 - DFS Depth-First Search
-created_date: 15/07/2022
-updated_date: 10/08/2022
-week_number: 202228
-type: Styding Note
-Tags: ["#Studying", "#Algorithm", "#Search_Algorithm", "#DFS"]
+id: 2023-01-11-dfs-depth-first-search
+title: dfs depth first search
+metaTitle: Dfs Depth First Search | Anas's Digital Garden
+metaDescription: dfs depth first search | Anas's Digital Garden
+createdDate: 2023-01-11
+updatedDate: 2023-01-15
+weekNumber: 202302
+category: algorithms/search-algorithms
+tags: ["search-algorithms", "dfs-depth-first-search"]
 ---
 
 # DFS Depth-First Search
@@ -84,16 +87,16 @@ The example above also introduces two other concepts:
     - We have two recursive calls `dfs(root.left)` and `dfs(root.right)` and return based on results from the recursive calls.
     - This is also a **divide and conquer** algorithm, i.e. splitting into sub-problems of the same type (search in left and right children) until they are simple enough to be solved directly (null nodes or found target) and combining the results from these sub-problems (return non-null node).
 
-## **When to use DFS**
+## When to use DFS
 
-### **Tree**
+### Tree
 
 DFS is essentially pre-order tree traversal.
 
 - Traverse and find/create/modify/delete node
 - Traverse with return value (finding max subtree, detect balanced tree)
 
-### **Combinatorial problems**
+### Combinatorial problems
 
 DFS/backtracking and combinatorial problems are a match made in heaven (or silver bullet and werewolf 😅).
 
@@ -103,7 +106,7 @@ As we will see in the **[Combinatorial Search](https://www.educative.io/collecti
 - Find all possible combinations of …
 - Find all solutions to a puzzle
 
-### **Graph**
+### Graph
 
 Trees are special graphs that have no cycle. We can still use DFS in graphs with cycles. We just have to record the nodes we have visited and avoid re-visiting them and going into an infinite loop.
 
@@ -111,9 +114,9 @@ Trees are special graphs that have no cycle. We can still use DFS in graphs with
 - Find connected components
 - Detect cycles
 
-## **DFS on a Tree**
+## DFS on a Tree
 
-### **Think like a node**
+### Think like a node
 
 <aside>
 ⚖️ The key to solving tree problems using DFS is to think from the perspective of a node instead of looking at the whole tree.
@@ -152,7 +155,7 @@ def dfs(root, state):
 
 The **time complexity** of depth-first search on trees is **O(N)** since each node is visited once.
 
-## **DFS on Graphs**
+## DFS on Graphs
 
 Similar to BFS, we just have to add the `visited` variable to keep track of the visited nodes and use `get_neighbors` to get the next nodes to visit.
 
@@ -170,11 +173,11 @@ public void dfs(Node root, Set<Node> visited) {
 }
 ```
 
-### **Complexity**
+### Complexity
 
 We only visit each vertex once in both BFS and DFS with `visited`. Since technically a graph is made of vertices *and edges*, the time complexity of BFS/DFS on graphs is normally expressed as `O(|V| + |E|)` where `|V|` stands for the number of vertices and `|E|` stands for the number of edges. `V` is a set of vertices and in maths `|V|` means the size of a set.
 
-## **Cycle detection**
+## Cycle detection
 
 - One way to detect cycles is to **use DFS**.
 

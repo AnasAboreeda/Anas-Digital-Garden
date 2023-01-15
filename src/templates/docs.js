@@ -6,7 +6,7 @@ import MDXRenderer from 'gatsby-plugin-mdx/mdx-renderer';
 import { Layout, Link } from '$components';
 import NextPrevious from '../components/NextPrevious';
 import config from '../../config';
-import { Edit, StyledHeading, StyledMainWrapper } from '../components/styles/Docs';
+import { Edit, StyledHeading, StyledMainWrapper, StyledTags, StyledDocMetaFooter, StyledDocFooter } from '../components/styles/Docs';
 
 const forcedNavOrder = config.sidebar.forcedNavOrder;
 
@@ -66,9 +66,7 @@ export default class MDXRuntimeTest extends Component {
       });
 
     // meta tags
-    const metaTitle = mdx.frontmatter.metaTitle;
-
-    const metaDescription = mdx.frontmatter.metaDescription;
+    const { metaTitle, metaDescription, tags, createdDate, updatedDate } = mdx.frontmatter;
 
     let canonicalUrl = config.gatsby.siteUrl;
 
@@ -90,18 +88,25 @@ export default class MDXRuntimeTest extends Component {
           ) : null}
           <link rel="canonical" href={canonicalUrl} />
         </Helmet>
-        <div className={'titleWrapper'}>
-          <StyledHeading>{mdx.fields.title}</StyledHeading>
-          <Edit className={'mobileView'}>
-            {docsLocation && (
-              <Link className={'gitBtn'} to={`${docsLocation}/${mdx.parent.relativePath}`}>
-                <img src={githubIcon} alt={'Github logo'} /> Edit on GitHub
-              </Link>
-            )}
-          </Edit>
-        </div>
         <StyledMainWrapper>
           <MDXRenderer>{mdx.body}</MDXRenderer>
+          <StyledDocFooter>
+            <Edit className={'mobileView'}>
+              {docsLocation && (
+                <Link className={'gitBtn'} to={`${docsLocation}/${mdx.parent.relativePath}`}>
+                  <img src={githubIcon} alt={'Github logo'} /> Edit on GitHub
+                </Link>
+              )}
+            </Edit>
+            {updatedDate && <div>Last Updated: {updatedDate.slice(0, 10)}</div>}
+            {createdDate && <div>Created On: {createdDate.slice(0, 10)}</div>}
+            {tags && <StyledTags>
+              <div className='tagsTitle'>Tags:</div>
+              {tags?.map((tag, index) => (
+                <div key={tag + index} className='tag'> {`#${tag}`}</div>
+              ))}
+            </StyledTags>}
+          </StyledDocFooter>
         </StyledMainWrapper>
         <div className={'addPaddTopBottom'}>
           <NextPrevious mdx={mdx} nav={nav} />
@@ -135,6 +140,10 @@ export const pageQuery = graphql`
       frontmatter {
         metaTitle
         metaDescription
+        tags
+        category
+        updatedDate
+        createdDate
       }
     }
     allMdx {

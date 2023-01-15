@@ -13,7 +13,7 @@ export const StyledHeading = styled('h1')`
 `;
 
 export const Edit = styled('div')`
-  padding: 1rem 1.5rem;
+  padding: 1rem 0;
   text-align: right;
 
   a {
@@ -75,3 +75,25 @@ export const StyledMainWrapper = styled.div`
     padding: 0 15px;
   }
 `;
+
+export const StyledDocFooter = styled('div')`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  font-size: 0.7em;
+`;
+
+export const StyledTags = styled('div')`
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  .tag {
+    margin: 0 0.2em;
+  }
+`;
+
+export const StyledDocMetaFooter = styled('div')`
+  display: flex;
+`;
+
+

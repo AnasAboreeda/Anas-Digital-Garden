@@ -100,7 +100,7 @@ const config = {
     'With',
     'Vs',
   ],
-  uppers: ['Id', 'Dfs', 'Bfs', 'Gcd']
+  uppers: ['Id', 'Dfs', 'Bfs', 'Gcd', 'Ccdak']
 };
 
 module.exports = config;

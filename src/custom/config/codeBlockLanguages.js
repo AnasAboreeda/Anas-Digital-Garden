@@ -1,4 +1,5 @@
 export function applyLanguages(_Prism) {
+  require("prismjs/components/prism-java");
   /**
    * Here you have the possibility to add other supported languages to Prism and thus to the code highlighting.
    *
@@ -21,5 +22,5 @@ export function getTheme(_Prism) {
   /**
    * Here you have the possibility to change the prism highlighting.
    */
-  return require('prism-react-renderer/themes/vsDark').default;
+  return require('prism-react-renderer/themes/github').default;
 }

@@ -4,30 +4,6 @@ import ClosedSvg from '../images/closed';
 import config from '../../../config';
 import Link from '../link';
 
-String.prototype.toTitleCase = function () {
-  const { lowers, uppers } = config;
-
-  let str = '';
-
-  str = this.replace(/([^\W_]+[^\s-_]+]*) */g, function (txt) {
-    return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
-  });
-
-  for (let i = 0, j = lowers.length; i < j; i++) {
-    str = str.replace(new RegExp('\\s' + lowers[i] + '\\s', 'g'), function (txt) {
-      return txt.toLowerCase();
-    });
-  }
-
-  for (let i = 0, j = uppers.length; i < j; i++) {
-    str = str.replace(new RegExp('\\b' + uppers[i] + '\\b', 'g'), uppers[i].toUpperCase());
-  }
-
-  str = str.replace(/_|-/g, ' ').replace(/^\d./g, '').trim();
-
-  return str;
-};
-
 const TreeNode = ({
   className = '',
   setCollapsed,
