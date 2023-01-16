@@ -20,7 +20,7 @@ export default class HTML extends React.Component {
           {config.siteMetadata.favicon ? (
             <link rel="shortcut icon" type="image/svg" href={config.siteMetadata.favicon} />
           ) : null}
-          <noscript key="noscript"></noscript>
+          <noscript key="noscript" />
           <link
             rel="stylesheet"
             href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css"
@@ -31,7 +31,7 @@ export default class HTML extends React.Component {
         </head>
         <body {...this.props.bodyAttributes}>
           {this.props.preBodyComponents}
-          <div key={`body`} id="___gatsby" dangerouslySetInnerHTML={{ __html: this.props.body }} />
+          <div key="body" id="___gatsby" dangerouslySetInnerHTML={{ __html: this.props.body }} />
           {this.props.postBodyComponents}
           <script
             defer

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import Highlight, { defaultProps, Prism } from 'prism-react-renderer';
-import { applyLanguages, getTheme } from '../../custom/config/codeBlockLanguages';
 import Loadable from 'react-loadable';
+import { applyLanguages, getTheme } from '../../custom/config/codeBlockLanguages';
 import LoadingProvider from './loading';
 
 const theme = getTheme();
@@ -31,7 +31,7 @@ const CodeBlock = ({ children: exampleCode, ...props }) => {
   const [_, updateView] = React.useState(0);
 
   React.useEffect(() => {
-    var windowPrism = window.Prism;
+    const windowPrism = window.Prism;
 
     window.Prism = Prism;
     applyLanguages(Prism);
@@ -43,7 +43,7 @@ const CodeBlock = ({ children: exampleCode, ...props }) => {
 
   if (props['react-live']) {
     return <LoadableComponent code={exampleCode} />;
-  } else {
+  }
     return (
       <Highlight
         {...defaultProps}
@@ -53,7 +53,7 @@ const CodeBlock = ({ children: exampleCode, ...props }) => {
         theme={theme}
       >
         {({ className, style, tokens, getLineProps, getTokenProps }) => (
-          <pre className={className + ' pre'} style={style} p={3}>
+          <pre className={`${className} pre`} style={style} p={3}>
             {cleanTokens(tokens).map((line, i) => {
               let lineClass = {};
 
@@ -110,9 +110,9 @@ const CodeBlock = ({ children: exampleCode, ...props }) => {
                               <span {...getTokenProps({ token: splitToken, key })} />
                             </React.Fragment>
                           );
-                        } else {
-                          return <span {...getTokenProps({ token, key })} style={diffStyle} />;
                         }
+                          return <span {...getTokenProps({ token, key })} style={diffStyle} />;
+
                       }
                     }
                     return <span {...getTokenProps({ token, key })} />;
@@ -124,7 +124,7 @@ const CodeBlock = ({ children: exampleCode, ...props }) => {
         )}
       </Highlight>
     );
-  }
+
 };
 
 export default CodeBlock;

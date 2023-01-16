@@ -86,9 +86,9 @@ export const DarkModeSwitch = ({ isDarkThemeActive, toggleActiveTheme }) => (
         type="checkbox"
         id="slider"
         onChange={toggleActiveTheme}
-        checked={isDarkThemeActive ? false : true}
+        checked={!isDarkThemeActive}
       />
-      <span className="slider round"></span>
+      <span className="slider round" />
     </label>
   </StyledSwitch>
 );

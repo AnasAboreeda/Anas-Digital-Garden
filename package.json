@@ -14,7 +14,11 @@
     "develop": "gatsby develop",
     "serve": "gatsby serve",
     "clean": "gatsby clean",
-    "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing\" && exit 1"
+    "test": "jest --verbose ./test",
+    "cy:open": "cypress open",
+    "cy:run": "cypress run",
+    "test:e2e": "start-server-and-test develop http://localhost:8000 cy:open",
+    "test:e2e:ci": "start-server-and-test develop http://localhost:8000 cy:run"
   },
   "dependencies": {
     "@babel/plugin-proposal-export-default-from": "^7.12.13",
@@ -37,6 +41,7 @@
     "dotenv": "^8.5.1",
     "emotion": "^11.0.0",
     "emotion-server": "^11.0.0",
+    "eslint-config-airbnb": "^19.0.4",
     "gatsby": "^4.0.2",
     "gatsby-link": "^4.0.0",
     "gatsby-plugin-algolia": "1.0.2",
@@ -77,7 +82,13 @@
     "styled-components": "^5.3.6"
   },
   "devDependencies": {
+    "@testing-library/cypress": "^9.0.0",
+    "axe-core": "^4.6.2",
     "babel-eslint": "^10.1.0",
+    "babel-jest": "^29.3.1",
+    "babel-preset-gatsby": "^3.4.0",
+    "cypress": "^12.3.0",
+    "cypress-axe": "^1.2.0",
     "eslint": "^7.25.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-import": "^2.22.1",
@@ -85,7 +96,10 @@
     "eslint-plugin-prettier": "^3.4.1",
     "eslint-plugin-react": "^7.23.2",
     "gatsby-plugin-remove-trailing-slashes": "^3.4.0",
+    "identity-obj-proxy": "^3.0.0",
+    "jest": "^29.3.1",
     "prettier": "^2.2.1",
-    "prism-react-renderer": "^1.2.1"
+    "prism-react-renderer": "^1.2.1",
+    "start-server-and-test": "^1.15.2"
   }
 }

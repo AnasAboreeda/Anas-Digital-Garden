@@ -62,23 +62,20 @@ const RightSideBarWidth = styled('div')`
   width: 224px;
 `;
 
+// eslint-disable-next-line no-extend-native
 String.prototype.toTitleCase = function () {
   const { lowers, uppers } = config;
 
   let str = '';
 
-  str = this.replace(/([^\W_]+[^\s-_]+]*) */g, function (txt) {
-    return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
-  });
+  str = this.replace(/([^\W_]+[^\s-_]+]*) */g, (txt) => txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase());
 
   for (let i = 0, j = lowers.length; i < j; i++) {
-    str = str.replace(new RegExp('\\s' + lowers[i] + '\\s', 'g'), function (txt) {
-      return txt.toLowerCase();
-    });
+    str = str.replace(new RegExp(`\\s${lowers[i]}\\s`, 'g'), (txt) => txt.toLowerCase());
   }
 
   for (let i = 0, j = uppers.length; i < j; i++) {
-    str = str.replace(new RegExp('\\b' + uppers[i] + '\\b', 'g'), uppers[i].toUpperCase());
+    str = str.replace(new RegExp(`\\b${uppers[i]}\\b`, 'g'), uppers[i].toUpperCase());
   }
 
   str = str.replace(/_|-/g, ' ').replace(/^\d./g, '').trim();
@@ -90,19 +87,19 @@ const Layout = ({ children, location }) => (
   <ThemeProvider location={location}>
     <MDXProvider components={mdxComponents}>
       <Wrapper>
-        <LeftSideBarWidth className={'hiddenMobile'}>
+        <LeftSideBarWidth className="hiddenMobile">
           <Sidebar location={location} />
         </LeftSideBarWidth>
         {config.sidebar.title ? (
           <div
-            className={'sidebarTitle sideBarShow'}
+            className="sidebarTitle sideBarShow"
             dangerouslySetInnerHTML={{ __html: config.sidebar.title }}
           />
         ) : null}
         <Content>
           <MaxWidth>{children}</MaxWidth>
         </Content>
-        <RightSideBarWidth className={'hiddenMobile'}>
+        <RightSideBarWidth className="hiddenMobile">
           <RightSidebar location={location} />
         </RightSideBarWidth>
       </Wrapper>

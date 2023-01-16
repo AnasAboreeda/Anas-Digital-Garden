@@ -1,3 +1,5 @@
-# Anas's Green Garden
+# Anas's Digital Garden
 
-TODO: fill the Readme file
+Welcome to my digital garden! This website serves as a collection of my study notes and personal musings on various topics related to technology, programming, software architecture, web security, penetration testing and investment. Here you will find a curated selection of my research, thoughts, and discoveries as I explore these fields.
+
+Whether you're a software developer, security enthusiast, or just curious about these subjects, I hope you will find something of value here. So feel free to explore and learn alongside me as I continue to cultivate this space. If you have any questions or suggestions, please don't hesitate to reach out. Happy reading!

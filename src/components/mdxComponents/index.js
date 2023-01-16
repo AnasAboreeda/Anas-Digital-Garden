@@ -16,15 +16,15 @@ const appendString = (children) => {
     return children.reduce((acc, current) => {
       if (typeof current === 'string') {
         return acc.concat(current);
-      } else if (typeof current === 'object') {
+      } if (typeof current === 'object') {
         return acc.concat(current.props.children);
-      } else {
-        return acc;
       }
+        return acc;
+
     }, '');
-  } else {
-    return children;
   }
+    return children;
+
 };
 
 export default {

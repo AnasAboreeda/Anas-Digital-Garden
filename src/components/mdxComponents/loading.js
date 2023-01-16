@@ -1,7 +1,5 @@
 import * as React from 'react';
 
-const LoadingProvider = ({ ...props }) => {
-  return <div></div>;
-};
+const LoadingProvider = ({ ...props }) => <div />;
 
 export default LoadingProvider;

@@ -1,22 +1,19 @@
 import * as React from 'react';
-import Tree from './tree';
 import { StaticQuery, graphql } from 'gatsby';
 import styled from '@emotion/styled';
 import { ExternalLink } from 'react-feather';
+import { StyledEngineProvider, Experimental_CssVarsProvider as CssVarsProvider } from '@mui/material/styles';
 import config from '../../../config';
-import { StyledEngineProvider } from '@mui/material/styles';
-import { Experimental_CssVarsProvider as CssVarsProvider } from '@mui/material/styles';
+import Tree from './tree';
 
 // eslint-disable-next-line no-unused-vars
-const ListItem = styled(({ className, active, level, ...props }) => {
-  return (
+const ListItem = styled(({ className, active, level, ...props }) => (
     <li className={className}>
       <a href={props.to} {...props} target="_blank" rel="noopener noreferrer">
         {props.children}
       </a>
     </li>
-  );
-})`
+))`
   list-style: none;
 
   a {
@@ -108,19 +105,18 @@ const SidebarLayout = ({ location }) => (
         }
       }
     `}
-    render={({ allMdx }) => {
-      return (
+    render={({ allMdx }) => (
         <Sidebar>
           {config.sidebar.title ? (
             <div
-              className={'sidebarTitle hiddenMobile'}
+            className="sidebarTitle hiddenMobile"
               dangerouslySetInnerHTML={{ __html: config.sidebar.title }}
             />
           ) : null}
-          <ul className={'sideBarUL'}>
+        <ul className="sideBarUL">
             <Tree edges={allMdx.edges} />
             <StyledEngineProvider injectFirst>
-              <CssVarsProvider></CssVarsProvider>
+            <CssVarsProvider />
             </StyledEngineProvider>
             <br />
             {config.sidebar.links && config.sidebar.links.length > 0 && <Divider />}
@@ -136,8 +132,7 @@ const SidebarLayout = ({ location }) => (
             })}
           </ul>
         </Sidebar>
-      );
-    }}
+    )}
   />
 );
 

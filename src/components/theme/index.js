@@ -4,6 +4,14 @@ const baseTheme = {
   },
 };
 
+export const basicColors = {
+  primary: '#004E4E',
+  lightPrimary: '#008C99',
+  secondary: '#764B92',
+  lightSecondary: '#CCABD6',
+  highlight: '#6089B7',
+};
+
 const lightTheme = {
   ...baseTheme,
   colors: {
@@ -11,7 +19,7 @@ const lightTheme = {
     heading: '#000',
     text: '#3B454E',
     preFormattedText: 'rgb(245, 247, 249)',
-    link: '#1000EE',
+    link: basicColors.primary,
   },
 };
 
@@ -22,7 +30,7 @@ const darkTheme = {
     heading: '#fff',
     text: '#fff',
     preFormattedText: '#000',
-    link: '#1ED3C6',
+    link: basicColors.lightPrimary,
   },
 };
 

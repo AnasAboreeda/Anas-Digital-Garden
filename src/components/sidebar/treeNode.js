@@ -24,7 +24,7 @@ const TreeNode = ({
 
   let location;
 
-  if (typeof document != 'undefined') {
+  if (typeof document !== 'undefined') {
     location = document.location;
   }
   const active =

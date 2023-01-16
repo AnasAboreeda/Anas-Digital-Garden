@@ -11,9 +11,11 @@ export const customIdParser = (content) => {
         content = content.map((item) => {
           if (typeof item === 'string') {
             return item;
-          } else {
-            return item.props.children;
           }
+          if (item.props?.children?.props?.children) {
+            return item.props.children.props.children;
+          }
+          return item.props.children;
         }).join(' ');
       }
 
@@ -35,10 +37,10 @@ export const customIdParser = (content) => {
       id: resultId
     }
 
-  } else {
+  }
     return {
       content,
       id: resultId
     }
-  }
+
 }

@@ -52,15 +52,13 @@ export const Sidebar = styled('aside')`
   }
 `;
 
-export const ListItem = styled(({ className, active, level, ...props }) => {
-  return (
+export const ListItem = styled(({ className, active, level, ...props }) => (
     <li className={className}>
       <a href={props.to} {...props}>
         {props.children}
       </a>
     </li>
-  );
-})`
+))`
   list-style: none;
 
   a {

@@ -3,8 +3,7 @@ import { Highlight, Snippet } from 'react-instantsearch-dom';
 import { Link } from 'gatsby';
 
 export const PageHit =
-  (clickHandler) => ({ hit }) => {
-    return (
+  (clickHandler) => ({ hit }) => (
       <div>
         <Link to={hit.slug} onClick={clickHandler}>
           <div>
@@ -13,5 +12,4 @@ export const PageHit =
         </Link>
         <Snippet attribute="excerpt" hit={hit} tagName="mark" />
       </div>
-    );
-  }
+  )

@@ -77,7 +77,7 @@ function sortTreeItems(tree) {
 
   tmp.reverse();
 
-  tree.items = tree.items.sort(function (a, b) {
+  tree.items = tree.items.sort((a, b) => {
     if (a.label.toLowerCase() < b.label.toLowerCase())
       return -1;
     if (a.label.toLowerCase() > b.label.toLowerCase())
@@ -87,7 +87,7 @@ function sortTreeItems(tree) {
 
   // sort items alphabetically.
   tree.items.map((item) => {
-    item.items = item.items.sort(function (a, b) {
+    item.items = item.items.sort((a, b) => {
       if (a.label.toLowerCase() < b.label.toLowerCase())
         return -1;
       if (a.label.toLowerCase() > b.label.toLowerCase())
@@ -119,7 +119,7 @@ function sortTreeItems(tree) {
       }
     }
 
-    prevItems = prevItems.sort(function (a, b) {
+    prevItems = prevItems.sort((a, b) => {
       if (a.label.toLowerCase() < b.label.toLowerCase())
         return -1;
       if (a.label.toLowerCase() > b.label.toLowerCase())
@@ -149,9 +149,7 @@ const calculateTreeData = (edges) => {
 };
 
 const Tree = ({ edges }) => {
-  let [treeData] = useState(() => {
-    return calculateTreeData(edges);
-  });
+  const [treeData] = useState(() => calculateTreeData(edges));
 
   const defaultCollapsed = {};
 

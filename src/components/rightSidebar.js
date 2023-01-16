@@ -22,12 +22,12 @@ const SidebarLayout = ({ location }) => (
       }
     `}
     render={({ allMdx }) => {
-      let navItems = [];
+      const navItems = [];
 
       let finalNavItems;
 
       if (allMdx.edges !== undefined && allMdx.edges.length > 0) {
-        const navItems = allMdx.edges.map((item, index) => {
+        const navItems = allMdx.edges.map((item) => {
           let innerItems;
 
           if (item !== undefined) {
@@ -38,7 +38,6 @@ const SidebarLayout = ({ location }) => (
               if (item.node.tableOfContents.items) {
                 innerItems = item.node.tableOfContents.items.map((innerItem, index) => {
                   return innerItem.items?.map((innerItem, index) => {
-                    console.log('innderItem, Index :>> ', innerItem, index);
                   const itemId = innerItem.title
                     ? innerItem.title.replace(/\s+/g, '').toLowerCase()
                     : '#';
@@ -63,19 +62,19 @@ const SidebarLayout = ({ location }) => (
       if (finalNavItems && finalNavItems.length) {
         return (
           <Sidebar>
-            <ul className={'rightSideBarUL'}>
-              <li className={'rightSideTitle'}>CONTENTS</li>
+            <ul className="rightSideBarUL">
+              <li className="rightSideTitle">CONTENTS</li>
               {finalNavItems}
             </ul>
           </Sidebar>
         );
-      } else {
+      }
         return (
           <Sidebar>
-            <ul></ul>
+            <ul />
           </Sidebar>
         );
-      }
+
     }}
   />
 );

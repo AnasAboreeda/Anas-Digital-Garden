@@ -8,12 +8,12 @@ import {
   connectStateResults,
 } from 'react-instantsearch-dom';
 import algoliasearch from 'algoliasearch/lite';
-import config from '../../../config.js';
 
 import styled from '@emotion/styled';
 import { css } from '@emotion/react';
-import { PoweredBy } from './styles';
 import { Search } from '@styled-icons/fa-solid/Search';
+import { PoweredBy } from './styles';
+import config from '../../../config.js';
 import Input from './input';
 import * as hitComps from './hitComps';
 
@@ -121,11 +121,8 @@ const searchClient = algoliasearch(
 
 export default function SearchComponent({ indices, collapse, hitsAsGrid }) {
   const ref = createRef();
-
   const [query, setQuery] = useState(``);
-
   const [focus, setFocus] = useState(false);
-
   useClickOutside(ref, () => setFocus(false));
   const displayResult = query.length > 0 && focus ? 'showResults' : 'hideResults';
 
@@ -138,19 +135,16 @@ export default function SearchComponent({ indices, collapse, hitsAsGrid }) {
     >
       <Input onFocus={() => setFocus(true)} {...{ collapse, focus }} />
       <HitsWrapper
-        className={'hitWrapper ' + displayResult}
+        className={`hitWrapper ${displayResult}`}
         show={query.length > 0 && focus}
         asGrid={hitsAsGrid}
       >
-        {indices.map(({ name, title, hitComp, type }) => {
-          console.log('{ name, title, hitComp, type } :>> ', { name, title, hitComp, type });
-          return (
+        {indices.map(({ name, title, hitComp, type }) => (
             <Index key={name} indexName={name}>
               <Results />
               <Hits hitComponent={hitComps[hitComp](() => setFocus(false))} />
             </Index>
-          );
-        })}
+        ))}
         <PoweredBy />
       </HitsWrapper>
       <Configure hitsPerPage={5} />

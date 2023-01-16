@@ -4,6 +4,7 @@
     "plugin:import/errors",
     "plugin:react/recommended",
     "plugin:jsx-a11y/recommended",
+    "eslint-config-airbnb/whitespace",
     "prettier"
   ],
   "plugins": ["react", "import", "jsx-a11y"],
@@ -15,18 +16,13 @@
   "rules": {
     "react/prop-types": 0,
     "react/react-in-jsx-scope": "off",
-    "lines-between-class-members": ["error", "always"],
-    "padding-line-between-statements": [
-      "error",
-      { "blankLine": "always", "prev": ["const", "let", "var"], "next": "*" },
-      {
-        "blankLine": "always",
-        "prev": ["const", "let", "var"],
-        "next": ["const", "let", "var"]
-      },
-      { "blankLine": "always", "prev": "directive", "next": "*" },
-      { "blankLine": "any", "prev": "directive", "next": "directive" }
-    ]
+    "react/jsx-filename-extension": [0],
+    "import/prefer-default-export": [0],
+    "no-plusplus": ["error", { "allowForLoopAfterthoughts": true }],
+    "react/function-component-definition": [1, {
+      "namedComponents": "arrow-function",
+      "unnamedComponents":"arrow-function"
+    }]
   },
   "parser": "babel-eslint",
   "parserOptions": {
@@ -39,9 +35,11 @@
   "env": {
     "es6": true,
     "browser": true,
-    "node": true
+    "node": true,
+    "jest": true
   },
   "globals": {
-    "graphql": false
+    "graphql": false,
+    "cy": true
   }
 }

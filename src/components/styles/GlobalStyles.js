@@ -1,12 +1,7 @@
 import { css } from '@emotion/react';
+import { basicColors } from '../theme/index';
 
-export const basicColors = {
-  primary: '#004E4E',
-  lightPrimary: '#008C99',
-  secondary: '#764B92',
-  lightSecondary: '#CCABD6',
-  highlight: '#6089B7',
-};
+
 
 export const baseStyles = css`
   @import url('https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap');
