@@ -128,6 +128,7 @@ export default function SearchComponent({ indices, collapse, hitsAsGrid }) {
 
   useClickOutside(ref, () => setFocus(false));
   const displayResult = query.length > 0 && focus ? 'showResults' : 'hideResults';
+
   return (
     <InstantSearch
       searchClient={searchClient}
@@ -142,6 +143,7 @@ export default function SearchComponent({ indices, collapse, hitsAsGrid }) {
         asGrid={hitsAsGrid}
       >
         {indices.map(({ name, title, hitComp, type }) => {
+          console.log('{ name, title, hitComp, type } :>> ', { name, title, hitComp, type });
           return (
             <Index key={name} indexName={name}>
               <Results />

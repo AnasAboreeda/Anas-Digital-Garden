@@ -6,19 +6,28 @@ export const customIdParser = (content) => {
   let resultId = '#';
 
   if (content !== undefined) {
-
-    if (Array.isArray(content)) {
-      content = content.join('')
-    }
-
     try {
+      if (Array.isArray(content)) {
+        content = content.map((item) => {
+          if (typeof item === 'string') {
+            return item;
+          } else {
+            return item.props.children;
+          }
+        }).join(' ');
+      }
+
       const [text, id] = content.split("{#");
+
 
       if (!!text && !!id) {
         resultId = id.replace('}', '').replace(/\s+/g, '').toLowerCase();
+      } else {
+        resultId = content.replace(/\s+/g, '').toLowerCase();
       }
     } catch (error) {
-      console.log(error);
+      console.error(typeof content, Array.isArray(content), content)
+      console.error(error);
     }
 
     return {
@@ -29,7 +38,7 @@ export const customIdParser = (content) => {
   } else {
     return {
       content,
-      id: '#'
+      id: resultId
     }
   }
 }

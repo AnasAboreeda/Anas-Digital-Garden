@@ -1,5 +1,5 @@
 require("dotenv").config();
-const queries = require("./src/utils/algolia");
+const queries = require("./src/utils/algolia-queries");
 
 const config = require("./config");
 
@@ -19,7 +19,7 @@ const plugins = [
     options: {
       name: "docs",
       path: `${__dirname}/content/`,
-      ignore: [`${__dirname}/content/Templates`, `${__dirname}/content/.obsidian`]
+      ignore: [`${__dirname}/content/templates`, `${__dirname}/content/.obsidian`]
     }
   },
   {

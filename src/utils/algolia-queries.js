@@ -7,12 +7,12 @@ const pageQuery = `{
         objectID: id
         fields {
           slug
+          title
         }
         headings {
           value
         }
         frontmatter {
-          title
           metaDescription
         }
         excerpt(pruneLength: 50000)

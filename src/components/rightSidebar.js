@@ -31,12 +31,14 @@ const SidebarLayout = ({ location }) => (
           let innerItems;
 
           if (item !== undefined) {
-            if (
-              item.node.fields.slug === location.pathname ||
-              config.gatsby.pathPrefix + item.node.fields.slug === location.pathname
-            ) {
+            const matchesSlug = item.node.fields.slug === location.pathname ||
+              config.gatsby.pathPrefix + item.node.fields.slug === location.pathname;
+
+            if (matchesSlug) {
               if (item.node.tableOfContents.items) {
                 innerItems = item.node.tableOfContents.items.map((innerItem, index) => {
+                  return innerItem.items?.map((innerItem, index) => {
+                    console.log('innderItem, Index :>> ', innerItem, index);
                   const itemId = innerItem.title
                     ? innerItem.title.replace(/\s+/g, '').toLowerCase()
                     : '#';
@@ -46,7 +48,9 @@ const SidebarLayout = ({ location }) => (
                       {innerItem.title}
                     </ListItem>
                   );
+                  });
                 });
+
               }
             }
           }

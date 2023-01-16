@@ -2,18 +2,20 @@ import React, { useState } from 'react';
 import config from '../../../config';
 import TreeNode from './treeNode';
 
-const calculateTreeData = (edges) => {
-  const originalData = config.sidebar.ignoreIndex
+function getOriginalData(edges) {
+  return config.sidebar.ignoreIndex
     ? edges.filter(
-        ({
-          node: {
-            fields: { slug },
-          },
-        }) => slug !== '/'
-      )
+      ({
+        node: {
+          fields: { slug },
+        },
+      }) => slug !== '/'
+    )
     : edges;
+}
 
-  const tree = originalData.reduce(
+function getNestedTreeObjects(originalData) {
+  return originalData.reduce(
     (
       accu,
       {
@@ -26,8 +28,7 @@ const calculateTreeData = (edges) => {
 
       let { items: prevItems } = accu;
 
-      const slicedParts =
-        config.gatsby && config.gatsby.trailingSlash ? parts.slice(1, -2) : parts.slice(1, -1);
+      const slicedParts = config.gatsby && config.gatsby.trailingSlash ? parts.slice(1, -2) : parts.slice(1, -1);
 
       for (const part of slicedParts) {
         let tmp = prevItems && prevItems.find(({ label }) => label == part);
@@ -42,8 +43,7 @@ const calculateTreeData = (edges) => {
         }
         prevItems = tmp.items;
       }
-      const slicedLength =
-        config.gatsby && config.gatsby.trailingSlash ? parts.length - 2 : parts.length - 1;
+      const slicedLength = config.gatsby && config.gatsby.trailingSlash ? parts.length - 2 : parts.length - 1;
 
       const existingItem = prevItems.find(({ label }) => label === parts[slicedLength]);
 
@@ -62,6 +62,12 @@ const calculateTreeData = (edges) => {
     },
     { items: [] }
   );
+}
+
+function sortTreeItems(tree) {
+  if (tree.items.length === 0) {
+    return tree;
+  }
 
   const {
     sidebar: { forcedNavOrder = [] },
@@ -70,13 +76,32 @@ const calculateTreeData = (edges) => {
   const tmp = [...forcedNavOrder];
 
   tmp.reverse();
+
+  tree.items = tree.items.sort(function (a, b) {
+    if (a.label.toLowerCase() < b.label.toLowerCase())
+      return -1;
+    if (a.label.toLowerCase() > b.label.toLowerCase())
+      return 1;
+    return 0;
+  });
+
+  // sort items alphabetically.
+  tree.items.map((item) => {
+    item.items = item.items.sort(function (a, b) {
+      if (a.label.toLowerCase() < b.label.toLowerCase())
+        return -1;
+      if (a.label.toLowerCase() > b.label.toLowerCase())
+        return 1;
+      return 0;
+    });
+  });
+
   return tmp.reduce((accu, slug) => {
     const parts = slug.split('/');
 
     let { items: prevItems } = accu;
 
-    const slicedParts =
-      config.gatsby && config.gatsby.trailingSlash ? parts.slice(1, -2) : parts.slice(1, -1);
+    const slicedParts = config.gatsby && config.gatsby.trailingSlash ? parts.slice(1, -2) : parts.slice(1, -1);
 
     for (const part of slicedParts) {
       let tmp = prevItems.find((item) => item && item.label == part);
@@ -93,16 +118,17 @@ const calculateTreeData = (edges) => {
         prevItems = tmp.items;
       }
     }
-    // sort items alphabetically.
-    prevItems.map((item) => {
-      item.items = item.items.sort(function (a, b) {
-        if (a.label < b.label) return -1;
-        if (a.label > b.label) return 1;
-        return 0;
-      });
+
+    prevItems = prevItems.sort(function (a, b) {
+      if (a.label.toLowerCase() < b.label.toLowerCase())
+        return -1;
+      if (a.label.toLowerCase() > b.label.toLowerCase())
+        return 1;
+      return 0;
     });
-    const slicedLength =
-      config.gatsby && config.gatsby.trailingSlash ? parts.length - 2 : parts.length - 1;
+
+
+    const slicedLength = config.gatsby && config.gatsby.trailingSlash ? parts.length - 2 : parts.length - 1;
 
     const index = prevItems.findIndex(({ label }) => label === parts[slicedLength]);
 
@@ -111,6 +137,15 @@ const calculateTreeData = (edges) => {
     }
     return accu;
   }, tree);
+}
+
+// refatore this function to be more readable.
+const calculateTreeData = (edges) => {
+  const originalData = getOriginalData(edges);
+
+  const tree = getNestedTreeObjects(originalData);
+
+  return sortTreeItems(tree);
 };
 
 const Tree = ({ edges }) => {
@@ -151,3 +186,5 @@ const Tree = ({ edges }) => {
 };
 
 export default Tree;
+
+
