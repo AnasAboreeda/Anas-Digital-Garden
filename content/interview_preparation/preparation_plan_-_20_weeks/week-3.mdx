@@ -1,0 +1,70 @@
+---
+id: <% tp.file.creation_date('YYYY-MM-DD') %>-<% tp.file.title %>
+title: <% tp.file.title.replace(/-/g, ' ') %>
+metaTitle: <% tp.file.title.replace(/-/g, ' ').replace(/([^\W_]+[^\s-_]+]*) */g, function (txt) {return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();}) %> | Anas's Digital Garden
+metaDescription: <% tp.file.title.replace(/-/g, ' ') %> | Anas's Digital Garden
+createdDate: <% tp.file.creation_date('YYYY-MM-DD') %>
+updatedDate: <% tp.file.last_modified_date('YYYY-MM-DD') %>
+weekNumber: <% tp.file.creation_date('YYYYww') %>
+category: <% tp.file.folder(true) %>
+tags: ["<% tp.file.folder() %>", "<% tp.file.title %>"]
+---
+# Week 3
+
+---
+id: <% tp.file.creation_date('DD/MM/YYYY') %> - <% tp.file.title %>
+created_date: <% tp.file.creation_date('DD/MM/YYYY') %>
+updated_date: <% tp.file.last_modified_date('DD/MM/YYYY') %>
+week_number: <% tp.file.creation_date('YYYYw') %>
+type: Styding Note
+---
+Tags: #Studying #Preparation_Plan #Interview_Preparation #Job_Hunting
+# Week 3
+
+## WEEK #3 SOFT SKILLS: Behavioral interviews continued
+
+### Assigned reading & videos (due Tue, Nov 24 EOD)
+
+Our topic this week is an introduction to behavioral interviews.
+
+- [Simple Programmer: How to Ace Your Behavioral Interview](https://simpleprogrammer.com/ace-behavioral-interview/) (article)
+    - This is long but very valuable. Read it carefully.
+- [Top Interview Tips: Common Questions, Body Language, and More](https://www.youtube.com/watch?v=HG68Ymazo18&feature=youtu.be) (video)
+- Read [Manara's rubric](https://docs.google.com/spreadsheets/d/126Rp7gnCoduqrMAFIIrMgJJxJxpZY4GOVNdWfXvSLGw/edit#gid=0) to assess these interviews
+    - This is what we will actually use when assessing your interviews. It is similar to what most companies will use
+
+### Homework (due Tue, Nov 24 EOD)
+
+- Create a new document in your homework folder
+    - Name it “Behavioral interview answers - First name Last name.”
+    - In this file, write the question “What's an example of a project you're proud of?”
+        - Write the answer the way you would answer it in an interview.
+        - Remember to use the STARR format
+        - Ask someone who knows the project to review your answer and help you improve it
+- Copy [this template](https://docs.google.com/spreadsheets/d/1t0zCjJWIqAFR255e15oQ6j9klRJjfg13aibrVqyTrH0/edit?usp=sharing) (modified from the Simple Programmer article)
+    - Save this in your homework folder with the name “Behavioral interview story brainstorm - First name Last name”
+    - Look at the example sheet to understand how to use the template
+    - Fill it out with at least 1 example for each column
+
+## WEEK #3 TECHNICAL: Big O + Pre-reading for Arrays & Linked Lists
+
+### Assigned reading & videos (due Sat, Nov 28 EOD)
+
+- Pre-reading for Arrays & Linked lists:
+    - [https://www.freecodecamp.org/news/data-structures-101-arrays-a-visual-introduction-for-beginners-7f013bcc355a/](https://www.freecodecamp.org/news/data-structures-101-arrays-a-visual-introduction-for-beginners-7f013bcc355a/)
+    - [https://www.youtube.com/watch?v=njTh_OwMljA](https://www.youtube.com/watch?v=njTh_OwMljA)
+    - [https://www.geeksforgeeks.org/linked-list-vs-array/](https://www.geeksforgeeks.org/linked-list-vs-array/)
+- Optional: watch the lecture(s) on this topic from cohort 3 [(all videos in this folder)](https://drive.google.com/drive/folders/1MOesN_rOwKIBmPzX_IaP-rCaJxPDysq7?usp=sharing)
+
+### Homework (due Sat, Nov 28 EOD)
+
+- Solve any 10 easy Leetcode questions. We suggest using [the ones most commonly used in interviews](https://leetcode.com/problemset/top-interview-questions/).
+    1. Post a screenshot in Cohort5-collaboration showing how many Leetcode questions you've solved. Make sure your username is visible in your screenshot. *[Total Leetcode questions due by now = 30]*
+    2. If you're behind on Leetcode, include an explanation regarding why & ask your peers for their advice
+- Do the Code Signal homework assignment
+    1. Here are the links:
+        1. [Here](https://app.codesignal.com/public-test/eZiPzJbBYdoBaiuzG/gW3quNgH8YjqGi) if you are in the cohort
+        2. [Here](https://app.codesignal.com/public-test/eZiPzJbBYdoBaiuzG/u9Rztfdez5o27r) if you are an auditor
+    2. **Do not open the link** before you are ready to work on it. It will be live for 7 days after you open it, but don't miss the deadline to submit the homework (listed in this document).
+- Do 1 interview on Pramp. See instructions [here](https://docs.google.com/document/d/1cHF5HRpX2gRwBl1Y2oSXM-6m0DpS-8pT-aD-_ccuPV0/edit?usp=sharing).
+    1. Post a screenshot in Cohort5-collaboration showing how many Pramp interviews you've done. Make sure your username is visible in your screenshot. *[Total Pramp expected by now = 2]*

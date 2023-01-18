@@ -1,0 +1,128 @@
+---
+id: 2023-01-18-03-java-from-zero-to-hero-in-15-days-day-1-part-3-data-types
+title: 03 java from zero to hero in 15 days day 1 part 3 data types
+metaTitle: 03 Java From Zero To Hero In 15 Days Day 1 Part 3 Data Types | Anas's Digital Garden
+metaDescription: 03 java from zero to hero in 15 days day 1 part 3 data types | Anas's Digital Garden
+createdDate: 2023-01-18
+updatedDate: 2023-01-18
+weekNumber: 202303
+category: java/ocp/blog
+tags: ["blog", "03-java-from-zero-to-hero-in-15-days-day-1-part-3-data-types"]
+---
+# 03 Java — From Zero to Hero in 15 Days — Day 1 - part 3 - Data Types
+
+## Data Types
+
+Java applications contain two types of data: primitive types and reference types.
+
+## 1. Primitive Types
+
+* Java has 8 built-in data types, referred to as the Java *primitive types*.
+
+* A primitive is just a single value in memory, such as a number or character
+
+* All Java objects are just a complex collection of these primitive data types.
+
+Here are the 8 primitive data types:
+
+    | Keyword | Type                        | Min Value      | Max Value     | Default Value | Example |
+    |---------|-----------------------------|----------------|---------------|---------------|---------|
+    | Boolean | True Or False               | N/a            | N/a           | False         | True    |
+    | Byte    | 8-Bit Integral Value        | -128           | 127           | 0             | 123     |
+    | Short   | 16-Bit Integral Value       | -32,768        | 32,767        | 0             | 123     |
+    | Int     | 32-Bit Integral Value       | -2,147,483,648 | 2,147,483,647 | 0             | 123     |
+    | Long    | 64-Bit Integral Value       | -2^63          | 2^63 – 1      | 0L            | 123L    |
+    | Float   | 32-Bit Floating-Point Value | N/a            | N/a           | 0.0f          | 123.45f |
+    | Double  | 64-Bit Floating-Point Value | N/a            | N/a           | 0.0           | 123.456 |
+    | Char    | 16-Bit Unicode Value        | 0              | 65,535        | \u0000        | 'A'     |
+>  Is String a Primitive?
+>  No, it is not. That said, String is often mistaken for a ninth primitive because Java includes built-in support for String literals and operators.
+
+Notes on the primitive data types:
+
+* The byte, short, int, and long types are used for integer values without decimal points.
+
+* All of the numeric types are signed and reserve one of their bits to cover a negative range. For example, instead of byte covering 0 to 255 (or even 1 to 256) it actually covers -128 to 127.
+
+* A float requires the letter f or F following the number so Java knows it is a float. Without an f or F, Java interprets a decimal value as a double.
+
+* A long requires the letter l or L following the number so Java knows it is a long. Without an l or L, Java interprets a number without a decimal point as an int in most scenarios.
+
+* short vs. char: both are stored as integral types with the same 16-bit length. The primary difference is that short is *signed*, which means it splits its range across the positive and negative integers. Alternatively, char is *unsigned*, which means its range is strictly positive, including 0.
+
+### Working with Numbers/Literals
+
+Here are some code examples of working with numbers in Java
+
+    long max = 3123456789;  // DOES NOT COMPILE because it's out of range of int (the default is int)
+    long max = 3123456789L;  // Now Java knows it is a long
+    int octaNo = 017;
+    int hexaNo = 0xff;
+    int binaryNo = 0B10;
+
+You can add an underscore to numbers to make them more readable e.g.
+
+    int million1 = 1000000;
+    int million2 = 1_000_000;
+    
+    // Notes on underscore position
+    double notAtStart = _1000.00;          // DOES NOT COMPILE
+    double notAtEnd = 1000.00_;            // DOES NOT COMPILE
+    double notByDecimal = 1000_.00;        // DOES NOT COMPILE
+    double annoyingButLegal = 1_00_0.0_0;  // Ugly, but compiles
+    double reallyUgly = 1__________2;      // Also compiles
+
+## 2. Reference Types
+
+A *reference type* refers to an object (an instance of a class) e.g.
+
+    // Here we are creating a reference variable of type String
+    String greeting; 
+    
+    // Here we are assigning this reference to a new object
+    greeting = new String("How are you?");
+
+### Primitives vs. Reference Types
+
+* All the primitive types have lowercase type names. All classes that come with Java begin with uppercase.
+
+* Reference types can be used to call methods, assuming the reference is not null. Primitives do not have methods declared on them.
+
+* Reference types can be assigned null, which means they do not currently refer to an object. Primitive types will give you a compiler error if you attempt to assign them null.
+
+    // In this example, we can call a method on reference since it is of a reference type. 
+    // You can tell length is a method because it has () after it.
+    
+    String reference = "hello";
+    int len = reference.length();
+    int bad = len.length(); // DOES NOT COMPILE as it's on a premitive type
+    
+    // Assinging null to premitive is not allowed
+    int value = null;   // DOES NOT COMPILE
+    String name = null;
+
+### Wrapper Classes
+
+Each primitive type has a wrapper class, which is an object type that corresponds to the primitive.
+
+    | Primitive type | Wrapper class | Wrapper class inherits Number? | Example of creating        |
+    |----------------|---------------|--------------------------------|----------------------------|
+    | boolean        | Boolean       | No                             | Boolean.valueOf(true)      |
+    | byte           | Byte          | Yes                            | Byte.valueOf((byte) 1)     |
+    | short          | Short         | Yes                            | Short.valueOf((short) 1)   |
+    | int            | Integer       | Yes                            | Integer.valueOf(1)         |
+    | long           | Long          | Yes                            | Long.valueOf(1)            |
+    | float          | Float         | Yes                            | Float.valueOf((float) 1.0) |
+    | double         | Double        | Yes                            | Double.valueOf(1.0)        |
+    | char           | Character     | No                             | Character.valueOf('c')     |
+
+### String blocks
+
+You can declare string blocks using ””” e.g.
+
+    String oneLine = "This is one line string";
+    
+    String multipleLines = """
+        This is a string
+        in multiple lines
+        """;

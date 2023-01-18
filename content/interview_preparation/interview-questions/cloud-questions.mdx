@@ -1,0 +1,59 @@
+---
+id: 2023-01-18-cloud-questions
+title: cloud questions
+metaTitle: Cloud Questions | Anas's Digital Garden
+metaDescription: cloud questions | Anas's Digital Garden
+createdDate: 2023-01-18
+updatedDate: 2023-01-18
+weekNumber: 202303
+category: interview_preparation/interview_questions
+tags: ["interview_questions", "cloud-questions"]
+---
+
+# Cloud Questions
+
+1. If we need to download millions of files/keys from Aws S3, how can we speedup the process?
+2. What happens if Cloudformation stack updates failed? How to limit resources creation based on values?
+3. How can you send a Large message to AWS SQS (i.e. 1GB)?
+4. You have created a Lambda function that typically will take around 1 hour to process some data. The code works fine when you run it locally on your machine, but when you invoke the Lambda function it fails with a "timeout" error after 3 seconds. What should you do?
+
+- [ ] Configure your Lambda's timeout to 25 minutes
+- [ ] Configure your Lambda's memory to 10 GB
+- [ ] Run your code somewhere else (e.g., EC2 instance)
+
+1. A Lambda function that's invoked asynchronously, fails to process from time to time after 3 retries. To troubleshoot the issue, you would like to collect and analyze these events later on. What is the best practice you can do?
+
+- [ ] Add logging statements for all events in your Lambda function, then filter CloudWatch Logs
+- [ ] Invoke your function synchronously
+- [ ] Add A Dead Letter Queue(DLQ) to send messages to SQS
+- [ ] Add A Dead Letter Queue(DLQ) to send messages to SNS
+
+1. What this IAM policy is for
+
+```java
+{
+    "Version": "2012-10-17",
+    "Id": "example-ID",
+    "Statement": [
+        {
+            "Sid": "IAM Policy Example",
+            "Effect": "Allow",
+            "Principal": {
+                "Service": "s3.amazonaws.com"
+            },
+            "Action": [
+                "SQS:SendMessage"
+            ],
+            "Resource": "arn:aws:sqs:us-east-1:230521890328:EVCAFE",
+            "Condition": {
+                "ArnLike": {
+                    "aws:SourceArn": "arn:aws:s3:*:*:evcafe"
+                },
+                "StringEquals": {
+                    "aws:SourceAccount": "230521890328"
+                }
+            }
+        }
+    ]
+}
+```

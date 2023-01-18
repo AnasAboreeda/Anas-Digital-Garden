@@ -1,0 +1,68 @@
+---
+id: <% tp.file.creation_date('YYYY-MM-DD') %>-<% tp.file.title %>
+title: <% tp.file.title.replace(/-/g, ' ') %>
+metaTitle: <% tp.file.title.replace(/-/g, ' ').replace(/([^\W_]+[^\s-_]+]*) */g, function (txt) {return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();}) %> | Anas's Digital Garden
+metaDescription: <% tp.file.title.replace(/-/g, ' ') %> | Anas's Digital Garden
+createdDate: <% tp.file.creation_date('YYYY-MM-DD') %>
+updatedDate: <% tp.file.last_modified_date('YYYY-MM-DD') %>
+weekNumber: <% tp.file.creation_date('YYYYww') %>
+category: <% tp.file.folder(true) %>
+tags: ["<% tp.file.folder() %>", "<% tp.file.title %>"]
+---
+# PriorityQueue
+
+---
+id: 22/08/2022 - HashSet
+created_date: 22/08/2022
+updated_date: 22/08/2022
+week_number: 202234
+type: Styding Note
+---
+Tags: #Studying #Data_Structure #Java #Priority_Queue #Heap
+# PriorityQueue
+
+## PriorityQueue<E>
+
+It's used mainly to implement a [heap](../Data%20Structures/Heap%20Priority%20Queues.md)
+
+A priority queue is a data structure that consists of a collection of items and supports the following operations:
+
+- insert: insert an item with a key
+- delete_min/delete_max: remove the item with the smallest/largest key and return it
+
+Note that we only allow getting and deleting the element with min/max key and NOT with any arbitrary key.
+
+### Use cases
+
+The hospital triage process is a quintessential priority queue.
+
+Patients are sorted based on the severity of their condition.
+
+For example, a person with a cold comes in and he is placed near the end of the queue. Then a person who had a car accident comes in. He is placed before the person with the cold even though he came in later because his condition is more severe. Severity is the key in this case.
+
+Consider a problem like [Merge K sorted lists](https://www.educative.io/collection/page/5187571686572032/5949303171317760/6702023998177280). We need to keep track of the min value among k elements (smallest element in each sorted list), remove the min value, and insert new values at will while still having access to the min value at any point in time. Here are some other problems where the priority queue comes in handy:
+
+- K closest pointers to origin
+- Kth largest element
+- Kth largest element in a stream
+- Median of a data stream
+
+### Implement priority queue using an array
+
+To do this, we could try using:
+
+- an unsorted array. Insert would be *O*(1) as we just have to put it at the end, but finding and deleting the min value would be *O*(*N*) since we would have to loop through the entire array to find it.
+- a sorted array. Finding min value would be easy *O*(1), but it would be *O*(*N*) to insert since we would have to loop through to find the correct position of the value and move elements after the position to make space and insert into the space.
+
+| Modifier and Type | Method | Description |
+| --- | --- | --- |
+| boolean | contains​(Object o) | Returns true if this queue contains the specified element. |
+| boolean | add​(E e) | Inserts the specified element into this priority queue. |
+| void | forEach​(Consumer<? super E> action) | Performs the given action for each element of the Iterable until all elements have been processed or the action throws an exception. |
+| boolean | offer​(E e) | Inserts the specified element into this priority queue. |
+| boolean | remove​(Object o) | Removes a single instance of the specified element from this queue, if it is present. |
+|  | remove() |  |
+|  | isEmpty() |  |
+|  | size() |  |
+|  | peek() |  |
+|  | poll() |  |

@@ -1,0 +1,46 @@
+---
+id: 2023-01-18-javascript-and-nodejs
+title: javascript and nodejs
+metaTitle: Javascript And Nodejs | Anas's Digital Garden
+metaDescription: javascript and nodejs | Anas's Digital Garden
+createdDate: 2023-01-18
+updatedDate: 2023-01-18
+weekNumber: 202303
+category: interview_preparation/interview_questions
+tags: ["interview_questions", "javascript-and-nodejs"]
+---
+
+# Javascript & Nodejs
+
+## Javascript
+
+- What is callback hell? How do you prevent/fix callback hell?
+- What is a “closure” in JavaScript?
+    - A closure is an inner function that has access to the variables in the outer (enclosing) function's scope chain. The closure has access to variables in three scopes; specifically: (1) variable in its own scope, (2) variables in the enclosing function's scope, and (3) global variables.
+- Scope and hoisting
+    - What will you see in the console for the following example ?
+    - Primitive type (string, number, etc.) are passed by value and objects are passed by reference. If you change a property of the passed object, the change will be affected. However, you assign a new object to the passed object, the changes will not be reflected.
+- explain how javascript event loop works. [http://latentflip.com/loupe/](http://latentflip.com/loupe/)
+
+## Node.JS
+
+- What are the features of Node.js?
+    - Node.js is a single-threaded but highly scalable system that utilizes JavaScript as its scripting language. It uses asynchronous, event-driven I/O instead of separate processes or threads. It is able to achieve high output via single-threaded event loop and non-blocking I/O.
+- What are “streams” in Node.js? Explain the different types of streams present in Node.js.
+- How does Node.js support multi-processor platforms, and does it fully utilize all processor resources?
+    - Since Node.js is by default a single thread application, it will run on a single processor core and will not take full advantage of multiple core resources. However, Node.js provides support for deployment on multiple-core systems, to take greater advantage of the hardware. The Cluster module is one of the core Node.js modules and it allows running multiple Node.js worker processes that will share the same port.
+- What is the difference between process.nextTick() and setImmediate() ?
+    - The difference between process.nextTick() and setImmediate() is that process.nextTick() defers the execution of an action till the next pass around the event loop or it simply calls the callback function once the ongoing execution of the event loop is finished whereas setImmediate() executes a callback on the next cycle of the event loop and it gives back to the event loop for executing any I/O operations.
+- How Node.js overcomes the problem of blocking of I/O operations?
+    - Node.js solves this problem by putting the event based model at its core, using an event loop instead of threads.
+- Why `npm shrinkwrap` is useful?
+    - This command locks down the versions of a package's dependencies so that you can control exactly which versions of each dependency will be used when your package is installed.
+    - It is useful when you are deploying your Node.js applications - with it you can be sure which versions of your dependencies are going to be deployed.
+
+## Redux
+
+### What Are the Three Principles that Redux Follows?
+
+1. ***Single source of truth:*** The state of the entire application is stored in an object/ state tree within a single store. The single state tree makes it easier to keep track of changes over time and debug or inspect the application.
+2. ***State is read-only:*** The only way to change the state is to trigger an action. An action is a plain JS object describing the change. Just like state is the minimal representation of data, the action is the minimal representation of the change to that data.
+3. ***Changes are made with pure functions:*** In order to specify how the state tree is transformed by actions, you need pure functions. Pure functions are those whose return value depends solely on the values of their arguments.

@@ -4,14 +4,15 @@ title: heap sort
 metaTitle: Heap Sort | Anas's Digital Garden
 metaDescription: heap sort | Anas's Digital Garden
 createdDate: 2023-01-11
-updatedDate: 2023-01-15
+updatedDate: 2023-01-18
 weekNumber: 202302
 category: algorithms/sort-algorithms
-tags: ["sort-algorithms", "heap-sort", "heap", "priority-queue"]
+tags: ["sort-algorithms", "heap-sort"]
 ---
+
 # Heap Sort
 
-- Using a heap sort, you can ***solve find k largest element in a linear time***   if k is small ( k ≤ sqrt(n) )
+- Using a heap sort, you can ***solve find k largest element in a linear time*** if k is small ( k ≤ sqrt(n) )
 
 ```bash
 HeapSort(A[1 : n])
@@ -26,8 +27,8 @@ for i from n downto 1:A[i]
     - instead of simply scanning the rest of the array to find the maximum value, use a smart data structure.
 - Not in-place: uses additional space to store the priority queue.
 
-## Partial sorting
+## Partial Sorting
 
-Input: An array A[1 ... n], an integer 1 ≤ k ≤ n.
-Output: The last k elements of a sorted version of A.
+Input: An array A[1 … n], an integer 1 ≤ k ≤ n.  
+Output: The last k elements of a sorted version of A.  
 Can be solved in O(n) if k = O( $n / log n$)!

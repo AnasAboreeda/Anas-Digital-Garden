@@ -4,37 +4,34 @@ title: software architecture
 metaTitle: Software Architecture | Anas's Digital Garden
 metaDescription: software architecture | Anas's Digital Garden
 createdDate: 2023-01-11
-updatedDate: 2023-01-15
+updatedDate: 2023-01-18
 weekNumber: 202302
 category: architecture
 tags: ["architecture", "software-architecture"]
 ---
 
-# Software architecture
+# Software Architecture
 
-## Importance Of Getting The Application Architecture Right
+## Importance of Getting the Application Architecture Right
 
-The key element in successfully creating anything is getting the base right. Now whether it is constructing a building or making a pizza. If we don’t get the base right, we have to start over. Yeah!!.. I know, but there is no other way around.
+The key element in successfully creating anything is getting the base right. Now whether it is constructing a building or making a pizza. If we don't get the base right, we have to start over. Yeah!!.. I know, but there is no other way around.
 
-Building a web application is no different. The architecture is it’s base & has to be carefully thought, to avoid any major design changes & code refactoring at a later point in time.
+Building a web application is no different. The architecture is it's base & has to be carefully thought, to avoid any major design changes & code refactoring at a later point in time.
 
-## An Overview Of The Software Development Process
+## An Overview of the Software Development Process
 
 1. First step is usually Requirement Gathering & Analysis : Architects, developers and product owners spend a lot of time studying & discussing business requirements.
-
 2. Then we create a High-level Design Document: we sit down & brainstorm the use cases which we have to implement. This involves figuring out the corner cases as early as possible & fitting the Lego blocks together.
-
-3. Then we start with Proof Of Concept: After we pick the fitting tech stack, we start writing a POC (Proof of Concept) to helps us get a closer, more hands-on view of the technology & the basic use case implementation. We get an insight into the pros and cons of the tech, performance or other technical limitations if any. Also, it helps with the learning curve if we’re working with completely new tech, also the non-technical people like the product owners, stakeholders have something concrete to play with & to base their further decisions on.
-
+3. Then we start with Proof Of Concept: After we pick the fitting tech stack, we start writing a POC (Proof of Concept) to helps us get a closer, more hands-on view of the technology & the basic use case implementation. We get an insight into the pros and cons of the tech, performance or other technical limitations if any. Also, it helps with the learning curve if we're working with completely new tech, also the non-technical people like the product owners, stakeholders have something concrete to play with & to base their further decisions on.
 4. Finally we build the First MVP version (Minimum viable product) and launch it to few specific segment of our users to get a feedback and discover more edge cases.
 
-## Different Tiers in software architecture
+## Different Tiers in Software Architecture
 
-### What Is A Tier
+### What is a Tier
 
 Tier is a logical separation of components in an application or a service.Usually, it's a physical separation at the component level, not the code level.
 
-### What is a component
+### What is a Component
 
 Usually these are the different components that make up a web service:
 
@@ -66,20 +63,20 @@ Streaming over HTTP facilitates streaming of large objects like multi-media file
 
 ---
 
-## Horizontal scaling
+## Horizontal Scaling
 
 - It takes much less administrative, monitoring, management efforts as opposed to when managing a distributed environment.
 - If you need to run the code in a distributed environment, it needs to be stateless
-- This is why functional programming got so popular with distributed systems. The functions don’t retain any state.
+- This is why functional programming got so popular with distributed systems. The functions don't retain any state.
 - The upsides of horizontally scaling include no limit to augmenting the hardware capacity. Data is replicated across different geographical regions as nodes & data centres are set up across the globe.
 
 ---
 
-## Redundancy – Active-Passive HA Mode
+## Redundancy – Active-passive Ha Mode
 
-Redundancy is duplicating the components or instances & keeping them on standby to take over in case the active instances go down. It’s the fail-safe, backup mechanism.
+Redundancy is duplicating the components or instances & keeping them on standby to take over in case the active instances go down. It's the fail-safe, backup mechanism.
 
-## Replication – Active-Active HA Mode
+## Replication – Active-active Ha Mode
 
 Replication means having a number of similar nodes running the workload together. There are no standby or passive instances. When a single or a few nodes go down, the remaining nodes bear the load of the service.
 
@@ -89,11 +86,11 @@ Replication means having a number of similar nodes running the workload together
 
 There are two ways we can do this -
 
-### By integrating micro frontends on the client
+### By Integrating Micro Frontends on the Client
 
-A recommended way to integrate components on the client-side is by leveraging a technology called the Web Components & frameworks such as [Single SPA](https://single-spa.js.org/) (it’s a JavaScript framework for frontend microservices that enables the developers to build their frontend leveraging different JavaScript frameworks.)
+A recommended way to integrate components on the client-side is by leveraging a technology called the Web Components & frameworks such as [Single SPA](https://single-spa.js.org/) (it's a JavaScript framework for frontend microservices that enables the developers to build their frontend leveraging different JavaScript frameworks.)
 
-### By integrating micro frontends on the server
+### By Integrating Micro Frontends on the Server
 
 There are multiple options here:
 
@@ -110,7 +107,7 @@ There are multiple options here:
 
 - Normalized data means a unique entity occurs in only one place/table, in its simplest and atomic form and is not spread throughout the database. This helps in maintaining the consistency of the data. In future, if we want to update the data, we just update at that one place and every fetch operation gets the updated data.
 
-### ACID Transactions (Atomicity, Consistency, Isolation, Durability)
+### Acid Transactions (Atomicity, Consistency, Isolation, Durability)
 
 Besides normalization & consistency, relational databases also ensure ACID transactions.
 
@@ -120,7 +117,7 @@ An acid transaction means if a transaction in a system occurs, say a financial t
 
 - Well, one big limitation with SQL based relational databases is Scalability. Scaling relational databases is something which is not trivial. They have to be Sharded or Replicated to make them run smoothly on a cluster.
 
-## NoSQL Databases
+## Nosql Databases
 
 They are easier to scale and cluster but NoSQL databases had to sacrifice Strong consistency, ACID Transactions & much more to scale horizontally over a cluster & across the data centres. The data with NoSQL databases is more Eventually Consistent as opposed to being Strongly Consistent.
 
@@ -128,7 +125,7 @@ Though the inconsistency does not mean that there is any sort of data loss. It j
 
 Note: A well-designed SQL data store will always be more performant than a not so well-designed NoSQL store.
 
-# What Is CAP Theorem?
+# What is Cap Theorem?
 
 CAP stands for Consistency, Availability, Partition Tolerance.
 
@@ -136,12 +133,12 @@ CAP theorem simply states that in case of a network failure, when a few of the n
 
 ---
 
-In IT solution architecture, Microsoft uses the PASSME acronym for Non Functional Requirements (NFRs):
-Performance
-Availability
-Scalability
-Security
-Maintainability
+In IT solution architecture, Microsoft uses the PASSME acronym for Non Functional Requirements (NFRs):  
+Performance  
+Availability  
+Scalability  
+Security  
+Maintainability  
 Extensibility
 
 Reliability is a measure of how often the IT system fails to operate. As there are various ways a system can fail, there are usually different categories of failure depending on severity. The failure type of greatest concern, of course, is catastrophic failure, meaning that the system stops working altogether. Reliability is usually measured in terms of the mean (average) time between failures.

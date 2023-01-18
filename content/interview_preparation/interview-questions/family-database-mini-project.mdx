@@ -1,0 +1,135 @@
+---
+id: 2023-01-18-family-database-mini-project
+title: family database mini project
+metaTitle: Family Database Mini Project | Anas's Digital Garden
+metaDescription: family database mini project | Anas's Digital Garden
+createdDate: 2023-01-18
+updatedDate: 2023-01-18
+weekNumber: 202303
+category: interview_preparation/interview_questions
+tags: ["interview_questions", "family-database-mini-project"]
+---
+
+# Family Database Mini Project
+
+# Family Database Mini Project
+
+**Family Database Mini Project**
+
+Hi Everyone. I'm trying a new small exercise with my mentee to work on his modelling and design skills. The exercise is a mix of algorithms/DS and OOP. It's not leetcode style and from what I see this style is gaining popularity with some companies. I've put down the exercise on this [google doc](https://docs.google.com/document/d/1Bl3jztvuEWYvMzSLeQElSEGnYxwTXSQpFa5iYNjmGeg/edit?usp=sharing). For mentors: feel free to use this exercise or a variation of it with your mentees. For mentees: feel free to work on it and discuss your solution with your mentor (or me, but I can't guarantee I'll have time for everyone). Hope this is useful
+
+We want to design a program that can store family relationship data for the purposes of later efficiently querying that data. Initially, the program should read the data stored in JSON format. The input will be a list of json objects where each object contains data about a person and thier two parents.
+
+For example:
+
+```java
+[
+  {
+    "name": "George",
+    "gender": "Male",
+    "parents": [
+      {
+        "name": "John",
+        "gender": "Male"
+      },
+      {
+        "name": "Mary",
+        "gender": "Female"
+      }
+    ]
+  },
+  {
+    "name": "Emily",
+    "gender": "Female",
+    "parents": [
+      {
+        "name": "John",
+        "gender": "Male"
+      },
+      {
+        "name": "Mary",
+        "gender": "Female"
+      }
+    ]
+  },
+  {
+    "name": "John",
+    "gender": "Male",
+    "parents": [
+      {
+        "name": "Sam",
+        "gender": "Male"
+      },
+      {
+        "name": "Lorraine",
+        "gender": "Female"
+      }
+    ]
+  }
+]
+```
+
+Our program should support the following operations:
+
+describeRelationship(person1, person2):
+
+This should return a string that describes the relationship between person1 and person2.
+
+We need to support the following relationships:
+
+- Son: Meaning that person1 is a son of person2
+- Daughter: Meaning that person1 is a daughter of person2
+- Father: Meaning that person1 is the father of person2
+- Mother: Meaning that person1 is the mother of person2
+- Husband: Meaning that person1 is the husband of person2
+- Wife: Meaning that person1 is the wife of person2
+- Brother: Meaning that person1 is the brother of person2.
+- Sister: Meaning that person1 is the sister of person2
+- Cousin: Meaning that person1 and person2 are cousins.
+- Uncle: Meaning that person1 is an uncle of person2
+- Aunt: Meaning that person1 is an aunt of person2
+- Grandson: Meaning that person1 is a grandson of person2
+- Granddaughter: Meaning that person1 is a granddaughter of person2
+- GrandFather: Meaning that person1 is a grandFather of person2
+- GrandMother: Meaning that person1 is a grandFather of person2
+- Ancestor: Meaning that person1 is an ancestor of person2
+- Descendant: Meaning that person1 is a descendant of person2
+- Unrelated: Meaning that person1 and person2 are unrelated
+
+getSiblings(person):
+
+This should return a list of all siblings of person.
+
+getParents(person):
+
+This should return a list of all parents of a person.
+
+getCousins(person):
+
+This should return a list of all cousins of a person
+
+getGrandchildren(person):
+
+This should return a list of all grandchildren of the person
+
+getGrandparents(person):
+
+This should return a list of all grandparents of the person
+
+getAncestors(person):
+
+This should return a list of all person's ancestors. A person's ancestor is anyone who is older than their grandparent (ie: great grandparent or older).
+
+getDescendants(person):
+
+This should return a list of all person's descendants. A person's descendant is anyone who is younger than their grandchild (ie: a great-grandchild or younger)
+
+Notes:
+
+- You'll be graded on:
+    - Correctness
+    - Program readability and modularity (will it be easy to extend?)
+    - Bonus points if you can write tests.
+    - Bonus points if you read the input from a file. You can hardcode the input in the code for now.
+- You can assume that each name in the input refers to one person (ie: no two persons will have the same name).
+- If anything is not mentioned here in the requirements, you can make an assumption but write it down so we can discuss it later.

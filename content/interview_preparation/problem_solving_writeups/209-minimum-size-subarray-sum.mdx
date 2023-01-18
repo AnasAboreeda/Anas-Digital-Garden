@@ -1,0 +1,105 @@
+---
+id: <% tp.file.creation_date('YYYY-MM-DD') %>-<% tp.file.title %>
+title: <% tp.file.title.replace(/-/g, ' ') %>
+metaTitle: <% tp.file.title.replace(/-/g, ' ').replace(/([^\W_]+[^\s-_]+]*) */g, function (txt) {return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();}) %> | Anas's Digital Garden
+metaDescription: <% tp.file.title.replace(/-/g, ' ') %> | Anas's Digital Garden
+createdDate: <% tp.file.creation_date('YYYY-MM-DD') %>
+updatedDate: <% tp.file.last_modified_date('YYYY-MM-DD') %>
+weekNumber: <% tp.file.creation_date('YYYYww') %>
+category: <% tp.file.folder(true) %>
+tags: ["<% tp.file.folder() %>", "<% tp.file.title %>"]
+---
+# 209 Minimum Size Subarray Sum
+
+---
+id: <% tp.file.creation_date('DD/MM/YYYY') %> - <% tp.file.title %>
+created_date: <% tp.file.creation_date('DD/MM/YYYY') %>
+updated_date: <% tp.file.last_modified_date('DD/MM/YYYY') %>
+week_number: <% tp.file.creation_date('YYYYw') %>
+
+Dificulty: 
+👍: 7793
+👎: 216
+
+Accepted: 601,382
+Submissions: 1,358,066
+Acceptance Rate: 44%
+
+By Myself: ~Yes
+Submit Count: 2
+Total Time(m): 120
+URL: https://leetcode.com/problems/minimum-size-subarray-sum/
+---
+
+Tags:: #Algorithm #Problem_solution #Prefix_Sum #Sliding_Window #Array #Binary_Search 
+
+# 209 Minimum Size Subarray Sum
+
+## Problem Statement
+Given an array of positive integers nums and a positive integer target, return  
+the minimal length of a contiguous subarray [numsl, numsl+1, ..., numsr-1, numsr]  
+of which the sum is greater than or equal to target. If there is no such  
+subarray, return 0 instead.
+
+Example 1:
+
+Input: target = 7, nums = [2,3,1,2,4,3]  
+Output: 2  
+Explanation: The subarray [4,3] has the minimal length under the problem  
+constraint.
+
+Example 2:
+
+Input: target = 4, nums = [1,4,4]  
+Output: 1
+
+Example 3:
+
+Input: target = 11, nums = [1,1,1,1,1,1,1,1]  
+Output: 0
+
+Constraints:
+
+1 <= target <= 10⁹  
+1 <= nums.length <= 10⁵  
+1 <= nums[i] <= 10⁴
+
+Follow up: If you have figured out the O(n) solution, try coding another  
+solution of which the time complexity is O(n log(n)). 
+## Solution
+
+```java
+class Solution {  
+  
+    public int minSubArrayLen(int target, int[] nums) {  
+        int sum = 0;  
+        int localLength = 0;  
+        int minLength = Integer.MAX_VALUE;  
+        int l = 0;  
+  
+        for (int num : nums) {  
+            sum += num;  
+            localLength += 1;  
+  
+            while (sum >= target) {  
+                sum -= nums[l];  
+                minLength = Math.min(localLength, minLength);  
+                l += 1;  
+                localLength -= 1;  
+            }  
+        }  
+  
+        return minLength == Integer.MAX_VALUE ? 0 : minLength;  
+  
+    }  
+}
+```
+
+## Time Complexity
+
+O(n)
+
+## Space Complexity
+O(1)
+## Explanation
+- Justy prefix sum

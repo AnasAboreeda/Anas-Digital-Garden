@@ -1,0 +1,1273 @@
+---
+id: 2023-01-18-java-se-11-developer-1z0-819-ocp-course
+title: java se 11 developer 1z0 819 ocp course
+metaTitle: Java Se 11 Developer 1z0 819 Ocp Course | Anas's Digital Garden
+metaDescription: java se 11 developer 1z0 819 ocp course | Anas's Digital Garden
+createdDate: 2023-01-18
+updatedDate: 2023-01-18
+weekNumber: 202303
+category: java/ocp/1Z0-819
+tags: ["1Z0-819", "java-se-11-developer-1z0-819-ocp-course"]
+---
+
+# Java Se 11 Developer 1Z0-819 Ocp Course
+
+## References
+
+[Free Java 11 1Z0-819 Certification Preparation Set | CodeUsingJava](https://www.codeusingjava.com/javacert/1z0819/set1)
+
+[Exam tricks](Exam%20tricks.md)
+
+## Compiling & Running Application
+
+### Compiling Java Classes
+
+```bash
+javac packagea/ClassA.java packageb/ClassB.java
+
+# OR
+
+javac packagea/*.java packageb/*.java
+```
+
+**Compiling into a specific directory**
+
+```bash
+javac -d classes packagea/ClassA.java packageb/ClassB.java
+```
+
+### Running Programs
+
+| Full command |  Single-file source-code command |
+| --- | --- |
+| javac HelloWorld.java
+java HelloWorld | java HelloWorld.java |
+| Produces a class file | Fully in memory |
+| For any program | For programs with one file |
+| Can import code in any available Java library | Can only import code that came with the JDK |
+
+### Running the Compiled Code
+
+```bash
+java -cp classes packageb.ClassB
+java -classpath classes packageb.ClassB
+java --class-path classes packageb.ClassB
+```
+
+## Order of Initialisation
+
+1. Fields and instance initializer blocks are run in the order in which they appear in the file.
+2. The constructor runs after all fields and instance initializer blocks have run.
+
+## Static Imports and Packages: out of the Ordinary Concepts
+
+Items to look for on the exam which should be low hanging fruit if you do come across them:
+
+- Multiple package statements.
+- A package statement that is not the first line of code.
+- Import statement not in the correct order must be after a package statement if one exist and before any other code.
+- Import static statement used in place of an import statement.
+- Import statement using a higher level package with a wild card -
+- a wild card does not include classes in other packages. Example. import a.* does not also mean import a.b.* for example.
+- A misplaced wildcard, for example the * at the end of class name or a partial class name.
+
+## Primitive Data Type
+
+- Java supports two types of data, reference data types and primitive data types.
+- The data value of a primitive data type is stored in memory and is not a location reference to the data.
+- This makes accessing primitive data types faster and leads to more efficient performance when it really matters.
+- Unlike C#, these are not objects.
+- Because Java allows primitive data types which do not inherit from 'Object' like every other instance, Java is not considered to be a 'pure' object oriented language.
+- Be aware that short and char are closely related, as both are stored as integral types with the same 16-bit length.
+    - The primary difference is that short is signed, which means it splits its range across the positive and negative integers.
+    - Alternatively, char is unsigned, which means range is strictly positive including 0.
+    - Therefore, char can hold a higher positive numeric value than short, but cannot hold any negative numbers.
+
+| Type | Size (bits) | Minimum | Maximum | Example |  |
+| --- | --- | --- | --- | --- | --- |
+| byte | 8 | -⁍ = -128 | ⁍– 1 = 127 | byte b = 100; |  |
+| short | 16 | -⁍ = -32k | ⁍– 1 = 32k | short s = 30_000; |  |
+| int | 32 | -⁍ = -2*⁍ | ⁍– 1 = 2*⁍ | int i = 100_000_000; |  |
+| long | 64 | -⁍ = -9*⁍ | ⁍– 1 = 9*⁍ | long l = 100_000_000_000_000; |  |
+| float | 32 | -⁍ | (2-⁍)·⁍ | float f = 1.456f; | Sufficient for storing 6 to 7 decimal digits |
+| double | 64 | -⁍ | (2-⁍)·⁍ | double f = 1.456789012345678; | Sufficient for storing 15 decimal digits |
+| char | 16 | 0 | ⁍– 1 | char c = ‘c'; | Stores a single character/letter or ASCII values |
+| boolean | 1 | – | – | boolean b = true; |  |
+
+```java
+public class PrimitiveDataTypes {
+
+  public void numericTypes() {
+		*short s = 30_000;*
+
+    int a = 400; // (32 bit signed int primitive)
+    int b = -6000; // (32 bit signed int primitive)
+
+    long l1 = 5280L; // (declared long)
+    long l2 = 52801; // (declared long)
+
+    int hexa = 0xABCDEF; // (hexadecimal primitive)
+
+    int octa = 010; // (octal primitive)
+
+    double dd = 5.077; // (assumed double)
+
+    float ff = 5.077F; // (declared float)
+    float fff = 5.077f; // (declared float)
+
+    int ll = 3_000_000; // (as of Java 7, underscores can be used tohelp readability of a number).
+
+    int binary = 0b00100001; // (binary literal introduced in java7)
+  }
+
+  public void charTypes() {
+    char a = '\u0041'; // unicode of letter A
+    char aa = 65; // decimal value for letter A
+    char aaa = 'A';
+
+    char newLine = '\n'; // escape character for new line
+  }
+
+}
+```
+
+### Invalid Primitive Values Declaring
+
+```java
+public class InvalidDeclations {
+   public void invalidDeclarations () {
+      byte b8 = 0b_00000001;  // Cannot have underscore directly after 0b
+      char c8 = 0x_007F;  // Cannot have underscore directly after 0x
+      int i8 = 1000000_;  // Underscore cannot be at end of literal
+      long d8 = 1000000_L; // Underscore cannot be prior to suffix  (L/l,F/f,D/d)
+      float f8 = _1000.000000; // Underscore cannot be at start of literal
+      double l8 = 1.0000000_e10; // Underscore cannot prefix exponential in literal
+
+			// You can not assign a primitive to null
+      byte b9 = null;
+      char c9 = null;
+      short s9 = null;
+      int i9 = null;
+      long l9 = null;
+      float f9 = null;
+      double d9 = null;
+
+      boolean aBoolean = 0;
+      boolean bBoolean = null;
+  }
+}
+```
+
+## Reference Types
+
+Important differences you should know between primitives and reference types.
+
+1. First, reference types can be assigned null, which means they do not currently refer to an object. Primitive types will give you a compiler error if you attempt to assign them null.
+
+In this example, value cannot point to null because it is of type int:
+
+```java
+int value = null; // DOES NOT COMPILE
+String s = null;
+```
+
+1. Reference types can be used to call methods, assuming the reference is not null. Primitives do not have methods declared on them.`
+
+```java
+String reference = "hello";
+int len = reference.length();
+int bad = len.length(); // DOES NOT COMPILE
+```
+
+1. All the primitive types have lowercase type names.
+
+## Local Variable Initialisation
+
+- A local variable is not initialized with a default value.
+- You must initialize FULLY (not in a conditional statement / switch statement/ while loop if all conditions are not met) if you are using the variable in code.
+- If you never use the variable, no compiler error occurs.
+
+## Declare and Initialise Variables: Things to Remember
+
+ Here are some things to remember when reviewing code samples on the exam, that find themselves into many questions:
+
+1. Literals with decimal default to double, not float.
+2. Doubles and floats do not overflow, since they are approximated.
+3. Local variable primitives are not initialised
+4. Class static and instance members are initialised. (Instance and class variables do not require you to initialize them. As soon  
+as you declare these variables, they are given a default value).
+5. a variable is a class variable if it has the **static** keyword in its declaration.
+6. null is not a valid value for a primitive data type.
+
+## Local Variable Type Inference (Using VAR)
+
+### Summary
+
+1. A var is used as a local variable in a constructor, method, or initializer block.
+2. A var cannot be used in constructor parameters, method parameters, instance variables, or class variables.
+3. A var is always initialized on the same line (or statement) where it is declared.
+4. The value of a var can change, but the type cannot.
+5. A var cannot be initialized with a null value without a type.
+6. A var is not permitted in a multiple-variable declaration.
+7. A var is a reserved type name but not a reserved word, meaning it can be used as an identifier except as a class, interface, or enum name.
+
+```java
+/*
+Learn Programming Academy's Java 1Z0-815 Certification Exam Course
+Section 3: Working with Java Primitive Data Types and String APIs
+Topic: Local Variable Type Inference
+*/
+
+import com.WordyCompanyName.ALongPackageName.AClassWithAVeryLongName;
+
+public class VarTest {
+		var tricky = "Hello"; // DOES NOT COMPILE because this is an instance variable. Local variable type inference wo ks with local variables and not instance variables.
+
+    public static void main(String[] args) {
+        var aClassWithAVeryLongName = new AClassWithAVeryLongName();
+        aClassWithAVeryLongName.setName("Testing");
+        System.out.println(aClassWithAVeryLongName);
+
+        // Adding some other var declarations:
+        // i is inferred to be an int, since it's assigned a literal int
+        var i = 1;
+
+        // An array can be assigned to an LVTI variable
+        var aVarArray = new int[3];
+
+        // Valid to assign a method return value to an LVTI variable
+        var methodVal = aClassWithAVeryLongName.getName();
+
+        // OK to assign a null object to LVTI variable but not literal null
+        Object nullObject = null;
+        var var = nullObject;
+
+        // Invalid var declarations:
+
+//        // cannot use var declaration in a compound statement
+//        var j = 0, k = 0;
+//
+//        // again, cannot use var declaration in a compound statement
+//        var m, n = 0;
+//
+//        // Cannot declare a var variable without also initializing it
+//        var someObject;
+//
+//        // Cannot assign null to var variable, type cannot be inferred
+//        var newvar = null;
+//
+//        // Cannot use array initializer in var declaration/initialization
+//        var myArray = {"A", "B"};
+//
+//        // Cannot have an array of var
+//        var[] newarray = new int[2];
+    }
+}
+```
+
+```java
+/*
+Learn Programming Academy's Java 1Z0-815 Certification Exam Course
+Section 3: Working with Java Primitive Data Types and String APIs
+Topic: Local Variable Type Inference
+*/
+
+public class VarDonts {
+
+//    // Invalid - Static class variables cannot be declared with var
+//    static var classVariable = 10;
+//
+//    // Invalid - class instance variables cannot be declared with var
+//    var instanceVariable = 20;
+
+    public static void main(String[] args) {
+    }
+
+//    // Invalid, cannot have a method return type of var
+//    public static var returnThis(String[] args) {
+//        return args;
+//    }
+//
+//    // Invalid, cannot have method parameter of var
+//    public static String[] returnThat(var args) {
+//        return args;
+//    }
+}
+```
+
+Remember that for local variable type inference, the compiler looks only at the line with the declaration. Since question and answer are not assigned values on the lines where they are defined, the compiler does not know what to make of them. For this reason, both lines 4 and 6 do not compile.
+
+```java
+public void doesThisCompile(boolean check) {
+	var question; // line: 4 DOES NOT COMPILE
+	question = 1;
+
+	var answer;  // line: 6 DOES NOT COMPILE The compiler is being asked to infer the type of null. This could be any reference type.
+
+	var a = 2, b = 3; // DOES NOT COMPILE Java does not allow var in multiple variable declarations
+
+	var n = null; // DOES NOT COMPILE
+	if (check) {
+		answer = 2;
+	} else {
+		answer = 3;
+	}
+	System.out.println(answer);
+}
+```
+
+While a var cannot be initialized with a null value without a type, it can be assigned a null value after it is declared
+
+Line 14 compiles without issue because n is of type String, which is an object. On the other hand, line 16 does not compile since the type of m is a primitive int, which cannot be assigned a null value.
+
+```java
+13: var n = "myData";
+14: n = null;
+
+15: var m = 4;
+16: m = null; // DOES NOT COMPILE
+
+17: var o = (String)null; // Compiles normally. Since the type is provided, the compiler can apply type inferenceand set the type of the var to be String.
+```
+
+## String
+
+Summary:
+
+- Literal Strings have their own special area of the heap memory called the String Pool.
+- Any assignment of a literal will refer to the same String in this pool.
+- You can force a string to be added to the by calling the intern() method on the String object.
+- Strings are **immutable**, any methods that seem to operate on a String are actually creating new Strings, and these new Strings need to be assigned to the same variable (self assignment) or assigned to a new variable which represents a reference to the new String.
+- When you concatenate a string to a reference variable,
+    - if the variable is a reference type, the toString() method on the object is called,
+    - if the variable is a primitive data type, the variable is boxed to a wrapper and its toString() method is called.
+
+### Creating Strings
+
+```java
+/*
+Learn Programming Academy's Java 1Z0-815 Certification Exam Course
+Section 3: Working with Java Primitive Data Types and String APIs
+Topic: Declare and Initialize Variables
+Sub-Topic: Creating Strings
+*/
+public class StringConstructor {
+
+    public static void main(String[] args) {
+        int alphabet_len = 26;
+        char[] alphabet = new char[alphabet_len];
+        int[] integers = new int[alphabet_len];
+        byte[] bytes = new byte[alphabet_len];
+        int i = 0;
+
+        for (char c = 'a'; c <= 'z'; c++, i++) {
+            // Create character array containing the english alphabet a-z
+            alphabet[i] = c;
+
+            // Create an integer array, casting alphabet character to ints
+            integers[i] = (int) c;
+
+            // Create a byte array, casting alphabet character to a byte
+            bytes[i] = (byte) c;
+        }
+
+        // Create a String from the character array
+        String charString = new String(alphabet);
+        System.out.println("charString = " + charString);
+
+        // Create a String from the byte array
+        String byteString = new String(bytes);
+        System.out.println("byteString = " + byteString);
+
+        // Create a String from the integer array
+        // Note here:  You cannot create a String with integer array with a
+        // simple one args constructor, so we'll use offset = 0 and
+        // length = the length of array, to get the full alphabet
+        String intString = new String(integers, 0, alphabet_len);
+        System.out.println("intString = " + intString);
+
+        // Create a String from the character array
+        int offset = 1;
+        String charString2 = new String(alphabet, offset, alphabet_len - offset);
+        System.out.println("charString2 = " + charString2);
+
+        // Only want f-j now.
+        offset = 5;
+        int length = 5;
+        String intString2 = new String(integers, offset, length);
+        System.out.println("intString2 = " + intString2);
+
+        offset = 2;
+        length = 9;
+        // Create a String from the byte array, c- k
+        String byteString2 = new String(bytes, offset, length,
+                java.nio.charset.StandardCharsets.ISO_8859_1);
+        System.out.println("byteString2 = " + byteString2);
+    }
+}
+```
+
+### Strings and the Compound Concatenation Operator
+
+```java
+/*
+Learn Programming Academy's Java 1Z0-815 Certification Exam Course
+Section 3: Working with Java Primitive Data Types and String APIs
+Topic: Create and Manipulate Strings
+Sub-Topic: Strings and the Compound Concatenation Operator
+*/
+
+public class StringCompoundConcat {
+    public static void main(String[] args) {
+
+        String helloString = "hello";
+        String worldString = " world";
+
+        // Use the compound concatenator on string literals
+        String compoundString = "hello";
+        compoundString += " world";
+        System.out.println("compoundString = " + compoundString);
+
+        // Use the compound concatenator on String objects
+        String compoundString2 = helloString;
+        compoundString2 += worldString;
+        System.out.println("compoundString2 = " + compoundString2);
+
+        // Use a null String on the left
+        String nullString = null;
+        nullString += helloString;
+        System.out.println("nullString = " + nullString);
+
+        // Use a null String on the right...
+        nullString = null;
+        String compoundStringWithNull = helloString;
+        compoundStringWithNull += nullString;
+        System.out.println("compoundStringWithNull = " + compoundStringWithNull);
+
+        // String concatenation when right hand object is not a String, but is a CharSequence
+        Object charSequenceObject = new StringBuilder("testing");
+        String compoundString3 = "charSequenceObject ";
+        compoundString3 += charSequenceObject;
+        System.out.println("compoundString3 = " + compoundString3);
+
+        // String concatenation when left hand object is not a String, but is a CharSequence
+        charSequenceObject = new StringBuilder("testing");
+        charSequenceObject += helloString;
+        System.out.println("charSequenceObject = " + charSequenceObject);
+
+        // String concatenation when right hand object is not a String,
+// or CharSequence.  We created ImmutableString class in the last topic.
+        Object someOtherObject = new ImmutableString();
+        String compoundString4 = "object ";
+        compoundString4 += someOtherObject;
+        System.out.println("compoundString4 = " + compoundString4);
+
+        // String concatenation when left hand object is not a String
+        // We created ImmutableString class in the last topic.
+        someOtherObject = new ImmutableString();
+        someOtherObject += helloString;
+        System.out.println("someOtherObject = " + someOtherObject);
+        System.out.println("someOtherObject.toString() = " +
+                someOtherObject.toString());
+
+        int anInt = 100;
+
+        // Valid...
+        String compoundString5 = helloString;
+        compoundString5 += anInt;
+        System.out.println("compoundString5 = " + compoundString5);
+
+        // Invalid...
+//        anInt += helloString;
+//        System.out.println("anInt = " + anInt);
+        String mathString1 = "The value is ";
+        mathString1 += 5 + 7;
+        System.out.println("mathString1 = " + mathString1);
+
+        // Now we'll replace the compound concatenation operator with the
+        // code it represents, we think...
+        String mathString2 = "The value is ";
+        mathString2 = mathString2 + 5 + 7;
+        System.out.println("mathString2 =" + mathString2);
+
+        // Adding parentheses when expanding out the compound concatenation
+        // operator fixes the issue, so the right hand operand of the compound
+        // concatenation operator is wrapped with an implied parentheses set
+        String mathString3 = "The value is ";
+        mathString3 = mathString3 + (5 + 7);
+        System.out.println("mathString3 =" + mathString3);
+
+    }
+}
+```
+
+```java
+## Output
+compoundString = hello world
+compoundString2 = hello world
+nullString = nullhello
+compoundStringWithNull = hellonull
+compoundString3 = charSequenceObject testing
+charSequenceObject = testinghello
+compoundString4 = object sandbox.ImmutableString@3f0ee7cb
+someOtherObject = sandbox.ImmutableString@75bd9247hello
+someOtherObject.toString() = sandbox.ImmutableString@75bd9247hello
+compoundString5 = hello100
+mathString1 = The value is 12
+mathString2 =The value is 57
+mathString3 =The value is 12
+```
+
+### Comparing Strings
+
+```java
+/*
+Learn Programming Academy's Java 1Z0-815 Certification Exam Course
+Section 3: Working with Java Primitive Data Types and String APIs
+Topic: Create and Manipulate Strings
+Sub-Topic: Comparing Strings
+*/
+
+public class StringComparison {
+    public static void main(String[] args) {
+
+        // We'll create some String Objects to test...
+        String nullString = null;
+        String stringHello1 = "Hello";  // String Literal, interned
+        String stringhEllo = "hEllo";  // String Literal, interned
+
+        // String reference, not interned
+        String stringHello2 = new String(new char[]{'H', 'e', 'l', 'l', 'o'});
+
+        // StringBuilder implements CharSequence, We'll test String
+        // comparison methods with alternate objects.
+        StringBuilder helloStringBuilder = new StringBuilder("Hello");
+
+        String firstString = stringhEllo;   // Line 23
+        String secondString = stringHello1;     // Line 24
+        Object secondObject = secondString; // Line 25
+        CharSequence secondSequence = secondString; // Line 26
+
+        //  == operand
+        TestEqualsOperand(firstString, secondString);
+
+        //  public boolean equals(Object anObject)
+        TestEqualsMethod(firstString, secondObject);
+
+        // ---- public boolean equalsIgnoreCase?(String anotherString)
+        TestEqualsIgnoreCaseMethod(firstString, secondString);
+
+        // ---- public boolean contentEquals?(CharSequence cs)
+        TestContentEqualsMethod(firstString, secondSequence);
+
+        // ---- public int compareTo?(String anotherString)
+        TestCompareToMethod(firstString, secondString);
+
+        // ----- public int compareToIgnoreCase?(String str)
+        TestCompareToIgnoreCaseMethod(firstString, secondString);
+
+    }
+
+    //  == operand
+    // returns true when both objects refer to the same object, not the same value
+    public static void TestEqualsOperand(String firstString, Object secondObject) {
+        System.out.println(String.format("(%s == %s) = " +
+                (firstString == secondObject), firstString, secondObject));
+
+    }
+
+    //  public boolean equals(Object anObject)
+    //  returns true if references are the same,
+    //  OR if parameter type is String AND the value is the same
+    public static void TestEqualsMethod(String firstString, Object secondObject) {
+        try {
+            System.out.println(String.format("%s.equals(%s) = " +
+                    (firstString.equals(secondObject)), firstString, secondObject));
+        } catch (Exception e) {
+            System.out.println(String.format("Error Occurred with %s.equals(%s) : %s",
+                    firstString, secondObject, e.getClass().getName()));
+
+        }
+    }
+
+    //  public boolean equalsIgnoreCase(Object anObject)
+    //  returns true if two Strings have same value ignoring case
+    public static void TestEqualsIgnoreCaseMethod(String firstString, String secondObject) {
+        try {
+            System.out.println(String.format("%s.equalsIgnoreCase(%s) = " +
+                    (firstString.equalsIgnoreCase(secondObject)), firstString, secondObject));
+        } catch (Exception e) {
+            System.out.println(String.format("Error Occurred with %s.equals(%s) : %s",
+                    firstString, secondObject, e.getClass().getName()));
+
+        }
+    }
+
+    //  public boolean contentEquals(CharSequence cs)
+    //  returns true if values in String and the second passed parameter are the same.
+    public static void TestContentEqualsMethod(String firstString, CharSequence secondSequence) {
+        try {
+            System.out.println(String.format("%s.contentEquals(%s) = " +
+                    (firstString.contentEquals(secondSequence)), firstString, secondSequence));
+        } catch (Exception e) {
+            System.out.println(String.format("Error Occurred with %s.equals(%s) : %s",
+                    firstString, secondSequence, e.getClass().getName()));
+
+        }
+    }
+
+    //  public int compareTo(String anotherString)
+    //  Compares the value of Strings lexicographically
+    public static void TestCompareToMethod(String firstString, String secondString) {
+        try {
+            System.out.println(String.format("%s.compareTo(%s) = " +
+                    (firstString.compareTo(secondString)), firstString, secondString));
+        } catch (Exception e) {
+            System.out.println(String.format("Error Occurred with %s.equals(%s) : %s",
+                    firstString, secondString, e.getClass().getName()));
+
+        }
+    }
+
+    // public int compareToIgnoreCase(String str)
+    //  Compares the value of Strings lexicographically ignoring case
+    public static void TestCompareToIgnoreCaseMethod(String firstString, String secondString) {
+        try {
+            System.out.println(String.format("%s.compareToIgnoreCase(%s) = " +
+                    (firstString.compareToIgnoreCase(secondString)), firstString, secondString));
+        } catch (Exception e) {
+            System.out.println(String.format("Error Occurred with %s.equals(%s) : %s",
+                    firstString, secondString, e.getClass().getName()));
+
+        }
+    }
+}
+```
+
+```bash
+
+## Output
+
+(hEllo == Hello) = false
+hEllo.equals(Hello) = false
+hEllo.equalsIgnoreCase(Hello) = true
+hEllo.contentEquals(Hello) = false
+hEllo.compareTo(Hello) = 32
+hEllo.compareToIgnoreCase(Hello) = 0
+```
+
+### Searching Text
+
+```java
+/*
+Learn Programming Academy's Java 1Z0-815 Certification Exam Course
+Section 3: Working with Java Primitive Data Types and String APIs
+Topic: Create and Manipulate Strings
+Sub-Topic: Searching Text
+*/
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+public class TextSearch {
+    public static void main(String[] args) {
+
+        String fullText = "testwordtestwordtestword";
+        //String below is so just there to help see the index easier
+        String showIndx = "012345678901234567890123";
+
+        String searchString = "word";
+
+        int lastIndex = fullText.lastIndexOf(searchString);
+        System.out.println("lastIndex = " + lastIndex);
+
+        lastIndex = fullText.lastIndexOf(searchString, 19);
+        System.out.println("And now the lastIndex = " + lastIndex);
+
+        lastIndex = fullText.lastIndexOf(searchString, 15);
+        System.out.println("And now the lastIndex = " + lastIndex);
+
+        // Matches uses regexp Pattern matching, so will NOT match a
+// substring directly, unless it is the whole string...
+        String mississippi = "mississippi";
+        boolean matches = mississippi.matches("miss");
+        boolean indexMatch = (mississippi.indexOf("miss") > -1);
+        System.out.println("matches method returns " + matches +
+                " on 'miss' BUT indexOf>-1 on 'miss' = " + indexMatch);
+
+// Let's try the whole string now...
+        matches = mississippi.matches("mississippi");
+        System.out.println("matches method matches on the entire string = " + matches);
+
+// Why is it useful then?  You can match on a partial string
+// if using regexp expressions surrounding substring
+
+// Code below matches "miss" at the beginnning of the string.
+//  Note the (.*) which matches to anything after "miss"
+        matches = mississippi.matches("^miss(.*)");
+        System.out.println("matches method returns " + matches + " on '^miss(.*)'");
+
+        // Code below matches "iss" in the middle of a string.
+        // Note the (.*) which matches all/nothing before/after "miss"
+        matches = mississippi.matches("(.*)iss(.*)");
+        System.out.println("matches method returns " + matches + " on '(.*)miss(.*)'");
+
+        // You can use Pattern & Matcher to do the same thing...
+        Pattern p = Pattern.compile("(.*)miss(.*)");
+        Matcher m = p.matcher("mississippi");
+        System.out.println("Pattern & Matcher give same result, matches on '(.*)miss(.*)' = "
+                + m.matches());
+
+        // Region Matches, exact case, exact substring
+        System.out.println(mississippi.regionMatches(0, "miss", 0, 4));
+
+        // Region Matches, ignore case, exact substring
+        System.out.println(mississippi.regionMatches(true, 0, "MISS", 0, 4));
+
+        // Look for "miss" starting at index 1 in mississippi,
+        // no match found
+        System.out.println(mississippi.regionMatches(1, "miss", 0, 4));
+
+        // Look for "iss" starting at index 2 in mississippi,
+        // no match found
+        System.out.println(mississippi.regionMatches(2, "miss", 1, 3));
+
+        // Look for "iss" starting at index 4 in mississippi,
+        // match found
+        System.out.println(mississippi.regionMatches(4, "miss", 1, 3));
+    }
+}
+```
+
+```bash
+## output
+lastIndex = 20
+And now the lastIndex = 12
+And now the lastIndex = 12
+matches method returns false on 'miss' BUT indexOf>-1 on 'miss' = true
+matches method matches on the entire string = true
+matches method returns true on '^miss(.*)'
+matches method returns true on '(.*)miss(.*)'
+Pattern & Matcher give same result, matches on '(.*)miss(.*)' = true
+true
+true
+false
+false
+true
+```
+
+### Splitting and Joining Strings
+
+```java
+/*
+Learn Programming Academy's Java 1Z0-815 Certification Exam Course
+Section 3: Working with Java Primitive Data Types and String APIs
+Topic: Create and Manipulate Strings
+Sub-Topic:  Splitting and Joining Strings.
+*/
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.StringJoiner;
+
+public class StringSpliceAndDice {
+    public static void main(String[] args) {
+        // Set some data up
+        String[] wordArray = new String[]{"Hello", "World", "How", "are", "you"};
+        ArrayList<String> wordList = new ArrayList<>(Arrays.asList(wordArray));
+
+        // ---- public String concat(String str)
+        String sentence = "";
+
+        for (String word : wordArray) {
+            sentence += word + " ";
+        }
+        System.out.println("Our sentence using concat: " + sentence);
+
+        // You can use join with a variable list of CharSequence elements ..
+        sentence = String.join(" ", "Hello", "World", "How", "are", "you");
+        System.out.println("Our sentence using join, variable list of String: " + sentence);
+
+        // You can use join with Iterable elements, such as array of String
+        sentence = String.join(" ", wordArray);
+        System.out.println("Our sentence using join, Array of String: " + sentence);
+
+        // You can use join with Iterable elements, such as List of String
+        sentence = String.join(" ", wordList);
+        System.out.println("Our sentence using join, ArrayList of String: " + sentence);
+
+        // StringJoiner was added in Java 8 as well..
+        StringJoiner sj = new StringJoiner(" ");
+        for (String word : wordArray) sj.add(word);
+        sentence = sj.toString();
+        System.out.println("Our sentence using StringJoiner: " + sentence);
+
+        // Following code demonstrates: public String[] split(String regex)
+        // First make sure sentence is delimited by a space to test
+        sentence = String.join(" ", wordList);
+        // now split using space
+        String[] splitWords = sentence.split(" ");
+        System.out.println(Arrays.toString(splitWords));
+
+        //first create a sentence with multiple white space
+        sentence = String.join("\u0020\t\u0020\n", wordList);
+        System.out.println("Our sentence with spaces and tabs and carriage returns: " + sentence);
+
+        // regular expression matches any white space not just \u0020
+        splitWords = sentence.split("\\s+");
+        System.out.println(Arrays.toString(splitWords));
+
+        sentence = String.join(" ", wordList);  // reset sentence value
+        // The second parameter is a limit, We tell the method we only want
+        // 2 array elements as the result...
+        splitWords = sentence.split(" ", 2);
+        System.out.println(Arrays.toString(splitWords));
+
+    }
+}
+```
+
+```bash
+## Output
+Our sentence using concat: Hello World How are you
+Our sentence using join, variable list of String: Hello World How are you
+Our sentence using join, Array of String: Hello World How are you
+Our sentence using join, ArrayList of String: Hello World How are you
+Our sentence using StringJoiner: Hello World How are you
+[Hello, World, How, are, you]
+Our sentence with spaces and tabs and carriage returns: Hello
+World
+How
+are
+you
+[Hello, World, How, are, you]
+[Hello, World How are you]
+```
+
+### String Replace and Substring
+
+```java
+/*
+Learn Programming Academy's Java 1Z0-815 Certification Exam Course
+Section 3: Working with Java Primitive Data Types and String APIs
+Topic: Create and Manipulate Strings
+Sub-Topic:  String replace and substring.
+*/
+
+public class StringReplacement {
+    public static void main(String[] args) {
+
+        // Create variables.
+        String mississippi = "Mississippi";
+        String[] resultArray = new String[4];
+
+        // Example of: replace(char oldChar, char newChar)
+        // Returns a String
+        resultArray[0] = "Replace s with S : " + mississippi.replace('s', 'S');
+
+        // Example of: replace(CharSequence target, CharSequence replacement)
+        // Returns a String
+        resultArray[1] = "Replace literal \"iss\" with \"ips\" : " +
+                mississippi.replace("iss", "ips");
+
+        // Example of: replaceAll(String regex, String replacement)
+        // Returns a String
+        resultArray[2] = "Replace regexp [i with 2 characters(s or p)] with literal \"ax\" : " +
+                mississippi.replaceAll("(i(s|p){2})", "ax");
+
+        // Example of: replaceFirst(String regex, String replacement)
+        // Returns a String
+        resultArray[3] = "Replace first match of regexp [i with 2 characters(s or p)] " +
+                "with literal \"ax\" : " +
+                mississippi.replaceFirst("(i(s|p){2})", "ax");
+
+        // Printing our resultArray to console
+        for (String result : resultArray) {
+            System.out.println(result);
+        }
+
+        // ... substring and subSequence examples...
+
+        // This call to substring extracts a substring ignoring any
+        // characters prior to index 7
+        System.out.println("mississippi.substring(7) = "
+                + mississippi.substring(7));
+
+        // This call to substring extracts a substring starting at
+        // index = 3 and ending at index 7
+        // (note that character at index 7 is not included)
+        System.out.println("mississippi.substring(3, 7) = "
+                + mississippi.substring(3, 7));  // start index = 3, end index = 7
+
+        // subSequence can be used for both String and StringBuilder Objects.
+        // but both a starting and ending index are required.
+        System.out.println("mississippi.subSequence(3, 7) = "
+                + mississippi.subSequence(3, 7));
+
+        System.out.println("mississippi = " + mississippi);
+
+        // reassigning output to the mississipi String reference type.
+        mississippi = mississippi.substring(0, 4);
+        System.out.println("mississippi = " + mississippi);
+
+    }
+}
+```
+
+```java
+// Output
+Replace s with S : MiSSiSSippi
+Replace literal "iss" with "ips" : Mipsipsippi
+Replace regexp [i with 2 characters(s or p)] with literal "ax" : Maxaxaxi
+Replace first match of regexp [i with 2 characters(s or p)] with literal "ax" : Maxissippi
+mississippi.substring(7) = ippi
+mississippi.substring(3, 7) = siss
+mississippi.subSequence(3, 7) = siss
+mississippi = Mississippi
+mississippi = Miss
+```
+
+### Transform String
+
+```java
+/*
+Learn Programming Academy's Java 1Z0-815 Certification Exam Course
+Section 3: Working with Java Primitive Data Types and String APIs
+Topic: Create and Manipulate Strings
+Sub-Topic:  Transform String.
+*/
+
+public class TextTransform {
+    public static void main(String[] args) {
+
+        // Example of:  repeat(int count) (introduced in Java 11)
+        // Returns a String
+        String repeatString = "Repeat After Me ";
+
+        // We'll repeat the String 3 x, set count parameter = 3
+        repeatString = repeatString.repeat(3);
+        System.out.println("repeatString = " + repeatString);
+
+        // But what does passing a zero in do?
+        repeatString = repeatString.repeat(0);
+        System.out.println("repeatString = " + repeatString);
+
+        // ---  valueOf methods ---
+
+        // Example of : valueOf(char[] data)
+        // Returns a String
+        String charsToString = String.valueOf(new char[]{'a', 'b', 'c', 'd', 'e'});
+
+        // Example of : valueOf(char[] data, int offset, int count)
+        // Returns a String
+        String charsToStringPartial = String.valueOf(new char[]{'a', 'b', 'c', 'd', 'e'}, 1, 3);
+        String subString = charsToString.substring(1, 3);
+
+        System.out.println("charsToString = " + charsToString);
+        System.out.println("charsToStringPartial = " + charsToStringPartial
+                + ", subString = " + subString);
+
+    }
+}
+```
+
+```java
+repeatString = Repeat After Me Repeat After Me Repeat After Me
+repeatString =
+charsToString = abcde
+charsToStringPartial = bcd, subString = bc
+```
+
+### Out of Ordinary
+
+```java
+/*
+Learn Programming Academy's Java 1Z0-815 Certification Exam Course
+Section 3: Working with Java Primitive Data Types and String APIS
+Topic: Create and Manipulate Strings
+Sub-Topic: Out of Ordinary
+ */
+
+public class TestValueOf {
+
+    public static void main(String[] args) {
+
+        String george = "FredGeorgeSmith";
+
+        // Constructor used to get substring
+        // beginning offset index 4 inclusive, and 6 characters long
+        String shortGeorge1 = new String(george.toCharArray(), 4, 6);
+        System.out.println("shortGeorge1 = " + shortGeorge1);
+
+        // valueOf method used to get substring
+        // beginning offset index 4 inclusive, and 6 characters long
+        String shortGeorge2 = String.valueOf(george.toCharArray(), 4, 6);
+        System.out.println("shortGeorge2 = " + shortGeorge2);
+
+        // The method substring uses offsets,
+        // beginning offset (inclusive) and ending offset (exclusive)
+        // What happens if we use same parameter values examples above?
+        String shortGeorge3 = george.substring(4, 6);
+        System.out.println("shortGeorge3 = " + shortGeorge3);
+
+        // let's change our second parameter value...
+        String shortGeorge4 = george.substring(4, 10);
+        System.out.println("shortGeorge4 = " + shortGeorge4);
+
+        // Notice that none of these methods change george variable itself
+        System.out.println("george = " + george);
+    }
+}
+```
+
+```java
+shortGeorge1 = George
+shortGeorge2 = George
+shortGeorge3 = Ge
+shortGeorge4 = George
+george = FredGeorgeSmith
+```
+
+### Counting String Objects
+
+```java
+/*
+Learn Programming Academy's Java 1Z0-815 Certification Exam Course
+Section 3: Working with Java Primitive Data Types and String APIs
+Topic: Create and Manipulate Strings
+Sub-Topic:  Counting String Objects
+*/
+
+public class StringCount {
+    public static void main(String[] args) {
+
+        String stringOriginal = "aaabbb";
+
+        // The behavior is the same for all the replace methods,
+        // if there is no match, a new String object is NOT created.
+        String stringReplaced = stringOriginal.replace('C', 'a');
+        System.out.println("1.  stringOriginal==stringReplaced = " +
+                (stringOriginal == stringReplaced));
+
+        stringReplaced = stringOriginal.replace("CC", "aa");
+        System.out.println("2.  stringOriginal==stringReplaced = " +
+                (stringOriginal == stringReplaced));
+
+        stringReplaced = stringOriginal.replaceAll("CC", "aa");
+        System.out.println("3.  stringOriginal==stringReplaced = " +
+                (stringOriginal == stringReplaced));
+
+        stringReplaced = stringOriginal.replaceFirst("CC", "aa");
+        System.out.println("4.  stringOriginal==stringReplaced = " +
+                (stringOriginal == stringReplaced));
+
+        // The replace method with two chars that are the same does NOT
+        // create a new String object
+        stringReplaced = stringOriginal.replace('a', 'a');
+        System.out.println("5.  stringOriginal==stringReplaced = " +
+                (stringOriginal == stringReplaced));
+
+        // The method replace with String parameters exhibits
+        // different behavior than the one that accepts chars
+        stringReplaced = stringOriginal.replace("a", "a");
+        System.out.println("6.  stringOriginal==stringReplaced = " +
+                (stringOriginal == stringReplaced));
+
+        stringReplaced = stringOriginal.replaceAll("a", "a");
+        System.out.println("7.  stringOriginal==stringReplaced = " +
+                (stringOriginal == stringReplaced));
+
+        stringReplaced = stringOriginal.replaceFirst("a", "a");
+        System.out.println("8.  stringOriginal==stringReplaced = " +
+                (stringOriginal == stringReplaced));
+
+        // Note that creating a 'substring' which is same as string
+        // does NOT create a new object.
+        stringReplaced = stringOriginal.substring(0, stringOriginal.length());
+        System.out.println("9.  stringOriginal==stringReplaced = " +
+                (stringOriginal == stringReplaced));
+
+        // compiler calculates this expression to the constant "abc:def" so only one
+        // string is created at runtime on this line
+        String s1 = "abc" + ":" + "def";
+
+        // set up some more strings for next example..
+        String s2 = "s2";
+        String s3 = "s3";
+        String s4 = "s4";
+
+        // The following statement creates 3 string objects
+        // object1 = s2 + s1
+        //         object2 = s3 + object1
+        //                object3 = s4 + object2
+        // If you rewrite this as s5 = (((s4 + s3) + s2) + s1)
+        // it might be easier to count the number of objects created
+        // by counting left parentheses groupings
+        String s5 = s4 + s3 + s2 + s1;
+
+    }
+}
+```
+
+```java
+1.  stringOriginal==stringReplaced = true
+2.  stringOriginal==stringReplaced = true
+3.  stringOriginal==stringReplaced = true
+4.  stringOriginal==stringReplaced = true
+5.  stringOriginal==stringReplaced = true
+6.  stringOriginal==stringReplaced = false
+7.  stringOriginal==stringReplaced = false
+8.  stringOriginal==stringReplaced = false
+9.  stringOriginal==stringReplaced = true
+```
+
+### Important Notes
+
+- the `concat()` and `toUpperCase()` methods on String do not change the value of the String which s refers to, this string is immutable. These methods return new references.
+
+## String Builder
+
+### Out of the Ordinary Concepts
+
+You can see how easily, if the getChars method is one you do not use a lot, that a question on the certification exam could confuse you:
+
+- String and StringBuilder both implement this method, but not through the CharSequence interface, So if you see an exam question applying this method to a CharSequence, you can flag it as a compile error.
+- The destination parameter for the characters (the third parameter) must be an initialized char array.
+- If you see an exam question with any other type or the array is not initialised, you can flag it as a compile error.
+- The destination character array size must be greater or equal to the length of the selected source + the defined destination index.
+- You receive a runtime error if you exceed the array size.
+- If you do not select any characters from the source (by specifying sourceEndIndex = sourceStartIndex), then your char array does not change at all.
+
+## Order of Operator Precedence
+
+| Operator | Symbols and examples |
+| --- | --- |
+| Post-unary operators | expression++, expression-- |
+| Pre-unary operators | ++expression, --expression |
+| Other unary operators | -, !, ~, +, (type) |
+| Multiplication/division/modulus | *, /, % |
+| Addition/subtraction | +, - |
+| Shift operators | <<, >>, >>> |
+| Relational operators | <, >, <=, >=, instanceof |
+| Equal to/not equal to | ==, != |
+| Logical operators | &, ^, | |
+| Short-circuit logical operators | &&, || |
+| Ternary operators | boolean expression ? expression1 : expression2 |
+| Assignment operators | =, +=, -=, *=, /=, %=, &=, ^=, |=, <<=, >>=, >>>= |
+
+## Data Types
+
+```java
+short mouse = 10;
+short hamster = 3;
+short capybara = mouse * hamster;  // DOES NOT COMPILE because with arithmetic operations all numbers will be converted to int!
+```
+
+## Switch Statements
+
+![Untitled](Java/Java%20SE%2011%20Developer%201Z0-819%20OCP%20Course/Untitled.png)
+
+```java
+var dayOfWeek = 5;
+switch(dayOfWeek) {
+   case 0:
+      System.out.println("Sunday");
+   default:
+      System.out.println("Weekday");
+   case 6:
+      System.out.println("Saturday");
+   break;
+}
+
+/*
+This will print: (Notice No Break points)
+
+Weekday
+Saturday
+
+if the value of dayOfWeek was 0, all three statements would be output:
+
+Sunday
+Weekday
+Saturday
+```
+
+### Acceptable case Values
+
+- The values in each `case` statement must be compile-time constant values of the same data type as the `switch` value. This means you can use only literals, `enum` constants, or `final` constant variables of the same data type.
+- you can't have a `case` statement value that requires executing a method at runtime, even if that method always returns the same value.
+
+```java
+final int getCookies() { return 4; }
+void feedAnimals() {
+   final int bananas = 1;
+   int apples = 2;
+   int numberOfAnimals = 3;
+   final int cookies = getCookies();
+   switch (numberOfAnimals) {
+      case bananas:
+      case apples:  // DOES NOT COMPILES
+      case getCookies():  // DOES NOT COMPILE
+      case cookies :  // DOES NOT COMPILE
+      case 3 * 5 :
+   }
+}
+```
+
+## For Loop
+
+**1. Creating an Infinite Loop**
+
+```java
+for( ; ; )
+   System.out.println("Hello World");
+```
+
+**2. Adding Multiple Terms to the** **`for`** **Statement**
+
+```java
+int x = 0;
+for(long y = 0, z = 4; x < 5 && y < 10; x++, y++) {
+   System.out.print(y + " ");
+}
+System.out.print(x + " ");
+```
+
+**3. Redeclaring a Variable in the Initialization Block**
+
+```java
+int x = 0;
+for(int x = 4; x < 5; x++) {   // DOES NOT COMPILE
+   System.out.print(x + " ");
+}
+```
+
+**4. Using Incompatible Data Types in the Initialization Block**
+
+```java
+int x = 0;
+for(long y = 0, int z = 4; x < 5; x++) {  // DOES NOT COMPILE
+   System.out.print(y + " ");
+}
+
+```
+
+**5. Using Loop Variables Outside the Loop**
+
+```java
+for(long y = 0, x = 4; x < 5 && y < 10; x++, y++) {
+   System.out.print(y + " ");
+}
+System.out.print(x);  // DOES NOT COMPILE
+```
+
+1. Using optional labels with break
+- Notice that the `break` statement can take an optional label parameter. Without a label parameter, the `break` statement will terminate the nearest inner loop it is currently in the process of executing.
+- The optional label parameter allows us to break out of a higher-level outer loop.
+
+![Untitled](Java/Java%20SE%2011%20Developer%201Z0-819%20OCP%20Course/Untitled%201.png)
+
+## Important Notes
+
+- There are also some special considerations when modifying a `Collection` object within a loop. For example, if you delete an element from a `List` while iterating over it, you could run into a `ConcurrentModificationException`.
+- As a general rule, it is considered a poor coding practice to modify loop variables due to the unpredictability of the result. It also tends to make code difficult for other people to read. If you need to exit a loop early or change the flow, you can use `break`, `continue`, or `return`

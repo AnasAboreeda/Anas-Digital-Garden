@@ -1,0 +1,263 @@
+---
+id: 2023-01-18-01-java-from-zero-to-hero-in-15-days-day-1-part-1-understanding-class-strucure
+title: 01 java from zero to hero in 15 days day 1 part 1 understanding class strucure
+metaTitle: 01 Java From Zero To Hero In 15 Days Day 1 Part 1 Understanding Class Strucure | Anas's Digital Garden
+metaDescription: 01 java from zero to hero in 15 days day 1 part 1 understanding class strucure | Anas's Digital Garden
+createdDate: 2023-01-18
+updatedDate: 2023-01-18
+weekNumber: 202303
+category: java/ocp/blog
+tags: ["blog", "01-java-from-zero-to-hero-in-15-days-day-1-part-1-understanding-class-strucure"]
+---
+
+# 01 Java — from Zero to Hero in 15 Days — Day 1 - part 1 - Understanding Class Strucure
+
+// TODO: Series introduction
+
+## 1. Setting up Your Environment
+
+You need to download the [*Java Development Kit *(JDK)](https://www.oracle.com/java/technologies/javase/jdk17-archive-downloads.html). It contains the minimum software you need to do Java development. Also, you need to download an IDE to develop your code inside, you can choose between [Eclipse](https://www.eclipse.org/downloads/) or [IntelliJ IDEA](https://www.jetbrains.com/idea/download/) both are free and industry standard.
+
+You can learn more about setting up your development environments from many sources on youtube or google.
+
+## 2. Understanding the Class Structure
+
+In Java programs, classes are the basic building blocks. Classes are usually saved in a file with the same class name.
+
+### Members of the Class
+
+Java classes have two primary elements:
+
+ 1. *Methods:* often called functions or procedures in other languages
+ 2. *Fields:* more generally known as variables.
+
+```JAVA
+public class Movie {                        // class declaration
+
+    String name;                            // field
+
+    public String getName() {               // Method
+        return name;
+    }
+
+    public void setName(String newName) {    // Method
+        name = newName;
+    }
+}
+```
+
+In this code example, we created a class for Movie which has one field name and two methods getName() and setName().
+
+The setName() method has one parameter named newName, and it is of type String. This means the caller should pass in one String parameter and expect nothing to be returned because it returns void which means nothing.
+
+![Members of Java class with the method signature](https://cdn-images-1.medium.com/max/2000/1*U9ezECpJ_INnvYl6SaUBew.jpeg)
+
+The method name and parameter types are called the ***method signature***. In this example, can you identify the method name and parameters?
+
+```JAVA
+    public int numberVisitors(int month) {
+      return 10;
+    }
+```
+
+The method name is numberVisitors. There's one parameter named month, which is of type int, which is a numeric type. Therefore, the method signature is numberVisitors(int).
+
+### Comments
+
+Comments aren't executable code, you can place them in any place in your code. They can make your code easier to read.
+
+```java
+    // Single line comment
+
+    /* Multiple
+     * line comment
+     */
+
+    /**
+     * Javadoc multiple-line comment
+     * @author medium.com
+     *
+     * This type of comment is used in Java documentation
+     */
+```
+
+### Writing a main() Method
+
+A Java program begins execution with its main() method. It has a specific signature that you should always keep. You can pass arguments to the java program like that:
+
+```java
+public class Actor {
+
+    public static void main(String[] args) {
+        System.out.println("Hello, " + args[0] + " and "  + args[1] + " are here!");
+    }
+
+}
+```
+
+You can run this class and pass parameters to it like that:
+
+```Shell
+     java Actor.java "Will Smith" "Adam Sandler"
+
+    # this will print
+    # Hello, Will Smith and Adam Sandler are here!
+```
+
+## Understanding Package Declarations and Imports
+
+As we start developing our app, we have to tell Java where to find other libraries and pieces of code for us, for this we use import statement.
+
+    import java.util.Random;
+
+    public class RandomGenerator {
+        public static void main(String[] args) {
+            Random r = new Random();
+            System.out.println(r.nextInt(10));  // a number 0-9
+        }
+    }
+
+Package names are hierarchical like the mail as well. The postal service starts with the top level, looking at your country first. You start reading a package name at the beginning too.
+
+For example, if it begins with java, this means it came with the JDK. If it starts with something else, it likely shows where it came from using the website name in reverse. For example, com.aboureada.tutorial tells us the code is associated with the [aboureada.com](https://aboureada.com) website or organization. After the website name, you can add whatever you want. For example, com.aboureada.tutorial.day1 also came from [aboureada.com](https://aboureada.com).
+
+Java calls more detailed packages *child packages*. The package com.aboureada.tutorial is a child package of com.aboureada. You can tell because it's longer and thus more specific.
+
+### Wildcards
+
+Classes in the same package are often imported together. You can use a wildcard *** **as **a **shortcut for importing all the classes in a package.
+
+import **java.util.***; // imports java.util.Random among other things
+
+The import statement doesn't bring in child packages, fields, or methods; it imports only classes directly under the package.
+
+>  Let's say you wanted to use the class AtomicInteger in the java.util.concurrent.atomic package. Which imports support this?  
+>  import java.util.*;  
+import java.util.concurrent.*;  
+import java.util.concurrent.atomic.*;  
+>  Only the last import allows the class to be recognized because child packages are not included with the first two.
+
+You might think that including so many classes slows down your program execution, **but ***it doesn't***. The compiler figures out what's actually needed.
+
+### Redundant Imports
+
+* Everything in java.lang is automatically imported. So no need to import it.
+* Importing a class that is in the same package as the class importing it. Java automatically looks in the current package for other classes.
+
+### Naming Conflicts
+
+Using two classes with the same name is not allowed, if you have to do so you can use them like that as you can not import two classes with the same name to your file.
+
+    public class Conflicts {
+        java.util.Date date;
+        java.sql.Date sqlDate;
+    }
+
+### Creating a New Package
+
+In Java, we call the folders of our project *packages*. Let's create 2 packages and let import one inside the other
+
+    package com.aboureada.tutorial.day1.packages.ticket;
+
+    import java.util.Random;
+
+    public class MovieTicket {
+        private final int price;
+        private final int ticketNo;
+
+        public MovieTicket(int customPrice) {
+            this.price = customPrice;
+            Random r = new Random(1);
+            this.ticketNo = r.nextInt(10000);
+        }
+
+        public int getTicketNo() {
+            return ticketNo;
+        }
+    }
+
+    package com.aboureada.tutorial.day1.packages.user;
+
+    // Here we are importing the MovieTicket class from a different package
+    import com.aboureada.tutorial.day1.packages.ticket.MovieTicket;
+
+    public class Admin {
+        public int bookTicket() {
+            MovieTicket movieTicket = new MovieTicket(10);
+            final int ticketNo = movieTicket.getTicketNo();
+            System.out.println("Booked movie ticket successfully #" + ticketNo);
+            return ticketNo;
+        }
+
+        public static void main(String[] args) {
+            Admin adam = new Admin();
+            adam.bookTicket();
+        }
+
+    }
+
+If we run the Admin class, it will print Booked movie ticket successfully #8985
+
+To run code with multiple packages from the terminal, you need to compile them first like that
+
+    javac com/aboureada/tutorial/day1/packages/ticket/*.java com/aboureada/tutorial/day1/packages/user/*.java
+
+    java com.aboureada.tutorial.day1.packages.user.Admin
+
+    # Booked movie ticket successfully #8985
+
+You can compile your files to a different path, then you have to provide it while running your code.
+
+    # How to compile your code to a different path.
+    javac -classpath <path>
+    javac -cp <path>
+    javac --class-path <path>
+
+    # How to run your code from a differt path (3 options)
+    java -cp <class search path>
+    java -classpath <class search path>
+    java --class-path <class search path>
+
+## Creating Objects
+
+You have to create objects to use classes. An ***object*** is a runtime instance of a class in memory. An object is often referred to as an ***instance*** since it represents a single representation of the class. All the various objects of all the different classes represent the *state* of your program. A ***reference*** is a variable that points to an object.
+
+To create an instance of a class, all you have to do is write new before the class name and add parentheses after it. Here's an example:
+
+    Movie m = new Movie();
+
+Movie() looks like a method since parentheses follow it. It's called a *constructor*, which is a special type of method that creates a new object.
+
+Here is an example of a constructor within the class
+
+    public class Cinema {
+        private String name;
+        private String address;
+
+        public Cinema(String newName, String newAddress) {
+            this.name = newName;
+            this.address = newAddress;
+        }
+
+        // ... getters and setters
+    }
+
+You can use it like that:
+
+    Cinema myCinema = new Cinema("Amsterdam Cinema" , "City Center St.");
+
+## Destroying Objects
+
+Now that we've played with our objects, it is time to put them away. Luckily, the JVM takes care of that for you. Java provides a garbage collector to automatically look for objects that aren't needed anymore.
+
+All Java objects are stored in your program memory's *heap*. The heap, which is also referred to as the *free store*, represents a large pool of unused memory allocated to your Java application. If your program keeps instantiating objects and leaving them on the heap, eventually it will run out of memory and crash. Oh, no! Luckily, garbage collection solves this problem. In the following sections, we look at garbage collection.
+
+### Garbage Collection
+
+*Garbage collection* refers to the process of automatically freeing memory on the heap by deleting objects that are no longer reachable in your program.
+
+Garbage collection is responsible for removing objects from memory when they can never be used again. An object becomes eligible for garbage collection when there are no more references to it or its references have all gone out of scope.
+
+## References
+
+[OCP Oracle Certified Professional Java SE 17 Developer Study Guide: Exam 1Z0–829, By Scott Selikoff, Jeanne Boyarsky](https://www.wiley.com/en-nl/OCP+Oracle+Certified+Professional+Java+SE+17+Developer+Study+Guide%3A+Exam+1Z0+829-p-9781119864592)

@@ -1,0 +1,156 @@
+---
+id: 2023-01-18-exam-tricks
+title: exam tricks
+metaTitle: Exam Tricks | Anas's Digital Garden
+metaDescription: exam tricks | Anas's Digital Garden
+createdDate: 2023-01-18
+updatedDate: 2023-01-18
+weekNumber: 202303
+category: java/ocp/1Z0-819
+tags: ["1Z0-819", "exam-tricks"]
+---
+
+# Exam Tricks
+
+1. You'll likely see a method like this on the exam:
+    1. When you see a method name beginning with a capital letter and having a return type, pay special attention to it. It is not a constructor since there's a return type. It's a regular method that does compile but will not be called when you write new Chick().
+
+```bash
+public class Chick {
+	public void Chick() { } // NOT A CONSTRUCTOR
+}
+```
+
+1. Variable declaration  
+This code doesn't compile because it tries to declare multiple variables of different types in the same statement. The shortcut to declare multiple variables in the same statement is legal only when they share a type.
+
+```java
+int num, String value; // DOES NOT COMPILE
+double d1, double d2; // DOES NOT COMPILE, If you want to declare multiple variables in the same statement, they must share the same type declarationand not repeat it.
+int i3; i4;  // DOES NOT COMPILE
+```
+
+1. On the exam, be wary of any local variable that is declared but not initialized in a single line. This is a common place on the exam that could result in a “Does not compile” answer.
+
+```java
+public void findAnswer(boolean check) {
+	int answer;
+	int otherAnswer;
+	int onlyOneBranch;
+	if (check) {
+		onlyOneBranch = 1;
+		answer = 1;
+	} else {
+		answer = 2;
+	}
+	System.out.println(answer);
+	System.out.println(onlyOneBranch); // DOES NOT COMPILE
+}
+```
+
+```java
+public void checkAnswer() {
+	boolean value;
+	findAnswer(value); // DOES NOT COMPILE
+}
+```
+
+- One area the exam might try to trip you up on is using `instanceof` with incompatible types. For example, `Number` cannot possibly hold a `String` value, so the following would cause a compilation error:
+
+```java
+public static void openZoo(Number time) {
+   if(time instanceof String) // DOES NOT COMPILE
+   ...
+```
+
+- For the exam, you should know that calling `instanceof` on the `null` literal or a `null` reference always returns `false`.
+
+```java
+System.out.print(null instanceof Object);
+
+Object noObjectHere = null;
+System.out.print(noObjectHere instanceof String);
+```
+
+The preceding examples both print `false`. It almost doesn't matter what the right side of the expression is. We say “almost” because there are exceptions. The last example does not compile, since `null` is used on the right side of the `instanceof` operator:
+
+```java
+System.out.print(null instanceof null);  // DOES NOT COMPILE
+```
+
+- Checking for Unperformed Side Effects: Be wary of short-circuit behavior on the exam, as questions are known to alter a variable on the right side of the expression that may never be reached. This is referred to as an *unperformed side effect*. For example, what is the output of the following code?
+
+```java
+int rabbit = 6;
+boolean bunny = (rabbit >= 6) || (++rabbit <= 7);
+System.out.println(rabbit);
+```
+
+Because `rabbit >= 6` is `true`, the increment operator on the right side of the expression is never evaluated, so the output is `6`.
+
+- **Watch Indentation and Braces** One area where the exam writers will try to trip you up is on `if` statements without braces (`{}`). For example, take a look at this slightly modified form of our example:
+
+```java
+if(hourOfDay < 11)
+   System.out.println("Good Morning");
+   morningGreetingCount++;
+
+/* Based on the indentation, you might be inclined to think the variable morningGreetingCount is only going to be incremented if the hourOfDay is less than 11, but that's not what this code does. It will execute the print statement only if the condition is met, but it will always execute the increment operation.
+```
+
+- **Verifying That the *if* Statement Evaluates to a Boolean Expression** Another common place the exam may try to lead you astray is by providing code where the `boolean` expression inside the `if` statement is not actually a `boolean` expression. For example, take a look at the following lines of code:
+
+```java
+int hourOfDay = 1;
+if(hourOfDay) {  // DOES NOT COMPILE
+   ...
+}
+```
+
+- Be wary of any exam questions in which a variable is declared within the initialization block of a `for` loop and then read outside the loop. For example, this code does not compile because the loop variable `i` is referenced outside the loop:
+
+```java
+for(int i=0; i < 10; i++)
+   System.out.print("Value is: "+i);
+System.out.println(i);  // DOES NOT COMPILE
+```
+
+- When you see a for-each loop on the exam, make sure the right side is an array or `Iterable` object and the left side has a matching type.
+- Java does allow modification of loop variables, but you should be wary if you see questions on the exam that do this. While it is normally straightforward to look at a `for` loop and get an idea of how many times the loop will execute, once we start modifying loop variables, the behavior can be extremely erratic. This is especially true when nested loops are involved
+
+```java
+for(int k=0; k<10; )
+   k++;
+```
+
+- *The exam creators are fond of* `switch` *examples that are missing* `break` *statements!* When evaluating `switch` statements on the exam, always consider that multiple branches may be visited in a single execution.
+- ****Unreachable Code****
+
+```java
+int checkDate = 0;
+while(checkDate<10) {
+   checkDate++;
+   if(checkDate>100) {
+      break;
+      checkDate++;  // DOES NOT COMPILE
+   }
+}
+```
+
+```java
+int minute = 1;
+WATCH: while(minute>2) {
+   if(minute++>2) {
+      continue WATCH;
+      System.out.print(minute);  // DOES NOT COMPILE
+   }
+}
+```
+
+```java
+int hour = 2;
+switch(hour) {
+   case 1: return; hour++;  // DOES NOT COMPILE
+   case 2:
+}
+```

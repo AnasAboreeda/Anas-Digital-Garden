@@ -4,10 +4,10 @@ title: certified kubernetes administrator cka study notes
 metaTitle: Certified Kubernetes Administrator Cka Study Notes | Anas's Digital Garden
 metaDescription: certified kubernetes administrator cka study notes | Anas's Digital Garden
 createdDate: 2023-01-11
-updatedDate: 2023-01-15
+updatedDate: 2023-01-18
 weekNumber: 202302
 category: kubernetes
-tags: ["kubernetes"]
+tags: ["kubernetes", "certified-kubernetes-administrator-cka-study-notes"]
 ---
 
 # Certified Kubernetes Administrator (CKA) Study Notes
@@ -27,14 +27,14 @@ tags: ["kubernetes"]
 
 ![control plane](./images/k8s-control-plane.jpg)
 
-#### The control plane
+#### The Control Plane
 
 - is a collection of multiple components responsible for managing the cluster itself globally.
 - Essentially, the control plane controls the cluster.
 - Individual control plane components can run on any machine in the cluster, but usually are run on dedicated controller
   machines.
 
-#### kube-api-server
+#### Kube-api-server
 
 - serves the Kubernetes API, the primary interface to
 
@@ -43,16 +43,16 @@ tags: ["kubernetes"]
 - is the backend data store for the Kubernetes cluster. It provides high-availability storage for all data relating to
   the state of the cluster.
 
-#### kube-scheduler
+#### Kube-scheduler
 
 - handles scheduling, the process of selecting an available node in the cluster on which to run containers.
 
-#### kube-controller-manager
+#### Kube-controller-manager
 
 - runs a collection of multiple controller utilities in a single process. These controllers carry out a variety of
   automation-related tasks within the Kubernetes cluster.
 
-#### cloud-controller-manager
+#### Cloud-controller-manager
 
 - provides an interface between Kubernetes and various cloud platforms. It is only used when using using cloud-based
   resources alongside Kubernetes.
@@ -72,20 +72,20 @@ tags: ["kubernetes"]
 - Kubelet also handles the process of reporting container status and other data about containers back to the control
   plane.
 
-#### The container runtime
+#### The Container Runtime
 
 - is not built into Kubernetes.
 - It is a separate piece of software that is responsible for actually running containers on the machine.
 - Kubernetes supports multiple container runtime implementations.
 - Some popular container runtimes are Docker and containerd.
 
-#### kube-proxy
+#### Kube-proxy
 
 - is a network proxy.
 - It runs on each node and handles some tasks related to providing networking between containers and services in the
   cluster.
 
-## Building a Kubernetes Cluster with kubeadm
+## Building a Kubernetes Cluster with Kubeadm
 
 ![[lab_diagram_1030_-_S02-LAB01_Building_a_Kubernetes_1.20_Cluster_with_Kubeadm.png]]
 
@@ -103,14 +103,14 @@ br_netfilter
 EOF
 ```
 
-3. Load modules:
+1. Load modules:
 
 ```bash
 sudo modprobe overlay
 sudo modprobe br_netfilter
 ```
 
-4. Set system configurations for Kubernetes networking:
+1. Set system configurations for Kubernetes networking:
 
 ```bash
 cat <<EOF | sudo tee /etc/sysctl.d/99-kubernetes-cri.conf
@@ -120,67 +120,67 @@ net.bridge.bridge-nf-call-ip6tables = 1
 EOF
 ```
 
-5. Apply new settings:
+1. Apply new settings:
 
 ```bash
 sudo sysctl --system
 ```
 
-6. Install containerd:
+1. Install containerd:
 
 ```bash
 sudo apt-get update && sudo apt-get install -y containerd
 ```
 
-7. Create default configuration file for containerd:
+1. Create default configuration file for containerd:
 
 ```bash
 sudo mkdir -p /etc/containerd
 ```
 
-8. Generate default containerd configuration and save to the newly created default file:
+1. Generate default containerd configuration and save to the newly created default file:
 
 ```bash
 sudo containerd config default | sudo tee /etc/containerd/config.toml
 ```
 
-9. Restart containerd to ensure new configuration file usage:
+1. Restart containerd to ensure new configuration file usage:
 
 ```bash
 sudo systemctl restart containerd
 ```
 
-10. Verify that containerd is running.
+1. Verify that containerd is running.
 
 ```bash
 sudo systemctl status containerd
 ```
 
-11. Disable swap:
+1. Disable swap:
 
 ```bash
 sudo swapoff -a
 ```
 
-12. Disable swap on startup in `/etc/fstab`:
+1. Disable swap on startup in `/etc/fstab`:
 
 ```bash
 sudo sed -i '/ swap / s/^\(.*\)$/#\1/g' /etc/fstab
 ```
 
-13. Install dependency packages:
+1. Install dependency packages:
 
 ```bash
 sudo apt-get update && sudo apt-get install -y apt-transport-https curl
 ```
 
-14. Download and add GPG key:
+1. Download and add GPG key:
 
 ```bash
 curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
 ```
 
-15. Add Kubernetes to repository list:
+1. Add Kubernetes to repository list:
 
 ```bash
 cat <<EOF | sudo tee /etc/apt/sources.list.d/kubernetes.list
@@ -188,26 +188,26 @@ deb https://apt.kubernetes.io/ kubernetes-xenial main
 EOF
 ```
 
-16. Update package listings:
+1. Update package listings:
 
 ```bash
 sudo apt-get update
 ```
 
-17. Install Kubernetes packages (Note: If you get a dpkg lock message, just wait a minute or two before trying the
+1. Install Kubernetes packages (Note: If you get a dpkg lock message, just wait a minute or two before trying the
     command again):
 
 ```bash
 sudo apt-get install -y kubelet=1.22.0-00 kubeadm=1.22.0-00 kubectl=1.22.0-00
 ```
 
-18. Turn off automatic updates:
+1. Turn off automatic updates:
 
 ```bash
 sudo apt-mark hold kubelet kubeadm kubectl
 ```
 
-19. Log into both Worker Nodes to perform previous steps.
+1. Log into both Worker Nodes to perform previous steps.
 
 ### Initialize the Cluster
 
@@ -218,7 +218,7 @@ sudo apt-mark hold kubelet kubeadm kubectl
 sudo kubeadm init --pod-network-cidr 192.168.0.0/16 --kubernetes-version 1.22.0
 ```
 
-2. Set kubectl access:
+1. Set kubectl access:
 
 ```bash
 mkdir -p $HOME/.kube
@@ -226,13 +226,13 @@ sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
 sudo chown $(id -u):$(id -g) $HOME/.kube/config
 ```
 
-3. Test access to cluster:
+1. Test access to cluster:
 
 ```bash
 kubectl get nodes
 ```
 
-### Install the Calico Network Add-On
+### Install the Calico Network Add-on
 
 1. On the Control Plane Node, install Calico Networking:
 
@@ -240,7 +240,7 @@ kubectl get nodes
 kubectl apply -f https://docs.projectcalico.org/manifests/calico.yaml
 ```
 
-2. Check status of the control plane node:
+1. Check status of the control plane node:
 
 ```bash
 kubectl get nodes
@@ -255,13 +255,13 @@ kubectl get nodes
 kubeadm token create --print-join-command
 ```
 
-2. In both Worker Nodes, paste the kubeadm join command to join the cluster. Use sudo to run it as root:
+1. In both Worker Nodes, paste the kubeadm join command to join the cluster. Use sudo to run it as root:
 
 ```bash
 sudo kubeadm join ...
 ```
 
-3. In the Control Plane Node, view cluster status (Note: You may have to wait a few moments to allow all nodes to become
+1. In the Control Plane Node, view cluster status (Note: You may have to wait a few moments to allow all nodes to become
    ready):
 
 ```bash
@@ -270,13 +270,13 @@ $ kubectl get nodes
 
 ## Using Namespaces in K8s
 
-### What Is a Namespace?
+### What is a Namespace?
 
 - Namespaces are virtual clusters backed by the same physical cluster.
 - Kubernetes objects, such as pods and containers, live in namespaces.
 - Namespaces are a way to separate and organize objects in your cluster.
 
-### Namespaces commands
+### Namespaces Commands
 
 ```bash
 $ kubectl get namespaces
@@ -305,7 +305,7 @@ $kubectl get pods --all-namespaces
 When using multiple control planes for high availability, you will likely need to communicate with the Kubernetes API
 through a **load balancer**. This includes clients such as **kubelet** instances running on worker nodes.
 
-### Stacked etcd
+### Stacked Etcd
 
 ![stacked-etcd.jpg](./images/stacked-etcd.jpg)
 
@@ -319,11 +319,11 @@ through a **load balancer**. This includes clients such as **kubelet** instances
 
 ## K8s Management Tools
 
-### kubectl
+### Kubectl
 
 **kubectl** is the official command line interface for Kubernetes.
 
-### kubeadm
+### Kubeadm
 
 **kubeadm** is a tool for quickly and easily creating Kubernetes clusters.
 
@@ -349,7 +349,7 @@ and re-use templated configurations for Kubernetes applications.
 
 ## Safely Draining a K8s Node
 
-### What Is Draining?
+### What is Draining?
 
 When performing maintenance, you may sometimes need to remove a Kubernetes node from service. To do this, you can **
 drain** the node. Containers running on the node will be gracefully terminated (and potentially rescheduled on another
@@ -379,7 +379,7 @@ the kubectl uncordon command.
 $ kubectl uncordon <node name>
 ```
 
-## Upgrading K8s with kubeadm
+## Upgrading K8s with Kubeadm
 
 When using Kubernetes, you will likely want to periodically upgrade Kubernetes to keep your cluster up to date.
 
@@ -400,7 +400,7 @@ When using Kubernetes, you will likely want to periodically upgrade Kubernetes t
 - Upgrade kubelet and kubectl.
 - Uncordon the node.
 
-### Performing a Kubernetes Upgrade with kubeadm
+### Performing a Kubernetes Upgrade with Kubeadm
 
 #### Upgrade the Control Plane
 
@@ -411,38 +411,38 @@ When using Kubernetes, you will likely want to periodically upgrade Kubernetes t
 sudo apt-get install -y --allow-change-held-packages kubeadm=1.22.2-00
 ```
 
-2. Make sure it upgraded correctly:
+1. Make sure it upgraded correctly:
 
 ```bash
 [cloud_user@k8s-control]$ kubeadm version
 ```
 
-3. Drain the control plane node:
+1. Drain the control plane node:
 
 ```bash
 [cloud_user@k8s-control]$ kubectl drain k8s-control --ignore-daemonsets
 ```
 
-4. Plan the upgrade:
+1. Plan the upgrade:
 
 ```bash
 [cloud_user@k8s-control]$ sudo kubeadm upgrade plan v1.22.2
 ```
 
-5. Upgrade the control plane components:
+1. Upgrade the control plane components:
 
 ```bash
 [cloud_user@k8s-control]$ sudo kubeadm upgrade apply v1.22.2
 ```
 
-6. Upgrade kubelet and kubectl on the control plane node:
+1. Upgrade kubelet and kubectl on the control plane node:
 
 ```bash
 [cloud_user@k8s-control]$ sudo apt-get update && \
 sudo apt-get install -y --allow-change-held-packages kubelet=1.22.2-00 kubectl=1.22.2-00
 ```
 
-7. Restart kubelet:
+1. Restart kubelet:
 
 ```bash
 [cloud_user@k8s-control]$ sudo systemctl daemon-reload
@@ -452,13 +452,13 @@ sudo apt-get install -y --allow-change-held-packages kubelet=1.22.2-00 kubectl=1
 [cloud_user@k8s-control]$ sudo systemctl restart kubelet
 ```
 
-8. Uncordon the control plane node:
+1. Uncordon the control plane node:
 
 ```bash
 [cloud_user@k8s-control]$ kubectl uncordon k8s-control
 ```
 
-9. Verify the control plane is working:
+1. Verify the control plane is working:
 
 ```bash
 [cloud_user@k8s-control]$ kubectl get nodes
@@ -480,13 +480,13 @@ If it shows a `NotReady` status, run the command again after a minute or so. It 
 
 You may get an error message that certain pods couldn't be deleted, which is fine.
 
-2. In a new terminal window, log in to worker node 1:
+1. In a new terminal window, log in to worker node 1:
 
 ```bash
 ssh cloud_user@<WORKER_1_PUBLIC_IP_ADDRESS>
 ```
 
-3. Upgrade kubeadm on worker node 1:
+1. Upgrade kubeadm on worker node 1:
 
 ```bash
 [cloud_user@k8s-worker1]$ sudo apt-get update && \
@@ -497,20 +497,20 @@ sudo apt-get install -y --allow-change-held-packages kubeadm=1.22.2-00
 [cloud_user@k8s-worker1]$ kubeadm version
 ```
 
-4. Back on _worker node 1_, upgrade the kubelet configuration on the worker node:
+1. Back on _worker node 1_, upgrade the kubelet configuration on the worker node:
 
 ```bash
 [cloud_user@k8s-worker1]$ sudo kubeadm upgrade node
 ```
 
-5. Upgrade kubelet and kubectl on worker node 1:
+1. Upgrade kubelet and kubectl on worker node 1:
 
 ```bash
 [cloud_user@k8s-worker1]$ sudo apt-get update && \
 sudo apt-get install -y --allow-change-held-packages kubelet=1.22.2-00 kubectl=1.22.2-00
 ```
 
-6. Restart kubelet:
+1. Restart kubelet:
 
 ```bash
 [cloud_user@k8s-worker1]$ sudo systemctl daemon-reload
@@ -520,7 +520,7 @@ sudo apt-get install -y --allow-change-held-packages kubelet=1.22.2-00 kubectl=1
 [cloud_user@k8s-worker1]$ sudo systemctl restart kubelet
 ```
 
-7. From the _control plane node_, uncordon worker node 1:
+1. From the _control plane node_, uncordon worker node 1:
 
 ```bash
 [cloud_user@k8s-control]$ kubectl uncordon k8s-worker1
@@ -534,13 +534,13 @@ sudo apt-get install -y --allow-change-held-packages kubelet=1.22.2-00 kubectl=1
 [cloud_user@k8s-control]$ kubectl drain k8s-worker2 --ignore-daemonsets --force
 ```
 
-2. In a new terminal window, log in to worker node 2:
+1. In a new terminal window, log in to worker node 2:
 
 ```bash
 ssh cloud_user@<WORKER_2_PUBLIC_IP_ADDRESS>
 ```
 
-3. Upgrade kubeadm:
+1. Upgrade kubeadm:
 
 ```bash
 [cloud_user@k8s-worker2]$ sudo apt-get update && \
@@ -551,7 +551,7 @@ sudo apt-get install -y --allow-change-held-packages kubeadm=1.22.2-00
 [cloud_user@k8s-worker2]$ kubeadm version
 ```
 
-4. Back on _worker node 2_, perform the upgrade:
+1. Back on _worker node 2_, perform the upgrade:
 
 ```bash
 [cloud_user@k8s-worker2]$ sudo kubeadm upgrade node
@@ -570,16 +570,25 @@ sudo apt-get install -y --allow-change-held-packages kubelet=1.22.2-00 kubectl=1
 [cloud_user@k8s-worker2]$ sudo systemctl restart kubelet
 ```
 
-5. From the _control plane node_, uncordon worker node 2:
+1. From the _control plane node_, uncordon worker node 2:
 
 ```bash
 [cloud_user@k8s-control]$ kubectl uncordon k8s-worker2
 ```
 
-6. Still in the _control plane node_, verify the cluster is upgraded and working:
+1. Still in the _control plane node_, verify the cluster is upgraded and working:
 
 ```bash
 [cloud_user@k8s-control]$ kubectl get nodes
 ```
 
 If they show a `NotReady` status, run the command again after a minute or so. They should become `Ready`.
+
+## REF
+
+- [01-building-a-kubernetes-cluster.pdf](./k8s-study-notes/01-building-a-kubernetes-cluster.pdf)
+- [certified-kubernetes-administrator-all-sections-combined.pdf](./k8s-study-notes/certified-kubernetes-administrator-all-sections-combined.pdf)
+- [s01-introduction.pdf](./k8s-study-notes/s01-introduction.pdf)
+- [s03-l04-safely-draining-a-k8s-node.pdf](./k8s-study-notes/s03-l04-safely-draining-a-k8s-node.pdf)
+- [s03-l05-upgrading-k8s-with-kubeadm.pdf](./k8s-study-notes/s03-l05-upgrading-k8s-with-kubeadm.pdf)
+- [s03-l06-backing-up-and-restoring-etcd-cluster-data.pdf](./k8s-study-notes/s03-l06-backing-up-and-restoring-etcd-cluster-data.pdf)

@@ -1,0 +1,141 @@
+---
+id: 2023-01-18-devops
+title: devops
+metaTitle: Devops | Anas's Digital Garden
+metaDescription: devops | Anas's Digital Garden
+createdDate: 2023-01-18
+updatedDate: 2023-01-18
+weekNumber: 202303
+category: interview_preparation/interview_questions
+tags: ["interview_questions", "devops"]
+---
+
+# Devops
+
+## Dev Ops
+
+- What would you say is a high load average?
+- If you are assigned to work in an organization with a mix of new and legacy applications and technologies, what is the first thing you would do as the new DevOps engineer?
+- If the organization had fully adopted a continuous integration tool and a competitor came out with a slightly better product, what would you recommend that the organization do? Stay with the current tool or switch to the competitor?
+- What does the perfect release look like? Who is involved, and what is your role?
+- If you could improve one thing about the deployment process at your last job, what would it be?
+- When you are committing a new feature, how do you make sure that it will work in production? And, in case something goes wrong, how do you make sure you can detect and solve the issue quickly?
+- What is the best method to deploy software?
+- What's the best way to get five 9s with AWS?
+- A deployment just failed. What steps will you take to remediate the situation?
+- What are the best DevOps tools, and which ones have you used?
+- Do you think it's possible that developers manage the production environment?
+- Discuss your experience building bridges between IT Ops, QA, and development.
+- Are you familiar with just Linux or have you worked with Windows environments as well?
+- Explain what would you check If a Linux-build-server suddenly starts getting slow.
+1. System Level troubleshooting
+	1. RAM related issues
+	2. Disk Space related Issues
+	3. Disk I/O read write issues
+	4. Network Hardware issues
+	5. Mount issues
+	6. Too Many process running in the machine
+2. Application Level troubleshooting
+	1. Application is not behaving properly. Hit to Application log file OR application server log file OR web server Log file and try to understand the issues.
+	2. zombie process issues – Find out if any as such process which is causing the system performance issues.
+	3. Application Log – depends on the application installed, this can be referred and make use of the experience with the project and troubleshoot.
+	4. Web Server Log – we can check http, tomcat log as well.
+	5. Application Server Log – We can see jboss, weblogic logs to see if the application server response/receive time is the issues for slowness.
+	6. Memory Leak of any application – This is one of well known issues in lunux based server due to bad application coding. Many times this can be resolved either by fixing the code or rebooting. But many other solutions are there to apply.
+3. Dependent Services troubleshooting
+	1. SMTP Response time – SMTP server is not responding faster which is causing delay in response and queue up many processes.
+	2. Network issues – There are many System performance issues is dependent on network or service which is depends on the network.
+	3. Firewall related issues
+	4. Antivirus related issues
+
+- Some of the useful commands for troubleshooting are..  
+		1. df –k  
+		2. du –sh  
+		3. top  
+		4. uptime  
+		5. ps –eaf | grep  
+		6. vmstat  
+		7. ping  
+		8. tail –f <logfile>  
+		9. iostat  
+		10. free  
+		11.kill -9  
+		12.mount  
+		13.sar  
+		14.ifconfig eth0 | enable | disable  
+		15.traceroute  
+		[16.netstat](http://16.netstat/) -r  
+		16.nslookup  
+		17.route
+
+- How will you secure Jenkins?
+	- The way I secure Jenkins is mentioned below. If you have any other way of doing it, please mention it in the comments section below:
+		- Ensure global security is on.
+		- Ensure that Jenkins is integrated with my company's user directory with appropriate plugin.
+		- Ensure that matrix/Project matrix is enabled to fine tune access.
+		- Automate the process of setting rights/privileges in Jenkins with custom version controlled script.
+		- Limit physical access to Jenkins data/folders.
+		- Periodically run security audits on same.
+- What are the advantages that Containerization provides over virtualization?
+	- Below are the advantages of containerization over virtualization:
+		- Containers provide real-time provisioning and scalability but VMs provide slow provisioning
+		- Containers are lightweight when compared to VMs
+		- VMs have limited performance when compared to containers
+		- Containers have better resource utilization compared to VMs
+- Discuss your experience building bridges between IT Ops, QA and development.
+
+    DevOps is all about effective communication and collaboration. I've been able to deal with production issues from the development and operations sides, effectively straddling the two worlds. I'm less interested in finding blame or playing the hero than I am with ensuring that all of the moving parts come together.
+
+- What is the one most important thing DevOps helps do?
+
+    The most important thing DevOps helps do is to get the changes into production as quickly as possible while minimizing risks in software quality assurance and compliance. That is the primary objective of DevOps. However, there are many other positive side-effects to DevOps. For example, clearer communication and better working relationships between teams which creates a less stressful working environment.
+
+- What testing is necessary to ensure that a new service is ready for production?
+
+    DevOps is all about continuous testing throughout the process, starting with development through to production. Everyone shares the testing responsibility. This ensures that developers are delivering code that doesn't have any errors and is of high quality, and it also helps everyone leverage their time most effectively.
+
+- What's a PTR in DNS?
+
+    Pointer records are used to map a network interface (IP) to a host name. These are primarily used for reverse DNS. Reverse DNS is setup very similar to how normal (forward) DNS is setup. When you delegate the DNS forward, the owner of the domain tells the registrar to let your domain use specific name servers.
+
+- Describe two-factor authentication?
+
+    Two-factor authentication is a security process in which the user provides two means of identification from separate categories of credentials; one is typically a physical token, such as a card, and the other is typically something memorized, such as a security code.
+
+- How would you prepare for a migration?
+
+    Tips to answer: This question evaluates your experience of real projects with all the awkwardness and complexity they bring. Include terms like cut-over, dress rehearsals, roll-back and roll-forward, DNS solutions, feature toggles, branch by abstraction, and automation in your answer. Developing greenfield systems with little or no existing technology in place is always easier than having to deal with legacy components and configuration. As a candidate if you appreciate that any interesting software system will in effect be under constant migration, you will appear suitable for the role.
+
+- Are you familiar with just Linux or have you worked with Windows environments as well?
+
+    Tips to answer: Demonstrate as much as you can, a clear understanding of both the environments including the key tools.
+
+- How can you reduce load time of a dynamic website?
+
+    Tips to answer: Talk about Webpage optimization, cached web pages, quality web hosting , compressed text files, Apache fine tuning.
+
+- Describe your experience implementing continuous deployment?
+
+    Tips to answer: Answer with a comprehensive list of all the tools that you used. Include inferences of the challenges you faced and how you tackled them.
+
+- How would you ensure traceability?
+
+    Tips to answer: This question probes your attitude to metrics, logging, transaction journeys, and reporting. You should be able to identify that metric, monitoring and logging needs to be a core part of the software system, and that without them, the software is essentially not going to be able to appear maintained and diagnosed. Include words like SysLog, Splunk, error tracking, Nagios, SCOM, Avicode in your answer.
+
+### Company's Task
+
+DevOps Tech Case Zoover & Weeronline
+
+Using Google Container Engine, deploy an application using Helm. The application can be written in any language and/or framework/technology, and has to SECURELY expose the following paths:
+
+- Path: /example-proxy
+
+Content: the proxied content from [http://example.com/](http://example.com/)
+
+- Path: /metrics
+
+Content: prometheus access metrics (latency and number of requests)
+
+BONUS: Install prometheus on the kubernetes cluster and scrape the applications metrics.
+
+Please push all your code to a public git repository with a [README.md](http://readme.md/) on how to use/install.

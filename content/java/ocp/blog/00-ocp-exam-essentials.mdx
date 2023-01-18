@@ -1,0 +1,49 @@
+---
+id: 2023-01-18-00-ocp-exam-essentials
+title: 00 ocp exam essentials
+metaTitle: 00 Ocp Exam Essentials | Anas's Digital Garden
+metaDescription: 00 ocp exam essentials | Anas's Digital Garden
+createdDate: 2023-01-18
+updatedDate: 2023-01-18
+weekNumber: 202303
+category: java/ocp/blog
+tags: ["blog", "00-ocp-exam-essentials"]
+---
+
+# 00 Ocp Exam Essentials
+
+## Day 1
+
+**Be able to write code using a *main() *method.** A main() method is usually written as public static void main(String[] args). Arguments are referenced starting with args[0]. Accessing an argument that wasn't passed in will cause the code to throw an exception.
+
+**Understand the effect of using packages and imports.** Packages contain Java classes. Classes can be imported by class name or wildcard. Wildcards do not look at subdirectories. In the event of a conflict, class name imports take precedence. Package and import statements are optional. If they are present, they both go before the class declaration in that order.
+
+**Be able to recognize a constructor.** A constructor has the same name as the class. It looks like a method without a return type.
+
+**Be able to identify legal and illegal declarations and initialization.** Multiple variables can be declared and initialized in the same statement when they share a type. Local variables require an explicit initialization; others use the default value for that type. Identifiers may contain letters, numbers, currency symbols, or _, although they may not begin with numbers. Also, you cannot define an identifier that is just a single underscore character *. Numeric literals may contain underscores between two digits, such as 1_000, but not in other places, such as *100*.0*.
+
+**Understand how to create text blocks.** A text block begins with ““” on the first line. On the next line begins the content. The last line ends with ““”. If ““” is on its own line, a trailing line break is included.
+
+**Be able to use var correctly.** A var is used for a local variable. A var is initialized on the same line where it is declared, and while it can change value, it cannot change type. A var cannot be initialized with a null value without a type, nor can it be used in multiple variable declarations.
+
+**Be able to determine where variables go into and out of scope.** All variables go into scope when they are declared. Local variables go out of scope when the block they are declared in ends. Instance variables go out of scope when the object is eligible for garbage collection. Class variables remain in scope as long as the program is running.
+
+**Know how to identify when an object is eligible for garbage collection.** Draw a diagram to keep track of references and objects as you trace the code. When no arrows point to a box (object), it is eligible for garbage collection.
+
+---
+
+## Day 2
+
+**Be able to write code that uses Java operators.** This chapter covered a wide variety of operator symbols. Go back and review them several times so that you are familiar with them throughout the rest of the book.
+
+**Be able to recognize which operators are associated with which data types.** Some operators may be applied only to numeric primitives, some only to `boolean` values, and some only to objects. It is important that you notice when an operator and operand(s) are mismatched, as this issue is likely to come up in a couple of exam questions.
+
+**Understand when casting is required or numeric promotion occurs.** Whenever you mix operands of two different data types, the compiler needs to decide how to handle the resulting data type. When you're converting from a smaller to a larger data type, numeric promotion is automatically applied. When you're converting from a larger to a smaller data type, casting is required.
+
+**Understand Java operator precedence.** Most Java operators you'll work with are binary, but the number of expressions is often greater than two. Therefore, you must understand the order in which Java will evaluate each operator symbol.
+
+**Be able to write code that uses parentheses to override operator precedence.** You can use parentheses in your code to manually change the order of precedence.
+
+---
+
+## Day 3

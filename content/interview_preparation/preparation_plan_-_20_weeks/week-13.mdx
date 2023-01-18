@@ -1,0 +1,78 @@
+---
+id: <% tp.file.creation_date('YYYY-MM-DD') %>-<% tp.file.title %>
+title: <% tp.file.title.replace(/-/g, ' ') %>
+metaTitle: <% tp.file.title.replace(/-/g, ' ').replace(/([^\W_]+[^\s-_]+]*) */g, function (txt) {return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();}) %> | Anas's Digital Garden
+metaDescription: <% tp.file.title.replace(/-/g, ' ') %> | Anas's Digital Garden
+createdDate: <% tp.file.creation_date('YYYY-MM-DD') %>
+updatedDate: <% tp.file.last_modified_date('YYYY-MM-DD') %>
+weekNumber: <% tp.file.creation_date('YYYYww') %>
+category: <% tp.file.folder(true) %>
+tags: ["<% tp.file.folder() %>", "<% tp.file.title %>"]
+---
+# Week 13
+
+---
+id: <% tp.file.creation_date('DD/MM/YYYY') %> - <% tp.file.title %>
+created_date: <% tp.file.creation_date('DD/MM/YYYY') %>
+updated_date: <% tp.file.last_modified_date('DD/MM/YYYY') %>
+week_number: <% tp.file.creation_date('YYYYw') %>
+type: Styding Note
+---
+Tags: #Studying #Preparation_Plan #Interview_Preparation #Job_Hunting
+# Week 13
+
+## WEEK #13: SOFT SKILLS: Behavioral interviews continued: Charisma & Describing your technical projects
+
+### Pre reading (due Wed, Feb 3)
+
+- Charisma:
+    - [YouTube: Charisma on Command: How to be charming without trying](https://www.youtube.com/watch?v=ZtqszmRCHFw) (how Emilia Clarke does it)
+- Describing your technical projects:
+    - [Manara's tips](https://docs.google.com/document/d/1Upu0WlcXrvpl1SbbMSxxLoowK9__L4CeGdHxNq6QdSA/edit?usp=sharing)
+- OPTIONAL
+    - Highly recommended
+        - [YouTube: Vanessa Van Edwards: How to be instantly irresistible (based on science!)](https://www.youtube.com/watch?v=wmlzri690-0&list=RDCMUCj9QBB4bNTv29f4oFIreNmw&index=2)
+        - [Don Lok: How to be charismatic on a Zoom call](https://danlok.com/how-to-be-charismatic-on-a-skype-or-zoom-call/)
+        - [Youtube: Watchwellcast: Be a more confident public speaker](https://www.youtube.com/watch?v=tShavGuo0_E)
+    - Also recommended:
+        - [Rosemary Ravinal: Boost your charisma on Zoom with these 7 tips](https://rosemaryravinal.com/boost-your-charisma-on-zoom-with-these-7-tips/)
+        - [Indeed.com: How to develop charisma](https://www.indeed.com/career-advice/career-development/how-to-develop-charisma) in 10 steps
+        - [US News: 9 ways to be an incredibly likable interviewee](https://money.usnews.com/money/careers/articles/2015/03/11/9-ways-to-be-an-incredibly-likable-interviewee)
+
+### Homework (due Wed, Feb 3)
+
+- Charisma
+    - Ask for your mentor to give you feedback & tips regarding your charisma in interviews
+    - In cohort5-collaboration post ***a personal tip or personal question*** regarding how to be charismatic during interviews. Are there any things ***you*** do that work well for you, or struggles/questions you have?
+- Describing your technical projects
+    - Choose 1 project that you will be ready to talk about during our training today (choose a project you're proud of and would likely talk about in an interview). Spend at least 30 minutes researching the technologies you used and alternatives so that you can come into the class ready to describe them.
+    - In cohort5-collaboration answer the question: “What technologies did you use in that project, and why did you use those?”
+
+## WEEK #13: Graph Traversal Part 1 + Pre-reading for GT Part 2
+
+### Pre reading (due Sat, Feb 6)
+
+1. Textbook:
+    1. If you didn't finish reading the section on Graph from last week, make sure you've read and understand the section: Chapter 4 of the [Cracking the Coding Interview](https://drive.google.com/open?id=0B7ERENZtSqGiTGRMMm1zWFduS0E) book. (Page 105 of PDF)
+    2. Read the Topological Sort section (page 632)
+    3. Read the Dijsktra's Algorithm section (page 633)
+2. Online materials:
+    1. Topological Sort (10 minutes): [https://youtu.be/AfSk24UTFS8?t=2515](https://youtu.be/AfSk24UTFS8?t=2515)
+    2. Dijkstra's shortest path algorithm (10 minutes): [https://www.youtube.com/watch?v=pVfj6mxhdMw](https://www.youtube.com/watch?v=pVfj6mxhdMw)
+    3. ~~Bi-directional search:~~
+        1. ~~[https://www.coursera.org/lecture/algorithms-on-graphs/bidirectional-search-t6k1V](https://www.coursera.org/lecture/algorithms-on-graphs/bidirectional-search-t6k1V)~~
+        2. ~~[https://www.coursera.org/lecture/algorithms-on-graphs/six-handshakes-wcPrk](https://www.coursera.org/lecture/algorithms-on-graphs/six-handshakes-wcPrk)~~
+3. OPTIONAL: Previously recorded video lectures/office hours from
+    1. Cohort #3: all videos are [here](https://drive.google.com/open?id=1MOesN_rOwKIBmPzX_IaP-rCaJxPDysq7), please watch the ones on this week's topic
+    2. Cohort #2: all are [here](https://drive.google.com/open?id=1P3Qbz7sWk3vj1KgvaKmwrs_vbMSgnEtw), please read/watch the ones on this week's topic
+
+### Homework (due Sat, Feb 6)
+
+- Solve 10 easy/medium leetcode questions on graph traversal, BFS, or DFS *[Total Leetcode questions due by now = 110]*
+- CodeSignal homework
+    - Here are the links
+        - [Main cohort](https://app.codesignal.com/public-test/8WyY8xjTkhy2LrEFE/kGmDHfNZGEpH4y)
+        - [Auditors](https://app.codesignal.com/public-test/8WyY8xjTkhy2LrEFE/emCkEwxiaNmQ3E)
+    - **Do not open the link** before you are ready to work on it. It will be live for 7 days after you open it, but don't miss the deadline to submit the homework (listed in this document).
+- Do 1 Pramp interview *[total expected by now = 7]*
+    - See instructions [here](https://docs.google.com/document/d/1cHF5HRpX2gRwBl1Y2oSXM-6m0DpS-8pT-aD-_ccuPV0/edit?usp=sharing)

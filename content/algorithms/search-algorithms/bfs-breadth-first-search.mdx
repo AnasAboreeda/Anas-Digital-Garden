@@ -1,28 +1,28 @@
 ---
 id: 2023-01-11-bfs-breadth-first-search
-title: bfs breadth first search
-metaTitle: Bfs Breadth First Search | Anas's Digital Garden
-metaDescription: bfs breadth first search | Anas's Digital Garden
+title: BFS breadth first search
+metaTitle: BFS - Breadth First Search | Anas's Digital Garden
+metaDescription: BFS breadth first search | Anas's Digital Garden
 createdDate: 2023-01-11
-updatedDate: 2023-01-15
+updatedDate: 2023-01-18
 weekNumber: 202302
 category: algorithms/search-algorithms
 tags: ["search-algorithms", "bfs-breadth-first-search"]
 ---
 
-# BFS Breadth First Search
+# Bfs Breadth First search
 
-## When to use BFS?
+## When to Use Bfs?
 
 - To get the shortest path from A to B
 - For graph of unknown or even infinite size, e.g. knight shortest path
 
-## BFS on Tree template
+## Bfs on Tree Template
 
 We can implement BFS using a queue. Important things to remember:
 
 - We need at least one element to kick start the process.
-- Right after we dequeue an element, we’d want to enqueue its children if there are any.
+- Right after we dequeue an element, we'd want to enqueue its children if there are any.
 
 ```python
 from collections import deque
@@ -38,12 +38,12 @@ def bfs_by_queue(root):
     return NOT_FOUND
 ```
 
-## BFS on graph template
+## Bfs on Graph Template
 
 The BFS template consists of two core functions:
 
 1. `bfs`: uses a queue to keep track of the nodes to be visited.
-2. `get_neighbors`: returns a node’s neighbors. In an adjacency list representation, this would be returning the list of neighbors for the node. If the problem is about a matrix, this would be the surrounding valid cells as we will see in the [number of islands](https://www.educative.io/collection/page/5187571686572032/5949303171317760/5701561555615744) and [knight shortest path](https://www.educative.io/collection/page/5187571686572032/5949303171317760/6054014759206912). If the graph is implicit, we have to generate the neighbors as we traverse. We will see this in the [word ladder](https://www.educative.io/collection/page/5187571686572032/5949303171317760/6185495083089920).
+2. `get_neighbors`: returns a node's neighbors. In an adjacency list representation, this would be returning the list of neighbors for the node. If the problem is about a matrix, this would be the surrounding valid cells as we will see in the [number of islands](https://www.educative.io/collection/page/5187571686572032/5949303171317760/5701561555615744) and [knight shortest path](https://www.educative.io/collection/page/5187571686572032/5949303171317760/6054014759206912). If the graph is implicit, we have to generate the neighbors as we traverse. We will see this in the [word ladder](https://www.educative.io/collection/page/5187571686572032/5949303171317760/6185495083089920).
 
 ```java
 import java.util.*;
@@ -80,7 +80,7 @@ def bfs(root):
             visited.add(neighbor)
 ```
 
-## Tracking levels/finding distance
+## Tracking levels/finding Distance
 
 ```java
 import java.util.*;

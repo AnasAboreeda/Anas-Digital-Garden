@@ -1,0 +1,78 @@
+---
+id: <% tp.file.creation_date('YYYY-MM-DD') %>-<% tp.file.title %>
+title: <% tp.file.title.replace(/-/g, ' ') %>
+metaTitle: <% tp.file.title.replace(/-/g, ' ').replace(/([^\W_]+[^\s-_]+]*) */g, function (txt) {return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();}) %> | Anas's Digital Garden
+metaDescription: <% tp.file.title.replace(/-/g, ' ') %> | Anas's Digital Garden
+createdDate: <% tp.file.creation_date('YYYY-MM-DD') %>
+updatedDate: <% tp.file.last_modified_date('YYYY-MM-DD') %>
+weekNumber: <% tp.file.creation_date('YYYYww') %>
+category: <% tp.file.folder(true) %>
+tags: ["<% tp.file.folder() %>", "<% tp.file.title %>"]
+---
+# Week 10
+
+---
+id: <% tp.file.creation_date('DD/MM/YYYY') %> - <% tp.file.title %>
+created_date: <% tp.file.creation_date('DD/MM/YYYY') %>
+updated_date: <% tp.file.last_modified_date('DD/MM/YYYY') %>
+week_number: <% tp.file.creation_date('YYYYw') %>
+type: Styding Note
+---
+Tags: #Studying #Preparation_Plan #Interview_Preparation #Job_Hunting
+# Week 10
+
+## WEEK #10 SOFT SKILLS: Creating your FAANG-style resume
+
+### Assigned reading & videos (due Mon, Jan 11 EOD)
+
+- How to write a Google-style resume/CV
+    - [How to write a killer software engineering resume by Terrence Kuo](https://medium.com/free-code-camp/writing-a-killer-software-engineering-resume-b11c91ef699d)
+    - [Video: Create Your Resume for Google: Tips and Advice (by Google)](https://www.youtube.com/watch?v=BYUy1yvjHxE)
+    - [Manara resume template](https://docs.google.com/document/d/1U-MKDDWXPJNMY2_gs_Xpo2nDEGa21YqF4yjRJ9JfIyE/edit?usp=sharing): read comments carefully!
+    - [Cohort #4](https://drive.google.com/drive/folders/1TnS8IwR-MsLvkBH3FkyvxODtxc0UGotD?usp=sharing) and [Cohort #3](https://drive.google.com/drive/folders/1gHSHoFvjV_xUFOGt_ep2vV1jPRBrkIuX?usp=sharing) resumes: read all of them!
+- OPTIONAL: More resources on questions to ask your interviewers
+    - [Free Code Camp: These are the questions you want to ask during an interview](https://www.freecodecamp.org/news/vital-questions-to-ask-an-interviewer-bonus-question-at-the-end-264bc2caff8d/)
+    - [Big Interview: Questions to ask during an interview”](https://biginterview.com/best-questions-to-ask-end-interview/)
+    - [The Muse: “51 questions you should ask your interviewer”](https://www.themuse.com/advice/51-interview-questions-you-should-be-asking)
+    - [Glassdoor: “Questions to ask an interviewer”](https://www.glassdoor.com/blog/questions-ask-an-interviewer/)
+    - [Hackernoon: “What to ask during an interview”](https://hackernoon.com/what-to-ask-an-interviewer-during-a-tech-interview-865a293e548c)
+
+### Homework (due Tue, Jan 12 EOD)
+
+- Create a subfolder in your folder called “Resume”
+    - All of your resume drafts & related work should go in this folder
+- Create a brainstorm document
+    - In that folder, create a Google document you'll call “Resume brainstorm”
+    - In it, write down all of your ideas regarding what you could potentially include in your resume
+        - Include awards, projects, etc
+        - Include long detailed descriptions of each one
+    - Your brainstorm document should be ~ 2 pages long
+    - The objective of having this is to give your mentor content that they can help you shape into a resume. It's a lot easier for them to start with a lot of content and present it concisely, than for them to get a half-page resume and figure out how to make it longer for you.
+- Create your Google-style resume first draft
+    - Create a Google doc named “First Name Last Name - FAANG resume V1”
+    - Create your resume first draft using [this template](https://docs.google.com/document/d/1U-MKDDWXPJNMY2_gs_Xpo2nDEGa21YqF4yjRJ9JfIyE/edit)
+- Get help from a classmate
+    - Meet with a classmate to improve your resume
+    - Here are the partners:
+## WEEK #10 TECHNICAL: Sorting & Searching Part I + Pre-reading for Sorting & Searching Part II
+
+### Pre-reading on Sorting & Searching (Part II) (due Sat, Jan 16 EOD)
+
+1. Online materials:
+    1. Watch: [Algorithms: Merge Sort](https://www.youtube.com/watch?v=KF2j-9iSf4Q)
+    2. Watch: [Algorithms: Quicksort](https://www.youtube.com/watch?v=SLauY6PpjW4)
+2. OPTIONAL: Previously recorded video lectures/office hours from
+    1. Cohort #3: all videos are [here](https://drive.google.com/open?id=1MOesN_rOwKIBmPzX_IaP-rCaJxPDysq7), please watch the ones on this week's topic
+    2. Cohort #2: all are [here](https://drive.google.com/open?id=1P3Qbz7sWk3vj1KgvaKmwrs_vbMSgnEtw), please read/watch the ones on this week's topic
+
+### Homework on Sorting & Searching (Part I) (due Sat, Jan 16 EOD)
+
+- Solve 10 easy/medium leetcode questions on sorting & searching *[Total Leetcode questions due by now = 90]*
+- CodeSignal homework
+    1. Here are the links
+        1. [Main cohort](https://app.codesignal.com/public-test/6GQcA8ni2gofy6D7M/TmRoEtYbCoLAav)
+        2. [Auditors](https://app.codesignal.com/public-test/6GQcA8ni2gofy6D7M/ZYHjLuqkHcAW8h)
+    2. **Do not open the link** before you are ready to work on it. It will be live for 7 days after you open it, but don't miss the deadline to submit the homework (listed in this document).
+- Do 1 Pramp interview *[total expected by now = 4]*
+    1. See instructions [here](https://docs.google.com/document/d/1cHF5HRpX2gRwBl1Y2oSXM-6m0DpS-8pT-aD-_ccuPV0/edit?usp=sharing).
+

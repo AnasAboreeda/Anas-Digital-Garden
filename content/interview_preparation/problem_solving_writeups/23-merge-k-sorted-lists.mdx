@@ -1,0 +1,120 @@
+---
+id: <% tp.file.creation_date('YYYY-MM-DD') %>-<% tp.file.title %>
+title: <% tp.file.title.replace(/-/g, ' ') %>
+metaTitle: <% tp.file.title.replace(/-/g, ' ').replace(/([^\W_]+[^\s-_]+]*) */g, function (txt) {return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();}) %> | Anas's Digital Garden
+metaDescription: <% tp.file.title.replace(/-/g, ' ') %> | Anas's Digital Garden
+createdDate: <% tp.file.creation_date('YYYY-MM-DD') %>
+updatedDate: <% tp.file.last_modified_date('YYYY-MM-DD') %>
+weekNumber: <% tp.file.creation_date('YYYYww') %>
+category: <% tp.file.folder(true) %>
+tags: ["<% tp.file.folder() %>", "<% tp.file.title %>"]
+---
+# 23 Merge k Sorted Lists
+
+---
+Acceptance Rate: 0.46
+Accepted: 1091307
+Algorithm: Divide and Conquer
+By Myself: Yes
+Created At: January 6, 2022 9:49 AM
+Dificulty: Hard
+Submissions: 2396188
+Submit Count: 2
+Total Time(m): 30
+URL: https://leetcode.com/problems/merge-k-sorted-lists/
+Updated At: January 6, 2022 9:57 AM
+---
+Tags:: #Heap, #Linked_List , #Divide_and_Conquer
+# 23. Merge K Sorted Lists
+
+## Problem Statement
+
+## Solution
+
+```java
+/*
+ * @lc app=leetcode id=23 lang=java
+ *
+ * [23] Merge k Sorted Lists
+ */
+
+// @lc code=start
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode() {}
+ *     ListNode(int val) { this.val = val; }
+ *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+ * }
+ */
+class Solution {
+
+    private ListNode mergeTowLists(ListNode l1, ListNode l2) {
+        ListNode dummy = new ListNode(-1);
+        ListNode prev = dummy;
+
+        while (l1 != null && l2 != null) {
+            if (l1.val <= l2.val) {
+                prev.next = l1;
+                l1 = l1.next;
+            } else {
+                prev.next = l2;
+                l2 = l2.next;
+            }
+            prev = prev.next;
+        }
+
+        if (l1 != null) {
+            prev.next = l1;
+        }
+
+        if (l2 != null) {
+            prev.next = l2;
+        }
+
+        return dummy.next;
+    }
+
+    public ListNode mergeKLists(ListNode[] lists) {
+        if (lists.length > 0) {
+            ListNode res = lists[0];
+
+            for (int i = 1; i < lists.length; i++) {
+                res = mergeTowLists(res, lists[i]);
+            }
+
+            return res;
+        }
+
+        return new ListNode().next;
+    }
+}
+// @lc code=end
+```
+
+## Time Complexity
+
+O(N*K) where
+
+K is the largest List length
+
+N length of the lists array
+
+## Space Complexity
+
+O(1)
+
+## Explanation
+
+Since our task involves multiple lists, you should divide the problem into multiple tasks, starting with the problem of combining two lists at a time. Then, you should combine the result of those first two lists with the third list, and so on, until the very last one is reached.
+
+Let's discuss how we will implement this process:
+
+1. Consider the first list as the result, and store it in a variable.
+2. Traverse the list of lists, starting from the second list, and combine it with the list we stored as a result. The result should get stored in the same variable.
+3. When combining the two lists, like `l1` and `l2`, maintain a `prev` pointer that points to a dummy node.
+4. If the value for list `l1` is less than or equal to the value for list `l2`, connect the previous node to `l1` and increment `l1`. Otherwise, do the same but for list `l2`.
+5. Keep repeating the above step until one list points to a `null` value.
+6. Connect the non-null list to the merged one and return.

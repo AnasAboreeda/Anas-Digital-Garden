@@ -1,0 +1,107 @@
+---
+id: 2023-01-18-template-method
+title: template method
+metaTitle: Template Method | Anas's Digital Garden
+metaDescription: template method | Anas's Digital Garden
+createdDate: 2023-01-18
+updatedDate: 2023-01-18
+weekNumber: 202303
+category: design_patterns/behavioral
+tags: ["behavioral", "template-method"]
+---
+
+# Template Method
+
+## Uml
+
+![](../UMLs/template-method.png)
+
+## Implementation
+
+1. Base class
+
+```java
+public abstract class ComputerManufacturer {
+
+	public void buildComputer() {
+		addHardDesk();
+		addRam();
+		addKeyboard();
+	}
+
+	public abstract void addKeyboard();
+
+	public abstract void addRam();
+
+	public abstract void addHardDesk();
+
+}
+```
+
+1. implementations
+
+```java
+public class DesktopManufacturer extends ComputerManufacturer {
+
+	@Override
+	public void addKeyboard() {
+		System.out.println("adding Desktop Keyboard");
+
+	}
+
+	@Override
+	public void addRam() {
+		System.out.println("adding Desktop Ram");
+
+	}
+
+	@Override
+	public void addHardDesk() {
+		System.out.println("adding Desktop Harddesk");
+
+	}
+
+}
+```
+
+&&
+
+```java
+public class LaptopManufacturer extends ComputerManufacturer {
+
+	@Override
+	public void addKeyboard() {
+		System.out.println("adding laptop Keyboard");
+
+	}
+
+	@Override
+	public void addRam() {
+		System.out.println("adding laptop Ram");
+
+	}
+
+	@Override
+	public void addHardDesk() {
+		System.out.println("adding laptop Harddesk");
+
+	}
+
+}
+```
+
+1. Test
+
+```java
+public class Test {
+
+	public static void main(String[] args) {
+		ComputerManufacturer desktop = new DesktopManufacturer();
+		desktop.buildComputer();
+
+		ComputerManufacturer laptop = new LaptopManufacturer();
+		laptop.buildComputer();
+	}
+
+}
+```

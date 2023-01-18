@@ -1,16 +1,16 @@
 ---
-id: 2022-08-10-divide-and-conquer
+id: 2023-01-11-divide-and-conquer
 title: divide and conquer
 metaTitle: Divide And Conquer | Anas's Digital Garden
 metaDescription: divide and conquer | Anas's Digital Garden
-createdDate: 2022-08-10
-updatedDate: 2023-01-14
+createdDate: 2023-01-11
+updatedDate: 2023-01-18
 weekNumber: 202302
 category: algorithms
 tags: ["algorithms", "divide-and-conquer"]
 ---
 
-# Divide And Conquer
+# Divide and Conquer
 
 **Divide:** Break into non-overlapping subproblems of the same type
 
@@ -22,13 +22,12 @@ tags: ["algorithms", "divide-and-conquer"]
 2. Solve subproblems
 3. Combine results
 
-## Master Theorem[^1]
+## Master Theorem
 
-If $T(n) = aT(⌈\frac{n}{b}⌉) + O(n^d )$ (for constants a > 0, b > 1, d ≥ 0), then:
+If $T(n) = aT(⌈\frac{n}{b}⌉) + O(n^d )$ (for constants a > 0, b > 1, d ≥ 0), then: [^1]
 
 - $T(n) = O(n^d) \quad\quad\quad    if~d~>~log_b~(a)$
 - $T(n) = O(n^d log(n)) \quad if~d~=~log_b~(a)$
 - $T(n) = O(n^{log_b(a)}) \quad if~d~<~log_b~(a)$
-
 
 [^1]: [Master theorem (analysis of algorithms) - Wikipedia](https://en.wikipedia.org/wiki/Master_theorem_(analysis_of_algorithms))

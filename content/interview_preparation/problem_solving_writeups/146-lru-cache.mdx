@@ -1,0 +1,151 @@
+---
+id: <% tp.file.creation_date('YYYY-MM-DD') %>-<% tp.file.title %>
+title: <% tp.file.title.replace(/-/g, ' ') %>
+metaTitle: <% tp.file.title.replace(/-/g, ' ').replace(/([^\W_]+[^\s-_]+]*) */g, function (txt) {return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();}) %> | Anas's Digital Garden
+metaDescription: <% tp.file.title.replace(/-/g, ' ') %> | Anas's Digital Garden
+createdDate: <% tp.file.creation_date('YYYY-MM-DD') %>
+updatedDate: <% tp.file.last_modified_date('YYYY-MM-DD') %>
+weekNumber: <% tp.file.creation_date('YYYYww') %>
+category: <% tp.file.folder(true) %>
+tags: ["<% tp.file.folder() %>", "<% tp.file.title %>"]
+---
+# 146 LRU Cache
+
+---
+Acceptance Rate: 0.39
+Accepted: 948985
+Algorithm: LRU
+By Myself: Yes
+Created At: January 6, 2022 11:48 PM
+Dificulty: medium
+Submissions: 2438715
+Submit Count: 3
+Tags: Design
+Total Time(m): 60
+URL: https://leetcode.com/problems/lru-cache/
+Updated At: January 6, 2022 11:49 PM
+---
+# 146. LRU Cache
+
+## Problem Statement
+
+## Solution
+
+```java
+class LRUCache {
+
+    private int capacity;
+    private Map<Integer, Node> cache;
+    private final Node head = new Node();
+    private final Node tail = new Node();
+
+    public LRUCache(int capacity) {
+        this.capacity = capacity;
+        cache = new HashMap<>();
+        head.next = tail;
+        tail.prev = head;
+    }
+
+    public int get(int key) {
+        int result = -1;
+
+        if (cache.containsKey(key)) {
+            Node node = cache.get(key);
+            remove(node);
+            add(node);
+            result = node.value;
+        }
+
+        return result;
+    }
+
+    public void put(int key, int value) {
+        Node newNode = cache.get(key);
+
+        if (newNode != null) {
+            remove(newNode);
+            newNode.value = value;
+            add(newNode);
+        } else {
+            newNode = new Node();
+            newNode.key = key;
+            newNode.value = value;
+
+            if (cache.size() >= capacity) {
+                cache.remove(head.next.key);
+                remove(head.next);
+            }
+
+            cache.put(key, newNode);
+            add(newNode);
+        }
+        // print();
+    }
+
+    private void remove(Node node) {
+        Node prev = node.prev;
+        Node next = node.next;
+
+        prev.next = next;
+        next.prev = prev;
+    }
+
+    private void add(Node node) {
+        Node prev = tail.prev;
+        prev.next = node;
+
+        node.prev = prev;
+        node.next = tail;
+
+        tail.prev = node;
+    }
+
+    private void print() {
+        Node local = head;
+        while (local != null) {
+            System.out.print("(" + local.key + ", " + local.value + ")");
+            local = local.next;
+        }
+        System.out.println();
+
+        cache
+            .entrySet()
+            .forEach(x -> System.out.println(x.getKey() + ": " + x.getValue().key + ": " + x.getValue().value));
+    }
+
+    class Node {
+
+        int key;
+        int value;
+        Node prev;
+        Node next;
+    }
+
+    public static void main(String[] args) {
+        LRUCache cacheObj = new LRUCache(2);
+
+        cacheObj.put(2, 1);
+        cacheObj.put(1, 1);
+        cacheObj.put(2, 3);
+        cacheObj.put(4, 1);
+
+        int result = cacheObj.get(1);
+        System.out.println(result);
+
+        result = cacheObj.get(2);
+        System.out.println(result);
+    }
+}
+/**
+ * Your LRUCache object will be instantiated and called as such:
+ * LRUCache obj = new LRUCache(capacity);
+ * int param_1 = obj.get(key);
+ * obj.put(key,value);
+ */
+```
+
+## Time Complexity
+
+## Space Complexity
+
+## Explanation

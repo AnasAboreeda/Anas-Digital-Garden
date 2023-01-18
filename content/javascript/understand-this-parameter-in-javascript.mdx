@@ -4,14 +4,15 @@ title: understand this parameter in javascript
 metaTitle: Understand This Parameter In Javascript | Anas's Digital Garden
 metaDescription: understand this parameter in javascript | Anas's Digital Garden
 createdDate: 2023-01-11
-updatedDate: 2023-01-15
+updatedDate: 2023-01-18
 weekNumber: 202302
 category: javascript
 tags: ["javascript", "understand-this-parameter-in-javascript"]
 ---
-# 'This' Parameter in JavaScript
 
-## Q: How to get the actual value of the parameter `this`?
+# 'this' Parameter in JavaScript
+
+## Q: how to Get the Actual Value of the Parameter `this`?
 
 ### Answer
 
@@ -46,7 +47,6 @@ fn(g, b) // this will log => <global> , g, b
 ```
 
 - What if we want to define `this` ourselves without making the method as a property of another object
-
   - **We can do that by using `call` method**
 
 ```javascript
@@ -94,7 +94,7 @@ setTimeout(fn, 100) // this will log => <global>, undefined, undefined
 ```
 
 - consider also this example
-  - The only moment that matter is when the function get invoked not when it is passed, So this will also print
+  - The only moment that matter is when the function get invoked not when it is passed, So this will also print  
     out `global` not `r`
 
 ```javascript

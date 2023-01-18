@@ -1,0 +1,271 @@
+---
+id: 2023-01-18-chapter-06-lambdas-and-functional-interfaces
+title: chapter 06 lambdas and functional interfaces
+metaTitle: Chapter 06 Lambdas And Functional Interfaces | Anas's Digital Garden
+metaDescription: chapter 06 lambdas and functional interfaces | Anas's Digital Garden
+createdDate: 2023-01-18
+updatedDate: 2023-01-18
+weekNumber: 202303
+category: java/ocp/1Z0-819
+tags: ["1Z0-819", "chapter-06-lambdas-and-functional-interfaces"]
+---
+
+# Chapter 06 - Lambdas and Functional Interfaces
+
+## Ocp Exam Objectives
+
+- **Programming Abstractly Through Interfaces**
+    - Declare and use List and ArrayList instances
+    - Understanding Lambda Expressions
+
+## Exam Essentials
+
+**Write simple lambda expressions.** Look for the presence or absence of optional elements in lambda code. Parameter types are optional. Braces and the `return` keyword are optional when the body is a single statement. Parentheses are optional when only one parameter is specified and the type is implicit.
+
+**Identify common functional interfaces.** From a code snippet, identify whether the lambda is a `Comparator`, `Consumer`, `Predicate`, or `Supplier`. You can use the number of parameters and return type to tell them apart.
+
+**Determine whether a variable can be used in a lambda body.** Local variables and method parameters must be effectively final to be referenced. This means the code must compile if you were to add the `final` keyword to these variables. Instance and class variables are always allowed.
+
+**Use common APIs with lambdas.** Be able to read and write code using `forEach()`, `removeIf()`, and `sort()`.
+
+## Lambda Functions
+
+- Lambdas work with ***interfaces that have only one abstract method***. These are called *functional interfaces*.
+
+![Untitled](Java/Java%20SE%2011%20Developer%201Z0-819%20OCP%20Course/Untitled%202.png)
+
+- The parentheses can be omitted only if there is a single parameter ***and*** its type is not explicitly stated.
+
+### Valid Lambdas
+
+```java
+() -> true
+
+a -> a.startsWith("test")
+
+(String a) -> a.startsWith("test")
+
+(a, b) -> a.startsWith("test")
+
+(String a, String b) -> a.startsWith("test")
+```
+
+### Invalid Lambdas that return Boolean
+
+```java
+a, b -> a.startsWith("test")   // Missing parentheses
+a -> { a.startsWith("test"); } // Missing return
+a -> { return a.startsWith("test") } // Missing semicolon
+```
+
+- We mentioned that a functional interface has only one abstract method. Your friend Sam can help you remember this because it is officially known as a **S*ingle Abstract Method (SAM)*** rule.
+
+> ****Note****  
+Java provides an annotation `@FunctionalInterface` on some, but not all, functional interfaces. This annotation means the authors of the interface promise it will be safe to use in a lambda in the future. However, just because you don't see the annotation doesn't mean it's not a functional interface. Remember that having exactly one abstract method is what makes it a functional interface, not the annotation.
+>
+
+## Functional Interfaces
+
+### Predicate
+
+```java
+public interface Predicate<T> {
+   boolean test(T t);
+}
+
+//--------------------Example-------------------------
+
+1:  import java.util.*;
+2:  import java.util.function.*;
+3:  public class PredicateSearch {
+4:     public static void main(String[] args) {
+5:        List<Animal> animals = new ArrayList<Animal>();
+6:        animals.add(new Animal("fish", false, true));
+7:
+8:        print(animals, a -> a.canHop());
+9:     }
+10:    private static void print(List<Animal> animals,
+11:       Predicate<Animal>  checker) {
+12:       for (Animal animal : animals) {
+13:          if (checker.test(animal))
+14:             System.out.print(animal + " ");
+15:       }
+16:       System.out.println();
+17:    }
+18: }
+```
+
+### Consumer
+
+```java
+void accept(T t)
+
+//--------------------Example-------------------------
+
+Consumer<String> consumer = x -> System.out.println(x);
+
+public static void main(String[] args) {
+   Consumer<String> consumer = x -> System.out.println(x);
+   print(consumer, "Hello World");
+}
+private static void print(Consumer<String> consumer, String value) {
+   consumer.accept(value);
+}
+```
+
+### Supplier
+
+- Used to generate values
+
+```java
+T get()
+//--------------------Example-------------------------
+Supplier<Integer> number = () ->  42;
+Supplier<Integer> random = () ->  new Random().nextInt();
+
+public static void main(String[] args) {
+   Supplier<Integer> number = () ->  42;
+   System.out.println(returnNumber(number));
+}
+
+private static int returnNumber(Supplier<Integer> supplier) {
+   return supplier.get();
+}
+```
+
+### Comparator
+
+```java
+int compare(T o1, T o2)
+//--------------------Example-------------------------
+Comparator<Integer> ints = (i1, i2) -> i1 - i2;
+```
+
+## Basic Functional Interfaces
+
+Functional interface | # parameters | Return type
+-|-|-
+Comparator | Two | int
+Consumer | One | void
+Predicate | One | boolean
+Supplier | None | One (type varies)
+
+## Rules for Accessing a Variable from a Lambda Body inside a Method
+
+| Variable type | Rule |
+| --- | --- |
+| Instance variable | Allowed |
+| Static variable | Allowed |
+| Local variable | Allowed if effectively final |
+| Method parameter | Allowed if effectively final |
+| Lambda parameter | Allowed |
+
+## Calling Apis with Lambdas
+
+### removeIf()
+
+`List` and `Set` declare a `removeIf()` method that takes a `Predicate`.
+
+```java
+3: List<String> bunnies = new ArrayList<>();
+4: bunnies.add("long ear");
+5: bunnies.add("floppy");
+6: bunnies.add("hoppy");
+7: System.out.println(bunnies);     // [long ear, floppy, hoppy]
+8: bunnies.removeIf(s -> s.charAt(0) != 'h');
+9: System.out.println(bunnies);     // [hoppy]
+```
+
+### sort()
+
+While you can call `Collections.sort(list)`, you can now sort directly on the list object.
+
+```java
+3: List<String> bunnies = new ArrayList<>();
+4: bunnies.add("long ear");
+5: bunnies.add("floppy");
+6: bunnies.add("hoppy");
+7: System.out.println(bunnies);     // [long ear, floppy, hoppy]
+8: bunnies.sort((b1, b2) -> b1.compareTo(b2));
+9: System.out.println(bunnies);     // [floppy, hoppy, long ear]
+```
+
+NOTE: NO sort options on `Set` or `Map`
+
+### forEach()
+
+Our final method is `forEach()`. It takes a `Consumer` and calls that lambda for each element encountered.
+
+```java
+3: List<String> bunnies = new ArrayList<>();
+4: bunnies.add("long ear");
+5: bunnies.add("floppy");
+6: bunnies.add("hoppy");
+7:
+8: bunnies.forEach(b -> System.out.println(b));
+9: System.out.println(bunnies);
+```
+
+This code prints the following:
+
+```
+long ear
+floppy
+hoppy
+[long ear, floppy, hoppy]
+```
+
+We can use `forEach()` with a `Set` or `Map`. For a `Set`, it works the same way as a `List`.
+
+```java
+Set<String> bunnies = Set.of("long ear", "floppy", "hoppy");
+bunnies.forEach(b -> System.out.println(b));
+```
+
+For a `Map`, you have to choose whether you want to go through the keys or values:
+
+```java
+Map<String, Integer> bunnies =  new HashMap<>();
+bunnies.put("long ear", 3);
+bunnies.put("floppy", 8);
+bunnies.put("hoppy", 1);
+bunnies.keySet().forEach(b -> System.out.println(b));
+bunnies.values().forEach(b -> System.out.println(b));
+```
+
+It turns out the `keySet()` and `values()` methods each return a `Set`. Since we know how to use `forEach()` with a `Set`, this is easy!
+
+## Real-world Scenario
+
+### Using `forEach()` with a Map Directly
+
+You don't need to know this for the exam, but Java has a functional interface called `BiConsumer`. It works just like `Consumer` except it can take two parameters. This functional interface allows you to use `forEach()` with key/value pairs from `Map`.
+
+```java
+Map<String, Integer> bunnies = new HashMap<>();
+bunnies.put("long ear", 3);
+bunnies.put("floppy", 8);
+bunnies.put("hoppy", 1);
+bunnies.forEach((k, v) -> System.out.println(k + " " + v));
+```
+
+## Summary
+
+- Lambda expressions, or lambdas, allow passing around blocks of code. The full syntax looks like this:
+	- `(String a, String b) -> { return a.equals(b); }`
+- The parameter types can be omitted. When only one parameter is specified without a type the parentheses can also be omitted.
+- The braces and `return` statement can be omitted for a single statement, making the short form as follows:
+	- `a -> a.equals(b)`
+- Lambdas are passed to a method expecting an instance of a functional interface.
+- A functional interface is one with a single abstract method.
+	- `Predicate` is a common interface that returns a `boolean` and takes any type.
+	- `Consumer` takes any type and doesn't return a value.
+	- `Supplier` returns a value and does not take any parameters.
+	- `Comparator` takes two parameters and returns an `int`.
+- A lambda can define parameters or variables in the body as long as their names are different from existing local variables.
+- The body of a lambda is allowed to use any instance or class variables.
+- Additionally, it can use any local variables or method parameters that are effectively final.
+- We covered three common APIs that use lambdas.
+	- The `removeIf()` method on a `List` and a `Set` takes a `Predicate`.
+	- The `sort()`method on a `List` interface takes a `Comparator`.
+	- The `forEach()` methods on a `List` and a `Set` interface both take a `Consumer`.

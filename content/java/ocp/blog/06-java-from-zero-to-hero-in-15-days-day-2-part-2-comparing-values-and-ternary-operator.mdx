@@ -1,0 +1,153 @@
+---
+id: 2023-01-18-06-java-from-zero-to-hero-in-15-days-day-2-part-2-comparing-values-and-ternary-operator
+title: 06 java from zero to hero in 15 days day 2 part 2 comparing values and ternary operator
+metaTitle: 06 Java From Zero To Hero In 15 Days Day 2 Part 2 Comparing Values And Ternary Operator | Anas's Digital Garden
+metaDescription: 06 java from zero to hero in 15 days day 2 part 2 comparing values and ternary operator | Anas's Digital Garden
+createdDate: 2023-01-18
+updatedDate: 2023-01-18
+weekNumber: 202303
+category: java/ocp/blog
+tags: ["blog", "06-java-from-zero-to-hero-in-15-days-day-2-part-2-comparing-values-and-ternary-operator"]
+---
+
+# 06 Java — from Zero to Hero in 15 Days — Day 2 - part 2 - Comparing Values & Ternary Operator
+
+## Comparing Values
+
+### Equality Operators
+
+```
+| Operator   | Example   | Apply to primitives                                       | Apply to objects                                                |
+|------------|-----------|-----------------------------------------------------------|-----------------------------------------------------------------|
+| Equality   | a == 10   | Returns true if the two values represent the same value   | Returns true if the two values reference the same object        |
+| Inequality | b != 3.14 | Returns true if the two values represent different values | Returns true if the two values do not reference the same object |
+
+```
+
+### Relational Operators
+
+```
+| Operator                 | Example             | Description                                                                                                                              |
+|--------------------------|---------------------|------------------------------------------------------------------------------------------------------------------------------------------|
+| Less than                | a &lt; 5            | Returns true if the value on the left is strictly less than the value on the right                                                       |
+| Less than or equal to    | b &lt;= 6           | Returns true if the value on the left is less than or equal to the value on the right                                                    |
+| Greater than             | c &gt; 9            | Returns true if the value on the left is strictly greater than the value on the right                                                    |
+| Greater than or equal to | 3 &gt;= d           | Returns true if the value on the left is greater than or equal to the value on the right                                                 |
+| Type comparison          | e instanceof String | Returns true if the reference on the left side is an instance of the type on the right side (class, interface, record, enum, annotation) |
+
+```
+
+### _instanceof_ Operator
+
+It is useful for determining whether an arbitrary object is a member of a particular class or interface at runtime.
+
+```java
+public void openZoo(Number time) {
+	if (time instanceof Integer) {
+		System.out.print((Integer)time + " O'clock");
+	} else {
+		System.out.print(time);
+	}
+}
+```
+
+### Logical Operators
+
+- The logical operators, (`&`), (`|`), and (`^`), may be applied to both numeric and `boolean` data types.
+- When they're applied to `boolean` data types, they're referred to as _logical operators_.
+- Alternatively, when they're applied to numeric data types, they're referred to as _bitwise operators_, as they perform bitwise comparisons of the bits that compose the number.
+- AND is only `true` if both operands are `true`.
+- Inclusive OR is only `false` if both operands are `false`.
+- Exclusive OR is only `true` if the operands are different.
+
+```
+| Operator             | Example   | Description                                                     |
+|----------------------|-----------|-----------------------------------------------------------------|
+| Logical AND          | a & b     | Value is true only if both values are true.                     |
+| Logical inclusive OR | c | d     | Value is true if at least one of the values is true.            |
+| Logical exclusive OR | e ^ f     | Value is true only if one value is true and the other is false. |
+
+```
+
+```java
+
+// Java program to illustrate
+// bitwise operators
+
+public class operators {
+
+	public static void main(String[] args) {
+		// Initial values
+		int a = 5;
+		int b = 7;
+
+		// bitwise and
+		// 0101 & 0111=0101 = 5
+		System.out.println("a&b = " + (a & b));
+
+		// bitwise or
+		// 0101 | 0111=0111 = 7
+		System.out.println("a|b = " + (a | b));
+
+		// bitwise xor
+		// 0101 ^ 0111=0010 = 2
+		System.out.println("a^b = " + (a ^ b));
+
+		// bitwise not
+		// ~00000000 00000000 00000000 00000101=11111111 11111111 11111111 11111010
+		// will give 2's complement (32 bit) of 5 = -6
+		System.out.println("~a = " + ~a);
+
+		// can also be combined with
+		// assignment operator to provide shorthand
+		// assignment
+		// a=a&b
+		a &= b;
+		System.out.println("a= " + a);
+	}
+}
+
+```
+
+### Conditional Operators
+
+```
+| Operator        | Example        | Description                                                                                                               |
+|-----------------|----------------|---------------------------------------------------------------------------------------------------------------------------|
+| Conditional AND | a &amp;&amp; b | Value is true only if both values are true. If the left side is false, then the right side will not be evaluated.         |
+| Conditional OR  | c || d         | Value is true if at least one of the values is true. If the left side is true, then the right side will not be evaluated. |
+
+```
+
+The _conditional operators_, often called short-circuit operators, are nearly identical to the logical operators, `&` and `|`, except that the right side of the expression may never be evaluated if the final result can be determined by the left side of the expression.
+
+#### Avoiding a _NullPointerException_
+
+A more common example of where conditional operators are used is checking for `null` objects before performing an operation. In the following example, if `duck` is `null`, the program will throw a `NullPointerException` at runtime:
+
+```java
+// Could throw a NullPointerException as it will always evaluates both sides of the expression
+if(duck!=null & duck.getAge()<5) {
+	// Do something
+}
+
+// In this example, if `duck` is `null`, the conditional prevents a `NullPointerException` from ever being thrown,
+// since the evaluation of `duck.getAge() < 5` is never reached.
+if(duck!=null && duck.getAge()<5) {
+	// Do something
+}
+```
+
+## Making Decisions with the Ternary Operator
+
+It takes this format
+
+```java
+
+// booleanExpression ? expression1 : expression2
+
+int owl = 5;
+int food = owl < 2 ? 3 : 4;
+
+System.out.println(food); // 4
+```

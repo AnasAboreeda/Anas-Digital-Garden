@@ -1,0 +1,22 @@
+---
+id: 2023-01-18-chapter-02-java-building-blocks
+title: chapter 02 java building blocks
+metaTitle: Chapter 02 Java Building Blocks | Anas's Digital Garden
+metaDescription: chapter 02 java building blocks | Anas's Digital Garden
+createdDate: 2023-01-18
+updatedDate: 2023-01-18
+weekNumber: 202303
+category: java/ocp/1Z0-819
+tags: ["1Z0-819", "chapter-02-java-building-blocks"]
+---
+
+# Chapter 02 - Java Building Blocks
+
+## Exam Essentials
+
+- **Be able to recognize a constructor.** A constructor has the same name as the class. It looks like a method without a return type.
+- **Be able to identify legal and illegal declarations and initialization**. Multiple variables can be declared and initialized in the same statement when they share a type. Local variables require an explicit initialization; others use the default value for that type. Identifiers may contain letters, numbers, $, or _, although they may not begin with numbers. Also, you cannot define an identifier that is just a single underscore character*. Numeric literals may contain underscores between two digits, such as 1_000, but not in other places, such as 100.0*. Numeric literals can begin with 1–9, 0, 0x, 0X, 0b, and 0B, with the latter four indicating a change of numeric base.
+- **Be able to use var correctly.** A var is used for a local variable inside a constructor, a method, or an initializer block. It cannot be used for constructor parameters, method parameters, instance variables, or class variables. A var is initialized on the same line where it is declared, and while it can change value, it cannot change type. A var cannot be initialized with a null value without a type, nor can it be used in multiple variable declarations. Finally, var is not a reserved word in Java and can be used as a variable name.
+- **Be able to determine where variables go into and out of scope**. All variables go into scope when they are declared. Local variables go out of scope when the block they are declared in ends. Instance variables go out of scope when the object is eligible for garbage collection. Class variables remain in scope as long as the program is running.
+- **Know how to identify when an object is eligible for garbage collection.** Draw a diagram to keep track of references and objects as you trace the code. When no arrows point to a box (object), it is eligible for garbage collection.
+- For the exam, you need to know that `System.gc()` is **NOT** guaranteed to run or do anything, and you should be able to recognize when objects become eligible for garbage collection.

@@ -1,0 +1,220 @@
+---
+id: 2023-01-18-sql-summary
+title: sql summary
+metaTitle: Sql Summary | Anas's Digital Garden
+metaDescription: sql summary | Anas's Digital Garden
+createdDate: 2023-01-18
+updatedDate: 2023-01-18
+weekNumber: 202303
+category: sql
+tags: ["sql", "sql-summary"]
+---
+
+# Sql Summary
+
+# Sql Summary
+
+## Basic Commands
+
+| Statement | How to Use It               | Other Details                                         |
+| --------- | --------------------------- | ----------------------------------------------------- |
+| SELECT    | SELECT Col1, Col2,…| Provide the columns you want                          |
+| FROM      | FROM Table                  | Provide the table where the columns exist             |
+| LIMIT     | LIMIT 10                    | Limits based number of rows returned                  |
+| ORDER BY  | ORDER BY Col                | Orders table based on the column. Used with DESC.     |
+| WHERE     | WHERE Col > 5               | A conditional statement to filter your results        |
+| LIKE      | WHERE Col LIKE '%me%'       | Only pulls rows where column has 'me' within the text |
+| IN        | WHERE Col IN ('Y', 'N')     | A filter for only rows with column of 'Y' or 'N'      |
+| NOT       | WHERE Col NOT IN ('Y', 'N') | NOT is frequently used with LIKE and IN               |
+| AND       | WHERE Col1 > 5 AND Col2 < 3 | Filter rows where two or more conditions must be true |
+| OR        | WHERE Col1 > 5 OR Col2 < 3  | Filter rows where at least one condition must be true |
+| BETWEEN   | WHERE Col BETWEEN 3 AND 5   | Often easier syntax than using an AND                 |
+
+## Joins
+
+The three **JOIN** statements you are most likely to use are:
+
+1. **JOIN** - an **INNER JOIN** that only pulls data that exists in both tables.
+2. **LEFT JOIN** - pulls all the data that exists in both tables, as well as all of the rows from the table in the **FROM** even if they do not exist in the **JOIN** statement.
+3. **RIGHT JOIN** - pulls all the data that exists in both tables, as well as all of the rows from the table in the **JOIN** even if they do not exist in the **FROM** statement.
+
+```SQL
+SELECT c.countryid, c.countryName, s.stateName
+FROM Country c
+LEFT JOIN State s
+ON c.countryid = s.countryid;
+```
+
+### Cross Join
+
+- The SQL CROSS JOIN produces a result set which is the number of rows in the first table multiplied by the number of rows in the second table if no WHERE clause is used along with CROSS JOIN.This kind of result is called as **Cartesian Product**.
+- If WHERE clause is used with CROSS JOIN, it functions like an INNER JOIN.
+
+```SQL
+SELECT *
+FROM table1
+CROSS JOIN table2;
+
+
+SELECT foods.item_name,foods.item_unit,
+company.company_name,company.company_city
+FROM foods
+CROSS JOIN company;
+
+
+SELECT foods.item_name,foods.item_unit,
+company.company_name,company.company_city
+FROM foods,company;
+
+```
+
+![](Studying/SQL/Pasted%20image%2020221012143323.png)
+
+### Sql Self Join
+
+- A self join is a regular join, but the table is joined with itself.
+
+```SQL
+SELECT _column_name(s)_
+FROM _table1 T1, table1 T2_
+WHERE _condition_;
+```
+
+ - The following SQL statement matches customers that are from the same city:
+
+```SQL
+SELECT A.CustomerName AS CustomerName1, B.CustomerName AS CustomerName2, A.City
+FROM Customers A, Customers B
+WHERE A.CustomerID <> B.CustomerID
+AND A.City = B.City
+ORDER BY A.City;
+```
+
+## Union Operator
+
+The `UNION` operator is used to combine the result-set of two or more `SELECT` statements.
+
+- Every `SELECT` statement within `UNION` must have the same number of columns
+- The columns must also have similar data types
+- The columns in every `SELECT` statement must also be in the same order
+
+```SQL
+SELECT column_name(s) FROM table1
+UNION
+SELECT column_name(s) FROM table2;
+```
+
+### Union All Syntax
+
+The `UNION` operator selects only distinct values by default. To allow duplicate values, use `UNION ALL`:
+
+```SQL
+SELECT column_name(s) FROM table1
+UNION ALL
+SELECT column_name(s) FROM table2;
+```
+
+```SQL
+SELECT City, Country FROM Customers
+WHERE Country='Germany'
+UNION ALL
+SELECT City, Country FROM Suppliers
+WHERE Country='Germany'
+ORDER BY City;
+```
+
+- Notice the "AS Type" above - it is an alias. [SQL Aliases](https://www.w3schools.com/sql/sql_alias.asp) are used to give a table or a column a temporary name.
+- An alias only exists for the duration of the query.
+- So, here we have created a temporary column named "Type", that list whether the contact person is a "Customer" or a "Supplier".
+
+```SQL
+SELECT 'Customer' AS Type, ContactName, City, Country
+FROM Customers
+UNION
+SELECT 'Supplier', ContactName, City, Country
+FROM Suppliers;
+```
+
+## Aggregates
+
+### Count
+
+- counting the number of rows in a particular column.
+
+```SQL
+SELECT COUNT(*) FROM tutorial;
+```
+
+- provide a count of all of rows in which the `high` column **is not null**.
+
+```SQL
+SELECT COUNT(high) FROM tutorial;
+```
+
+### Sum
+
+- totals the values in a given column
+- You don't need to worry as much about the presence of nulls with `SUM` as you would with `COUNT`, as `SUM` treats nulls as 0.
+
+```SQL
+SELECT SUM(volume) FROM tutorial
+```
+
+### Min & Max
+
+- return the lowest and highest values in a particular column.
+- They're similar to COUNT in that they can be used on non-numerical columns.
+- Depending on the column type, `MIN` will return the lowest number, earliest date, or non-numerical value as close alphabetically to "A" as possible.
+- As you might suspect, `MAX` does the opposite—it returns the highest number, the latest date, or the non-numerical value closest alphabetically to "Z."
+
+```SQL
+SELECT
+	MIN(volume) AS min_volume,
+	MAX(volume) AS max_volume
+FROM tutorial
+```
+
+## Normalization
+
+### First Normal Form (1NF)
+
+1. Single valued columns (each column should have atomic value, no multiple values)
+2. Column domain (for any column) should not change.
+3. Unique names for columns.
+4. Order (of rows/columns) does not matter.
+5. No duplicate records (every record has a primary key).
+
+### Second Normal Form (2NF)
+
+For a table to be in second normal form, the following 2 conditions must be met:
+
+1. The table should be in the first normal form.
+2. The primary key of the table should have exactly 1 column. (OR) No non-prime column that is not a part of primary key should be functionally dependent on any proper subset of a candidate key. In other words, there should be No partial dependency (no column should depend on the part of the primary key).
+
+#### The Concept of a Functional Dependency on a Table
+
+```
+>Functional dependency: Denoted with A => B.
+ A and B are columns of a table. An oversimplified explanation of Function dependency is as follows.
+If I know a value in column A then I for sure know the value in column B but the reverse is not true.
+E.g. A is student number and B is student name.
+I can tell the name of the student from student number, but
+I cannot tell the student number from the name because there could be multiple students with the same name.
+```
+
+- Column A is said to be functionally dependent on column B if changing the value of A may require a change in the value of B.
+
+### Third Normal Form (3NF)
+
+- No transitive dependency (i.e. no column should depend on non-key column).
+
+### Boyce-codd Normal Form (BCNF)
+
+The Boyce-Codd Normal form is a stronger generalization of the third normal form. A table is in Boyce-Codd Normal form if and only if at least one of the following conditions are met for each functional dependency A → B:
+
+- A is a superkey
+- It is a trivial functional dependency.
+
+### Fourth Normal Form 4NF (3NF + rule)
+
+- No multi-value dependency.

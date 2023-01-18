@@ -1,0 +1,338 @@
+---
+id: 2023-01-18-booking-com-preparation
+title: booking com preparation
+metaTitle: Booking Com Preparation | Anas's Digital Garden
+metaDescription: booking com preparation | Anas's Digital Garden
+createdDate: 2023-01-18
+updatedDate: 2023-01-18
+weekNumber: 202303
+category: interview_preparation
+tags: ["interview_preparation", "booking-com-preparation"]
+---
+
+# Booking Com Preparation
+
+#1 I was share a list of table row with data in each row as`#hotel_Id` | # hotel_name | # city. I was asked to return the list of confusing city where a confusing city is the one in which the same hotel name appeared more than 3 times. Like a mentioned, the description was pretty verbose and I have tried to make out this as the problem to solve and interview agreed. I solved it in next 20 mins & then asked a bit of optimisation and interviewer seems satisfied.
+
+#2 The problem was similar to reversing the words in a character similar to (variation of the problem) - [https://leetcode.com/problems/reverse-words-in-a-string-ii/](https://leetcode.com/problems/reverse-words-in-a-string-ii/). I was able to solve it but missed one edge case due to the way i defined the indexes in the code.
+
+---
+
+1. Given a string "ABC#DD#E", for every # consider it as a back space. Output the final string. For example, in the above string answer will be "ABDE". SImilary "A##BB#E##F" will output "F" (Use stack)
+    1. This was extended saying if you see @ consider it as a redo, how do you implement it. For example, A#@BB#E#F will output "ABF"
+2. Given a stream of rows in the following format, find the cities which has 3 or more hotels with same namehotelId, hotel Name, City Name
+3. Given a list of flights between destinations something of the following order: (Following table is not exact in the question, I don't remember the exact figures, this is to just explain the format)
+    1. Amsterdam -> Paris on August 10, Price - 300 euros
+    2. London -> Paris on August 15, Price - 410 euros
+    3. Paris -> London on August 13, Price - 300 euros
+    4. London -> Amsterdam on August 17, Price - 400 euros
+
+Hotel cost per night:
+
+1. Amsterdam - 400 euros
+2. Paris - 500 euros
+3. London - 300 euros
+
+Find the longest itinerary possible (in terms of the duration) given a upper cap on the budget, say 5000 euros.
+
+(You need to use DFS, I explained them the solution, but was too tired that day so couldn't implement it properly)
+
+---
+
+- Graph based question on finding Top K closest hotels from a start point.
+1. Rotate the string based on the given integer values for leftshift and rightshift, all test cases passed.
+2. Given array of integers representing where cars are parked, find out the min length required to cover the roof of k cars, all test cases passed..
+3. Given positive and negative words, hotels and their reviews, return top K hotel based on the reviews. (frequently asked question for [booking.com](http://booking.com/)) , all test cases passed except one.
+
+---
+
+In technical round, 3 engineers joined and posted two question. The duration was 1Hr.
+
+    Implement Backspacing.i/p -> "abc#def##"o/p -> "abd"
+
+    Say we got the black box from airoplace crach, There is huge set of log files with contents unsorted. We need to fetch the lastet half an hour log. desig an suitable algorithm to fetch lastest half an hour log statement. the formate of log statement would be`<DD-MM-YYYY HH:MM:SS:sss> <LogStatement>`example - `02-01-2014 10:02:01:001 abcd`
+
+Following this round, there was one more recruiter round explain about the feedback and they invited to Amsterdam.
+
+The Onsite interview had
+
+1. a recruiter round, where you can clarify all your HR queries.
+2. a technical round to test the coding skill. There was only one question asked and time to solve as 40 mins.
+
+Data set to work on =>
+
+```json
+{
+
+	176 : 	[
+				{
+					"price" : 120,
+					"features" : ["breakfast", "refundable"],
+					"availbility" : 5
+				}
+			],
+	177 : 	[
+				{
+					"price" : 130,
+					"features" : ["breakfast"],
+					"availbility" : 1
+				},
+				{
+					"price" : 140,
+					"features" : ["breakfast", "refundable", "wifi"],
+					"availbility" : 3
+				}
+			],
+	178 : 	[
+				{
+					"price" : 130,
+					"features" : ["breakfast"],
+					"availbility" : 2
+				},
+				{
+					"price" : 140,
+					"features" : ["breakfast", "refundable", "wifi"],
+					"availbility" : 10
+				}
+			]
+}
+
+```
+
+Given above data map set, design an algorithm to get below output for below given input
+
+I/P =>
+
+```json
+{
+	"checkin" : 176,
+	"checkout" : 178,
+	"features" : ["breakfast"]
+	"rooms"    : 1
+
+}
+
+```
+
+o/P =>
+
+```json
+[
+	{
+		"price" : 250,
+		"features" : ["breakfast"],
+		"availbility" : 1
+	},
+	{
+		"price" : 260,
+		"features" : ["breakfast", "refundable"],
+		"availbility" : 3
+	}
+]
+```
+
+```java
+public class HotelRooms {
+public static void main(String[] args) {
+
+	Map<Integer, List<Room>> datasource = getDataSource();
+
+	Filter filter = new Filter();
+	List<String> features = new ArrayList<>();
+	features.add("breakfast");
+	filter.checkin=176;
+	filter.checkout=178;
+	filter.features = features;
+	filter.rooms = 1;
+
+	List<Room> result = getRooms(datasource, filter);
+
+	System.out.println(result.toString());
+}
+
+public static List<Room> getRooms(Map<Integer, List<Room>> dataSource, Filter filter){
+
+	List<Room> result = new ArrayList<>();
+	List<Room> firstDay =  dataSource.get(filter.checkin);
+
+	for(Room room : firstDay) {
+
+                    //add room suitable utillty here
+		backtrack(dataSource, result, room, filter.checkin + 1, filter.checkout);
+	}
+
+	return result;
+}
+
+public static void backtrack(Map<Integer, List<Room>> dataSource, List<Room> result, Room current, int checkin, int checkout) {
+
+	if(checkin == checkout) {
+		Room add = new Room(current.price, current.features, current.availbility);
+		result.add(add);
+		return;
+	}
+
+	List<Room> nextDay =  dataSource.get(checkin);
+	for(Room room : nextDay) {
+                    //add room suitable utillty here
+		current.price +=room.price;
+		backtrack(dataSource, result, current, checkin + 1, checkout);
+		current.price -=room.price;
+
+	}
+
+
+}
+
+public static Map<Integer, List<Room>> getDataSource(){
+
+	Map<Integer, List<Room>> dataSource = new HashMap<>();
+
+	List<String> features = new ArrayList<>();
+	features.add("breakfast");
+	features.add("refundable");
+
+	List<Room> roomList = new ArrayList<>();
+	roomList.add(new Room(120, features, 5));
+	dataSource.put(176, roomList);
+
+
+
+	roomList = new ArrayList<>();
+	roomList.add(new Room(130, features, 1));
+	roomList.add(new Room(140, features, 3));
+	dataSource.put(177, roomList);
+
+	roomList = new ArrayList<>();
+	roomList.add(new Room(130, features, 1));
+	roomList.add(new Room(140, features, 3));
+	dataSource.put(178, roomList);
+
+	return dataSource;
+
+}
+
+public static class Room{
+
+	public int price;
+	public List<String> features;
+	public int availbility;
+
+	public Room(int price, List<String> features,int availbility) {
+		this.price = price;
+		this.features = features;
+		this.availbility = availbility;
+	}
+}
+
+public static class Filter{
+	public int checkin;
+	public int checkout;
+	public List<String> features;
+	public int rooms;
+}
+```
+
+1. The next round was system design round. Below question was posted to me by two engineers.`Booking.com has close to 1M booking per day. When user makes a reservation in a hotel, he chooses a room and confirms his reservation and they get the CC details. The Payment can happen in two ways, Either Booking.com charges the payment or pass the CC details to hotel partener and let the partner capture the transaction when user uses the hotel. Consider that we have a external system called fred, which gets us the list of fraudulent CC's. Design a system to identify if a reservation was made using a fraudulent CC considerting both the mode of payments`
+2. The last round was FIT round to know your commercial awareness by a Senior Manager.
+
+---
+
+Given a list of hotelId, parentHotelId and a score retrieve the top k root parentHotelIds with highest scores:
+
+[{0, 1, 10}, {1, 2, 20}, {3, 4, 10}, {7, 8, 5}] K = 2
+
+Result: [[2-30-410]]
+
+---
+
+1. Given 4 input in form of (x,y,z,n) return numbers in range [1,n] where n is included which are multiple of x or y but not z. For example (3,4,5,12) answer would be [3,4,6,8,9,12]
+2. Given 2 list of numbers return numbers numbers not in list 1 but present in list 2. For example list1 = [1,2,3,4] and list2 = [0,1,2,3,4]; answer would be [0]
+3. Given timestamp in form of [id, starttime , endtime] return employee who take less than k break between calls along with their no. of breaks.For example [1,0,2], [2, 0, 2] , [1,2,3], [2,3,4] and k= 1 the answer would be [1,0]
+4. Famous award top k hotels
+
+---
+
+Find the top K closest hotels within a price range. In the input grid 0 means a blocker which you can't pass through, 1 means road which you can use to navigate, any value above 1 is the price of the hotel located at x,y. You will be given this grid, price range and origin coordinates. You should return K hotels within price range and closest to the given origin.
+
+Input:[[120113010251]]
+
+```java
+public List<Integer> getClosestHotel(int[][] grid,int x,int y, int price_range,int k){
+        List<Integer> result=new ArrayList<>();
+        boolean[][] isVisited=new boolean[grid.length][grid[0].length];
+        Queue<int[]> queue = new LinkedList<>();
+        queue.add(new int[]{x,y});
+        isVisited[x][y] = true;
+        queue.add(null);
+        int counter=0;
+        while(!queue.isEmpty() && counter<k) {
+            int[] temp = queue.poll();
+            if (temp == null) {
+                counter++;
+                if (queue.size() > 0)
+                    queue.add(null);
+            } else {
+                List<int[]> adj = getAdj(grid, temp[0], temp[1], isVisited);
+                for (int[] value : adj) {
+                    if (grid[value[0]][value[1]] != 0) {
+                        if (grid[value[0]][value[1]] > 1 && grid[value[0]][value[1]] <= price_range) {
+                            result.add(grid[value[0]][value[1]]);
+                        }
+                        queue.add(value);
+                    }
+                }
+            }
+        }
+        return result;
+    }
+    int[][] dirs={{1,0},{-1,0},{0,1},{0,-1}};
+    public List<int[]> getAdj(int[][] grid,int x,int y,boolean [][] isVisited){
+        List<int[]>result=new ArrayList<>();
+        for(int[] dir:dirs){
+            if(x+dir[0]>=0 && x+dir[0]<grid.length && y+dir[1]>=0 && y+dir[1]<grid[0].length && !isVisited[x+dir[0]][y+dir[1]]){
+                isVisited[x+dir[0]][y+dir[1]]=true;
+                if(grid[x+dir[0]][y+dir[1]]!=0){
+                    int[] a = new int[2];
+                    a[0]=x+dir[0];
+                    a[1]=y+dir[1];
+                    result.add(a);
+                }
+            }
+        }
+        return result;
+    }
+```
+
+---
+
+There's a high percentage of identical files and folders in the storage and we want to compact it. As a solution we decided to find all identical folder structures, deduplicate and create symbolic links to the only copy.
+
+2 folders are identical if they contain an identical set of files and subfolders. 2 files are identical if they have the same name.
+
+![https://assets.leetcode.com/users/images/c097343d-50b1-4ab3-b584-33616bb0f304_1624464957.7474563.png](https://assets.leetcode.com/users/images/c097343d-50b1-4ab3-b584-33616bb0f304_1624464957.7474563.png)
+
+In the example above folder bar/baz/boo is identical to bar/fizz/buzz and foo/boo; also bar/baz is identical to foo. Write a program to de-duplicate identical structures on the disk.
+
+---
+
+Given log = [{ 'user': '1', 'page': 'A'},{ 'user': '2 ', 'page': 'B'},{ 'user': '1', 'page': 'B'},{ 'user': '1', 'page': 'D'},{ 'user': '2', 'page': 'A'},{ 'user': '3', 'page': 'B'},{ 'user': '3', 'page': 'D'},{ 'user': '1', 'page': 'C'},{ 'user': '3', 'page': 'C'},{ 'user': '1', 'page': 'C'},{ 'user': '2', 'page': 'C'},{ 'user': '3', 'page': 'B'},{ 'user': '1', 'page': 'A'},{ 'user': '3', 'page': 'C'},]
+
+We need to find the sequence of pages of length 3, that is the most popular.
+
+ex:user 1 visits: A, B, D, C, A
+
+user 2 visits: B, A, C
+
+user 3 visits: B, D, C, B, C
+
+Possible consecutive sequences: ABD, BDC, DCA, BAC, DCB, CBC
+
+The most popular is BDC, since user 1 and user 3 visit that sequence
+
+Time complexity: ?Memory complexity: ?
+
+---
+
+- id, hotel, name sort it. very easy
+- max size recursive from folder

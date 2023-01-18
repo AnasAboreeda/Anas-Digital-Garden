@@ -1,0 +1,195 @@
+---
+id: 2023-01-18-05-java-from-zero-to-hero-in-15-days-day-2-part-1-java-operators
+title: 05 java from zero to hero in 15 days day 2 part 1 java operators
+metaTitle: 05 Java From Zero To Hero In 15 Days Day 2 Part 1 Java Operators | Anas's Digital Garden
+metaDescription: 05 java from zero to hero in 15 days day 2 part 1 java operators | Anas's Digital Garden
+createdDate: 2023-01-18
+updatedDate: 2023-01-18
+weekNumber: 202303
+category: java/ocp/blog
+tags: ["blog", "05-java-from-zero-to-hero-in-15-days-day-2-part-1-java-operators"]
+---
+
+# 05 Java — from Zero to Hero in 15 Days — Day 2 - part 1 - Java Operators
+
+A Java _operator_ is a special symbol that can be applied to a set of variables, values, or literals—referred to as operands—and that returns a result. The term _operand_, which we use throughout this chapter, refers to the value or variable the operator is being applied to.
+
+## Types of Operators
+
+Java supports three flavors of operators: unary, binary, and ternary. These types of operators can be applied to one, two, or three operands, respectively.
+
+## Operator Precedence
+
+Determining which operators are evaluated in what order is referred to as _operator precedence_. In this manner, Java more closely follows the rules for mathematics.
+
+```java
+var perimeter = 2 * height + 2 * length;
+
+// how the compiler evaluates this expression
+// The multiplication operator (`*`) has a higher precedence than the addition operator (`+`),
+
+var perimeter = ((2 * height) + (2 * length));
+
+```
+
+## Order of Operator Precedence
+
+```
+| Operator                        | Symbols and examples                                                       | Evaluation    |
+|---------------------------------|----------------------------------------------------------------------------|---------------|
+| Post-unary operators            |  expression++, expression--                                                | Left-to-right |
+| Pre-unary operators             | ++expression, --expression                                                 | Left-to-right |
+| Other unary operators           | -, !, ~, +, (type)                                                         | Right-to-left |
+| Cast                            | (Type)reference                                                            | Right-to-left |
+| Multiplication/division/modulus | *, /, %                                                                    | Left-to-right |
+| Addition/subtraction            | +, -                                                                       | Left-to-right |
+| Shift operators                 | `<<`, `>>`, `>>>`                                                          | Left-to-right |
+| Relational operators            | `<`, `>`, `<=`, `>=`, `instanceof`                                         | Left-to-right |
+| Equal to/not equal to           | ==, !=                                                                     | Left-to-right |
+| Logical AND                     | &                                                                          | Left-to-right |
+| Logical exclusive OR            | ^                                                                          | Left-to-right |
+| Logical inclusive OR            | |                                                                          | Left-to-right |
+| Conditional AND                 | `&&`                                                                       | Left-to-right |
+| Conditional OR                  | ||                                                                         | Left-to-right |
+| Ternary operators               |  boolean expression ? expression1 : expression2                            | Right-to-left |
+| Assignment operators            | `=`, `+=`, `-=`, `*=`, `/=`, `%=`, `&=`, `^=`, `|=`, `<<=`, `>>=`, `>>>=`  | Right-to-left |
+| Arrow operator                  | ->                                                                         | Right-to-left |
+
+```
+
+## Unary Operators
+
+By definition, a _unary_ operator is one that requires exactly one operand, or variable, to function.
+
+```
+| Operator           | Examples  | Description                                                                                                                         |
+|--------------------|-----------|-------------------------------------------------------------------------------------------------------------------------------------|
+| Logical complement | !a        | Inverts a boolean's logical value                                                                                                   |
+| Bitwise complement | ~b        | Inverts all 0s and 1s in a number                                                                                                   |
+| Plus               | +c        | Indicates a number is positive, although numbers are assumed to be positive in Java unless accompanied by a negative unary operator |
+| Negation or minus  | -d        | Indicates a literal number is negative or negates an expression                                                                     |
+| Increment          | ++ef++    | Increments a value by 1                                                                                                             |
+| Decrement          | --fh--    | Decrements a value by 1                                                                                                             |
+| Cast               | (String)i | Casts a value to a specific type                                                                                                    |
+
+```
+
+### Increment and Decrement Operators
+
+```
+| Operator       | Example | Description                                             |
+|----------------|---------|---------------------------------------------------------|
+| Pre-increment  | ++w     | Increases the value by 1 and returns the new value      |
+| Pre-decrement  | --x     | Decreases the value by 1 and returns the new value      |
+| Post-increment | y++     | Increases the value by 1 and returns the original value |
+| Post-decrement | z--     | Decreases the value by 1 and returns the original value |
+
+```
+
+## Binary Arithmetic Operators
+
+- _Binary operators_ take two operands.
+- They can be used to perform mathematical operations on variables, create logical expressions, and perform basic variable assignments.
+- Binary operators are often combined in complex expressions with other binary operators; therefore, operator precedence is very important in evaluating expressions containing binary operators.
+
+```
+| Operator       | Example | Description                                                          |
+|----------------|---------|----------------------------------------------------------------------|
+| Addition       | a + b   | Adds two numeric values                                              |
+| Subtraction    | c - d   | Subtracts two numeric values                                         |
+| Multiplication | e * f   | Multiplies two numeric values                                        |
+| Division       | g / h   | Divides one numeric value by another                                 |
+| Modulus        | i % j   | Returns the remainder after division of one numeric value by another |
+```
+
+### Order of Evaluation
+
+From the Order of Operator Precedence section you know that the _multiplicative_ operators (`*`, `/`, `%`) have a higher order of precedence than the _additive_ operators (`+`, `-`).
+
+```java
+int price = 2 * 5 + 3 * 4 - 8;
+
+// First, you evaluate the `2 * 5` and `3 * 4`, which reduces the expression to this:
+
+int price = 10 + 12 - 8; // price = 14
+```
+
+### Adding Parentheses
+
+You can change the order of operation explicitly by wrapping parentheses around the sections you want evaluated first.
+
+```java
+int price = 2 * ((5 + 3) * 4 - 8);
+// This time you would evaluate the addition operator `5 + 3`, which reduces the expression to the following:
+int price = 2 * (8 * 4 - 8);
+// You can further reduce this expression by multiplying the first two values within the parentheses:
+int price = 2 * (32 - 8);
+// Next, you subtract the values within the parentheses before applying terms outside the parentheses:
+int price = 2 * 24; // price = 48
+```
+
+### Division and Modulus Operators
+
+```java
+System.out.println(9 / 3); // 3
+System.out.println(9 % 3); // 0
+
+System.out.println(10 / 3); // 3
+System.out.println(10 % 3); // 1
+```
+
+### Numeric Promotion
+
+**Numeric Promotion Rules**
+
+1. If two values have different data types, Java will automatically promote one of the values to the larger of the two data types.
+2. If one of the values is integral and the other is floating-point, Java will automatically promote the integral value to the floating-point value's data type.
+3. Smaller data types, namely, `byte`, `short`, and `char`, are first promoted to `int` any time they're used with a Java binary arithmetic operator with a variable (as opposed to a value), even if neither of the operands is `int`.
+4. After all promotion has occurred and the operands have the same data type, the resulting value will have the same data type as its promoted operands.
+
+### Casting Values
+
+- _Casting_ is a unary operation where one data type is explicitly interpreted as another data type.
+- Casting is optional and unnecessary when converting to a larger or widening data type, but it is required when converting to a smaller or narrowing data type.
+- Without casting, the compiler will generate an error when trying to put a larger data type inside a smaller one.
+
+Casting is performed by placing the data type, enclosed in parentheses, to the left of the value you want to cast.
+
+```java
+int fur = (int)5;
+int hair = (short) 2;
+String type = (String) "Bird";
+short tail = (short)(4 + 10);
+long feathers = 10(long); // DOES NOT COMPILE because the type is on the wrong side of the value.
+```
+
+You can NOT put a larger value into a smaller data type.
+
+```java
+// All of these examples involve putting a larger value into a smaller data type.
+float egg = 2.0 / 9; // DOES NOT COMPILE
+int tadpole = (int)5 * 2L; // DOES NOT COMPILE
+short frog = 3 - 2.0; // DOES NOT COMPILE
+```
+
+### Compound Assignment Operators
+
+```
+| Operator                  | Example  | Description                                                                                               |
+|---------------------------|----------|-----------------------------------------------------------------------------------------------------------|
+| Addition assignment       | a += 5   | Adds the value on the right to the variable on the left and assigns the sum to the variable               |
+| Subtraction assignment    | b -= 0.2 | Subtracts the value on the right from the variable on the left and assigns the difference to the variable |
+| Multiplication assignment | c *= 100 | Multiplies the value on the right with the variable on the left and assigns the product to the variable   |
+| Division assignment       | d /= 4   | Divides the variable on the left by the value on the right and assigns the quotient to the variable       |
+
+```
+
+> Compound operators are useful for more than just shorthand—they can also save you from having to explicitly cast a value.
+
+```
+long goat = 10;
+int sheep = 5;
+sheep = sheep * goat; // DOES NOT COMPILE
+
+sheep *= goat; // Will compile normally as it will first cast `sheep` to a `long`, apply the multiplication of two `long` values, and then cast the result to an `int`.
+```

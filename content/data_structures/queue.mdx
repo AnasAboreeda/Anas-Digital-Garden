@@ -1,0 +1,51 @@
+---
+id: 2023-01-18-queue
+title: queue
+metaTitle: Queue | Anas's Digital Garden
+metaDescription: queue | Anas's Digital Garden
+createdDate: 2023-01-18
+updatedDate: 2023-01-18
+weekNumber: 202303
+category: data_structures
+tags: ["data_structures", "queue"]
+---
+
+# Queue
+
+## Implementation with Double Linked List
+
+- Enqueue: use `List.PushBack`
+- Dequeue: use `List.TopFront` and `List.PopFront`
+- Empty: use `List.Empty`
+
+---
+
+- Queues can be implemented with either a linked list (with tail pointer) or an array.
+- Each queue operation is O(1): Enqueue, Dequeue, Empty.
+
+## Resources
+
+- [Using Queues First-In First-Out(video)](https://www.lynda.com/Developer-Programming-Foundations-tutorials/Using-queues-first-first-out/149042/177122-4.html)
+- [Queue (video)](https://www.coursera.org/learn/data-structures/lecture/EShpq/queue)
+- [Circular buffer/FIFO](https://en.wikipedia.org/wiki/Circular_buffer)
+- [Priority Queues (video)](https://www.lynda.com/Developer-Programming-Foundations-tutorials/Priority-queues-deques/149042/177123-4.html)
+
+## Todo
+
+- Implement using linked-list, with tail pointer:
+  - enqueue(value) - adds value at position at tail
+  - dequeue() - returns value and removes least recently added element (front)
+  - empty()
+- Implement using fixed-sized array:
+  - enqueue(value) - adds item at end of available storage
+  - dequeue() - returns value and removes least recently added element
+  - empty()
+  - full()
+
+### Cost
+
+- a bad implementation using linked list where you enqueue at head and dequeue at tail would be O(n)  
+  because you'd need the next to last element, causing a full traversal each dequeue
+- enqueue: O(1) (amortized, linked list and array [probing])
+- dequeue: O(1) (linked list and array)
+- empty: O(1) (linked list and array)

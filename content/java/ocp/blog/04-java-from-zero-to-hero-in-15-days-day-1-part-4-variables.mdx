@@ -1,0 +1,176 @@
+---
+id: 2023-01-18-04-java-from-zero-to-hero-in-15-days-day-1-part-4-variables
+title: 04 java from zero to hero in 15 days day 1 part 4 variables
+metaTitle: 04 Java From Zero To Hero In 15 Days Day 1 Part 4 Variables | Anas's Digital Garden
+metaDescription: 04 java from zero to hero in 15 days day 1 part 4 variables | Anas's Digital Garden
+createdDate: 2023-01-18
+updatedDate: 2023-01-18
+weekNumber: 202303
+category: java/ocp/blog
+tags: ["blog", "04-java-from-zero-to-hero-in-15-days-day-1-part-4-variables"]
+---
+
+# 04 Java — from Zero to Hero in 15 Days — Day 1 - part 4 - Variables
+
+## Declaring Variables
+
+* A *variable* is a name for a piece of memory that stores data.
+* When you declare a variable, you need to state the variable type along with giving it a name. Giving a variable a value is called *initializing* a variable. e.g. String zooName = “The Best Zoo”;
+
+An *identifier* is the name of a variable, method, class, interface, or package. There are only four rules to remember for legal identifiers:
+
+* Identifiers must begin with a letter, a currency symbol, or a _ symbol. Currency symbols include dollar ($), yuan (¥), euro (₠), and so on.
+* Identifiers can include numbers but not start with them.
+* A single underscore _ is not allowed as an identifier.
+* You cannot use the same name as a Java-reserved word.
+
+### Declaring Multiple Variables
+
+You can declare many variables in the same declaration as long as they are all of the same types.
+
+    void sandFence() {
+      // Four String variables were declared: s1, s2, s3, and s4.
+       String s1, s2;
+       String s3 = "yes", s4 = "no";
+
+      // three variables were declared: i1, i2, and i3.
+      // However, only one of those values was initialized: i3.
+      int i1, i2, i3 = 0;
+    }
+
+## Initializing Variables
+
+### Creating Local Variables
+
+A *local variable* is a variable defined within a constructor, method, or initializer block.
+
+### Final Local Variables
+
+The final keyword can be applied to local variables and is equivalent to declaring constants in other languages. It does not allow changing the value of the variable after setting it.
+
+    final int y = 10;
+    int x = 20;
+    y = x + 10; // DOES NOT COMPILE as we are trying to change a final variable
+
+The final modifier can also be applied to local variable references.
+
+    final int[] favoriteNumbers = new int[10];
+    favoriteNumbers[0] = 10;
+    favoriteNumbers[1] = 20;
+    favoriteNumbers = null; // DOES NOT COMPILE
+
+Notice that we can modify the content, or data, in the array. The compiler error isn't until the last line when we try to change the value of the reference favoriteNumbers.
+
+### Uninitialized Local Variables
+
+Local variables do not have a default value and must be initialized before use. Furthermore, the compiler will report an error if you try to read an uninitialized value.
+
+    public int notValid() {
+       int y = 10;
+       int x;
+       int reply = x + y; // DOES NOT COMPILE
+       return reply;
+    }
+
+Another tricky example of the importance of initializing the variable
+
+    public void findAnswer(boolean check) {
+       int answer;
+       int otherAnswer;
+       int onlyOneBranch;
+       if (check) {
+          onlyOneBranch = 1;
+          answer = 1;
+       } else {
+          answer = 2;
+       }
+       System.out.println(answer);
+       System.out.println(onlyOneBranch);  // DOES NOT COMPILE
+    }
+
+The answer variable is initialized in both branches of the if statement, so the compiler is perfectly happy. It knows that regardless of whether check is true or false, the value answer will be set to something before it is used. The otherAnswer variable is not initialized but never used, and the compiler is equally as happy. Remember, the compiler is only concerned if you try to use uninitialized local variables; it doesn't mind the ones you never use.
+
+### Passing Constructor and Method Parameters
+
+* Variables passed to a constructor or method are called *constructor parameters* or *method parameters*, respectively. These parameters are like local variables that have been pre-initialized.
+
+    public void findAnswer(boolean check) {}
+
+    public void checkAnswer() {  
+        boolean value;  
+        findAnswer(value); // DOES NOT COMPILE  
+    }
+
+The call to findAnswer() does not compile because it tries to use a variable that is not initialized.
+
+### Instance Variables vs. Class Variables
+
+Variables that are not local variables are defined either as instance variables or as class variables.
+
+* An *instance variable* -often called a fieldis a value defined within a specific instance of an object.
+* A *class variable* is one that is defined on the class level and shared among all instances of the class.
+* A *class variable* can even be publicly accessible to classes outside the class and doesn't require an instance to use.
+* A *class variable *has the keyword static before it.
+* Instance and class variables do not require you to initialize them. As soon as you declare these variables, they are given a default value.
+
+The compiler doesn't know what value to use and so wants the simplest value it can give the type: null for an object, zero for the numeric types, and false for a boolean. You don't need to know the default value for char, but in case you are curious, it is '\u0000' (NUL).
+
+ Let's say we have a Person class with an instance variable name of type String. Each instance of the class would have its own value for name, such as Elysia or Sarah. Two instances could have the same value for name, but changing the value for one does not modify the other.
+
+### Type Inference of Var
+
+You can declare the variables without determining their type as the Java compiler can determine the type of the variable from its contents. But you are not allowed to change the content type after assigning it.
+
+    public void reassignment() {
+         var number = 7;   // The compiler determines that we want an int variable
+         number = 4;
+         number = "five";  // DOES NOT COMPILE because you are trying to change the type after the intitialization.
+    }
+
+>  If you know a language like JavaScript, you might be expecting var to mean a variable that can take on any type at runtime. In Java, var is still a specific type defined at compile time. It does not change type at runtime.
+
+    public void doesThisCompile ( boolean check){
+    // Cannot infer type: 'var' on variable without initializer
+        var question; // DOES NOT COMPILE
+        var n = null;      // DOES NOT COMPILE
+    }
+
+>  Remember that for local variable type inference, the compiler looks only at the line with the declaration.
+
+    public int addition(var a, var b) { // DOES NOT COMPILE
+       return a + b;
+    }
+
+In this example, a and b are method parameters. These are not local variables.
+
+Be on the lookout for var used with constructors, method parameters, or instance variables. **It will NOT compile**. Remember that var is only used for local variable type inference!
+
+## Managing Variable Scope
+
+Usually, variables live only inside the bracket they are defined inside it. Here is an example
+
+### Local Variables
+
+    public void eatIfHungry(boolean hungry) {
+       if (hungry) {
+          int bitesOfCheese = 1;
+
+          {
+             var teenyBit = true;
+             System.out.println(bitesOfCheese); // this will print 1
+
+          } // teenyBit goes out of scope here
+
+       } // bitesOfCheese goes out of scope here
+
+       System.out.println(teenyBit); // DOES NOT COMPILE
+    }
+
+### Applying Scope to Classes
+
+The rule for instance variables is easier: they are available as soon as they are defined and last for the entire lifetime of the object itself. The rule for class, aka static, variables is even easier: they go into scope when declared like the other variable types. However, they stay in scope for the entire life of the program.
+
+* *Local variables*: In scope from declaration to the end of the block
+* *Method parameters*: In scope for the duration of the method
+* *Instance variables*: In scope from declaration until the object is eligible for garbage collection
+* *Class variables*: In scope from declaration until the program ends.

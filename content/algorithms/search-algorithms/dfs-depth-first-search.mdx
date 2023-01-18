@@ -1,22 +1,22 @@
 ---
 id: 2023-01-11-dfs-depth-first-search
-title: dfs depth first search
-metaTitle: Dfs Depth First Search | Anas's Digital Garden
-metaDescription: dfs depth first search | Anas's Digital Garden
+title: DFS depth first search
+metaTitle: DFS Depth First Search | Anas's Digital Garden
+metaDescription: DFS depth first search | Anas's Digital Garden
 createdDate: 2023-01-11
-updatedDate: 2023-01-15
+updatedDate: 2023-01-18
 weekNumber: 202302
 category: algorithms/search-algorithms
 tags: ["search-algorithms", "dfs-depth-first-search"]
 ---
 
-# DFS Depth-First Search
+# DFS Depth-first search
 
 ## Introduction
 
 - We go **as deep as we can to look for a value**, and when there is nothing new to discover, we retrace our steps to find something new.
 - To put it in a term we already know, the **pre-order traversal** of a tree is DFS.
-- Let’s look at a simple problem of searching for a node in a binary tree whose value is equal to the target.
+- Let's look at a simple problem of searching for a node in a binary tree whose value is equal to the target.
 
 ```java
 import java.util.Arrays;
@@ -81,13 +81,13 @@ The example above also introduces two other concepts:
 1. **Backtracking**
     - The action of retracing steps is called **backtracking** (e.g. from `2` we first visited `3` depth-first and retraced back and visit the other child `4`).
     - *Backtracking and DFS are similar concepts* and essentially *the same thing* since in DFS you always “backtrack” after exploring a deeper node.
-    - It’s like saying I **program** computers by doing **coding**.
+    - It's like saying I **program** computers by doing **coding**.
     - If we really want to make the distinction, then backtracking is the concept of retracing and DFS is the algorithm that implements it.
 2. **Divide and conquer**
     - We have two recursive calls `dfs(root.left)` and `dfs(root.right)` and return based on results from the recursive calls.
     - This is also a **divide and conquer** algorithm, i.e. splitting into sub-problems of the same type (search in left and right children) until they are simple enough to be solved directly (null nodes or found target) and combining the results from these sub-problems (return non-null node).
 
-## When to use DFS
+## When to Use Dfs
 
 ### Tree
 
@@ -96,7 +96,7 @@ DFS is essentially pre-order tree traversal.
 - Traverse and find/create/modify/delete node
 - Traverse with return value (finding max subtree, detect balanced tree)
 
-### Combinatorial problems
+### Combinatorial Problems
 
 DFS/backtracking and combinatorial problems are a match made in heaven (or silver bullet and werewolf 😅).
 
@@ -114,9 +114,9 @@ Trees are special graphs that have no cycle. We can still use DFS in graphs with
 - Find connected components
 - Detect cycles
 
-## DFS on a Tree
+## Dfs on a Tree
 
-### Think like a node
+### Think like a Node
 
 <aside>
 ⚖️ The key to solving tree problems using DFS is to think from the perspective of a node instead of looking at the whole tree.
@@ -124,17 +124,17 @@ Trees are special graphs that have no cycle. We can still use DFS in graphs with
 </aside>
 
 - This is in line with how recursion is written.
-- Reason from a node’s perspective, make sure you consider all the cases, and let recursion take care of the rest.
+- Reason from a node's perspective, make sure you consider all the cases, and let recursion take care of the rest.
 - Provided you have a good understanding of the problem at hand, there are two things you want to think about:
     1. **Return value**
         - What do we want to return after visiting a node?
-        - For example, for the max depth problem, this is the max depth for the current node’s subtree.
-        - If we are looking for a node in the tree, we’d want to return that node if found, else return null.
+        - For example, for the max depth problem, this is the max depth for the current node's subtree.
+        - If we are looking for a node in the tree, we'd want to return that node if found, else return null.
         - **Use the return value to pass information from children to parent**.
     2. **Identify states**
         - What states do we need to maintain to compute the return value for the current node?
-        - For example, to know if the current node’s value is larger than its parent we have to maintain the parent’s value as a state.
-        - State becomes DFS’s function arguments.
+        - For example, to know if the current node's value is larger than its parent we have to maintain the parent's value as a state.
+        - State becomes DFS's function arguments.
         - **Use states to pass information from parent to children**.
 
 The common template for DFS on tree is:
@@ -155,7 +155,7 @@ def dfs(root, state):
 
 The **time complexity** of depth-first search on trees is **O(N)** since each node is visited once.
 
-## DFS on Graphs
+## Dfs on Graphs
 
 Similar to BFS, we just have to add the `visited` variable to keep track of the visited nodes and use `get_neighbors` to get the next nodes to visit.
 
@@ -175,20 +175,53 @@ public void dfs(Node root, Set<Node> visited) {
 
 ### Complexity
 
-We only visit each vertex once in both BFS and DFS with `visited`. Since technically a graph is made of vertices *and edges*, the time complexity of BFS/DFS on graphs is normally expressed as `O(|V| + |E|)` where `|V|` stands for the number of vertices and `|E|` stands for the number of edges. `V` is a set of vertices and in maths `|V|` means the size of a set.
+We only visit each vertex once in both BFS and DFS with `visited`. Since technically a graph is made of vertices *and edges*, the time complexity of BFS/DFS on graphs is normally expressed as `O(|V
 
-## Cycle detection
+We only visit each vertex once in both BFS and DFS with `visited`. Since technically a graph is made of vertices *and edges*, the time complexity of BFS/DFS on graphs is normally expressed as `O(|V
+
+We only visit each vertex once in both BFS and DFS with `visited`. Since technically a graph is made of vertices *and edges*, the time complexity of BFS/DFS on graphs is normally expressed as `O(|V
+
+We only visit each vertex once in both BFS and DFS with `visited`. Since technically a graph is made of vertices *and edges*, the time complexity of BFS/DFS on graphs is normally expressed as `O(|V
+
+We only visit each vertex once in both BFS and DFS with `visited`. Since technically a graph is made of vertices *and edges*, the time complexity of BFS/DFS on graphs is normally expressed as `O(|V
+
+We only visit each vertex once in both BFS and DFS with `visited`. Since technically a graph is made of vertices *and edges*, the time complexity of BFS/DFS on graphs is normally expressed as `O(|V
+
+We only visit each vertex once in both BFS and DFS with `visited`. Since technically a graph is made of vertices *and edges*, the time complexity of BFS/DFS on graphs is normally expressed as `O(|V
+
+We only visit each vertex once in both BFS and DFS with `visited`. Since technically a graph is made of vertices *and edges*, the time complexity of BFS/DFS on graphs is normally expressed as `O(|V
+
+We only visit each vertex once in both BFS and DFS with `visited`. Since technically a graph is made of vertices *and edges*, the time complexity of BFS/DFS on graphs is normally expressed as `O(|V
+
+We only visit each vertex once in both BFS and DFS with `visited`. Since technically a graph is made of vertices *and edges*, the time complexity of BFS/DFS on graphs is normally expressed as `O(|V
+
+We only visit each vertex once in both BFS and DFS with `visited`. Since technically a graph is made of vertices *and edges*, the time complexity of BFS/DFS on graphs is normally expressed as `O(|V
+
+We only visit each vertex once in both BFS and DFS with `visited`. Since technically a graph is made of vertices *and edges*, the time complexity of BFS/DFS on graphs is normally expressed as `O(|V| + |E|)` where `|V|` stands for the number of vertices and `|E|` stands for the number of edges. `V` is a set of vertices and in maths `|V|` means the size of a set.
+We only visit each vertex once in both BFS and DFS with `visited`. Since technically a graph is made of vertices *and edges*, the time complexity of BFS/DFS on graphs is normally expressed as `O(|V
+We only visit each vertex once in both BFS and DFS with `visited`. Since technically a graph is made of vertices *and edges*, the time complexity of BFS/DFS on graphs is normally expressed as `O(|V
+We only visit each vertex once in both BFS and DFS with `visited`. Since technically a graph is made of vertices *and edges*, the time complexity of BFS/DFS on graphs is normally expressed as `O(|V
+We only visit each vertex once in both BFS and DFS with `visited`. Since technically a graph is made of vertices *and edges*, the time complexity of BFS/DFS on graphs is normally expressed as `O(|V
+We only visit each vertex once in both BFS and DFS with `visited`. Since technically a graph is made of vertices *and edges*, the time complexity of BFS/DFS on graphs is normally expressed as `O(|V
+We only visit each vertex once in both BFS and DFS with `visited`. Since technically a graph is made of vertices *and edges*, the time complexity of BFS/DFS on graphs is normally expressed as `O(|V
+We only visit each vertex once in both BFS and DFS with `visited`. Since technically a graph is made of vertices *and edges*, the time complexity of BFS/DFS on graphs is normally expressed as `O(|V
+We only visit each vertex once in both BFS and DFS with `visited`. Since technically a graph is made of vertices *and edges*, the time complexity of BFS/DFS on graphs is normally expressed as `O(|V
+We only visit each vertex once in both BFS and DFS with `visited`. Since technically a graph is made of vertices *and edges*, the time complexity of BFS/DFS on graphs is normally expressed as `O(|V
+We only visit each vertex once in both BFS and DFS with `visited`. Since technically a graph is made of vertices *and edges*, the time complexity of BFS/DFS on graphs is normally expressed as `O(|V
+We only visit each vertex once in both BFS and DFS with `visited`. Since technically a graph is made of vertices *and edges*, the time complexity of BFS/DFS on graphs is normally expressed as `O(|V
+
+## Cycle Detection
 
 - One way to detect cycles is to **use DFS**.
 
-### Normal Graph DFS
+### Normal Graph Dfs
 
 - For normal graph DFS a node has two states:
     - `to be visited` and
     - `visited`.
 - We traverse the graph and visit each node and mark it as `visited`.
 
-### Cycle detection DFS
+### Cycle Detection Dfs
 
 - In cycle detection, we need a **third state `visiting`**. We perform DFS on each node by:
     - marking a node as `visiting`

@@ -1,0 +1,80 @@
+---
+id: 2023-01-18-chapter-15-functional-programming
+title: chapter 15 functional programming
+metaTitle: Chapter 15 Functional Programming | Anas's Digital Garden
+metaDescription: chapter 15 functional programming | Anas's Digital Garden
+createdDate: 2023-01-18
+updatedDate: 2023-01-18
+weekNumber: 202303
+category: java/ocp/1Z0-819
+tags: ["1Z0-819", "chapter-15-functional-programming"]
+---
+
+# Chapter 15 - Functional Programming
+
+## The Ocp Exam Topics Covered in This Chapter Include the Following
+
+- **Java Stream API**
+    - Describe the Stream interface and pipelines
+    - Use lambda expressions and method references
+- **Built‐in Functional Interfaces**
+    - Use interfaces from the java.util.function package
+    - Use core functional interfaces including Predicate, Consumer, Function and Supplier
+    - Use primitive and binary variations of base interfaces of java.util.function package
+- **Lambda Operations on Streams**
+    - Extract stream data using map, peek and flatMap methods
+    - Search stream data using search findFirst, findAny, anyMatch, allMatch and noneMatch methods
+    - Use the Optional class
+    - Perform calculations using count, max, min, average and sum stream operations
+    - Sort a collection using lambda expressions
+    - Use Collectors with streams, including the groupingBy and partitioningBy operations
+
+## Working with Built‐in Functional Interfaces
+
+| Functional interface | Return type | Method name | # of parameters |
+| -------------------- | ----------- | ----------- | --------------- |
+| Supplier<T>          | T           | get()       | 0               |
+| Consumer<T>          | void        | accept(T)   | 1 (T)           |
+| BiConsumer<T, U>     | void        | accept(T,U) | 2 (T, U)        |
+| Predicate<T>         | boolean     | test(T)     | 1 (T)           |
+| BiPredicate<T, U>    | boolean     | test(T,U)   | 2 (T, U)        |
+| Function<T, R>       | R           | apply(T)    | 1 (T)           |
+| BiFunction<T, U, R>  | R           | apply(T,U)  | 2 (T, U)        |
+| UnaryOperator<T>     | T           | apply(T)    | 1 (T)           |
+| BinaryOperator<T>    | T           | apply(T,T)  | 2 (T, T)        |
+
+![ConsumerImp](../../my-own-coding-realm/java/playground/src/main/java/com/aboureada/playground/functional_programming/ConsumerImp.java)  
+![FunctionImp](../../my-own-coding-realm/java/playground/src/main/java/com/aboureada/playground/functional_programming/FunctionImp.java)  
+![PredicateImp](../../my-own-coding-realm/java/playground/src/main/java/com/aboureada/playground/functional_programming/PredicateImp.java)  
+![SupplierImp](../../my-own-coding-realm/java/playground/src/main/java/com/aboureada/playground/functional_programming/SupplierImp.java)  
+![UnaryOperatorImp](../../my-own-coding-realm/java/playground/src/main/java/com/aboureada/playground/functional_programming/UnaryOperatorImp.java)
+
+## Creating Your Own Functional Interfaces
+
+```java
+@FunctionalInterface
+interface TriFunction<T,U,V,R> {
+	R apply(T t, U u, V v);
+}
+```
+
+## Convenience Methods on Functional Interfaces
+
+| Interface instance | Method return type | Method name | Method parameters |
+|--------------------|--------------------|-------------|-------------------|
+| Consumer           | Consumer           | andThen()   | Consumer          |
+| Function           | Function           | andThen()   | Function          |
+| Function           | Function           | ompose()    | Function          |
+| Predicate          | Predicate          | and()       | Predicate         |
+| Predicate          | Predicate          | negate()    | —                 |
+| Predicate          | Predicate          | or()        | Predicate         |
+
+![](../../my-own-coding-realm/java/playground/src/main/java/com/aboureada/playground/functional_programming/ConvinienceMethods.java)
+
+## Returning an Optional
+
+## Using Streams
+
+## Working with Primitive Streams
+
+## Working with Advanced Stream Pipeline Concepts

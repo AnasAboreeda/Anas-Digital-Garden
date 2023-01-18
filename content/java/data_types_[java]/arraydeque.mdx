@@ -1,0 +1,54 @@
+---
+id: <% tp.file.creation_date('YYYY-MM-DD') %>-<% tp.file.title %>
+title: <% tp.file.title.replace(/-/g, ' ') %>
+metaTitle: <% tp.file.title.replace(/-/g, ' ').replace(/([^\W_]+[^\s-_]+]*) */g, function (txt) {return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();}) %> | Anas's Digital Garden
+metaDescription: <% tp.file.title.replace(/-/g, ' ') %> | Anas's Digital Garden
+createdDate: <% tp.file.creation_date('YYYY-MM-DD') %>
+updatedDate: <% tp.file.last_modified_date('YYYY-MM-DD') %>
+weekNumber: <% tp.file.creation_date('YYYYww') %>
+category: <% tp.file.folder(true) %>
+tags: ["<% tp.file.folder() %>", "<% tp.file.title %>"]
+---
+# ArrayDeque
+
+---
+id: 22/08/2022 - Arrays
+created_date: 22/08/2022
+updated_date: 22/08/2022
+week_number: 202234
+type: Styding Note
+---
+Tags: #Studying #Data_Structure #Stack #Queue #Java
+# ArrayDeque
+- A linear collection that supports element insertion and removal at both ends.
+- The name _deque_ is short for "double ended queue" and is usually pronounced "deck".
+- Most `Deque` implementations place no fixed limits on the number of elements they may contain, but this interface supports capacity-restricted deques as well as those with no fixed size limit.
+
+## ArrayDeque<E>
+
+[ArrayDeque (Java SE 11 & JDK 11 )](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/ArrayDeque.html)
+
+- size()
+- isEmpty()
+
+## Using Deque as a  queue
+
+| Queue     | ArrayDeque     |
+| --------- | -------------- |
+| add(e)    | addLast(e)     |
+| offer(e)  | offerLast(e)   |
+| remove()  | removeFirst()  |
+| poll()    | pollFirst()    |
+| element() | elementFirst() |
+| peek()    | peekFirst()    |
+
+## Using Deque as a  Stack
+
+| Stack | ArrayDeque |
+| --- | --- |
+| push(e) | push(e) |
+| push(e) | addFirst(e) |
+| pop() | pop() |
+| pop() | removeFirst() |
+| peek() | peek() |
+| peek() | getFirst() |

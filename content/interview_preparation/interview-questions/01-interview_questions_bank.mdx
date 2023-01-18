@@ -1,0 +1,386 @@
+---
+id: 2023-01-18-01-interview_questions_bank
+title: 01 interview_questions_bank
+metaTitle: 01 Interview_Questions_Bank | Anas's Digital Garden
+metaDescription: 01 interview_questions_bank | Anas's Digital Garden
+createdDate: 2023-01-18
+updatedDate: 2023-01-18
+weekNumber: 202303
+category: interview_preparation/interview_questions
+tags: ["interview_questions", "01-interview_questions_bank"]
+---
+
+# 01 interview_questions_bank
+
+# Interview Questions Bank
+
+## Q: Consider the following JavaScript Code
+
+```javascript
+console.log("first")
+setTimeout(function () {
+  console.log("second")
+}, 0)
+console.log("third")
+```
+
+The output will be:
+
+    first
+    third
+    second
+
+Assuming that this is the desired behavior, and that we are using Node.js version 0.10 or higher, how else might we write this code?
+
+### Answer
+
+Node.js version 0.10 introduced `setImmediate`, which is equivalent to `setTimeout(fn, 0)`, but with some slight advantages.
+
+`setTimeout(fn, delay)` calls the given callback fn after the given delay has ellapsed (in milliseconds). However, the callback is not executed immediately at this time, but added to the function queue so that it is executed as soon as possible, after all the currently executing and currently queued event handlers have completed. Setting the delay to 0 adds the callback to the queue immediately so that it is executed as soon as all currently-queued functions are finished.
+
+`setImmediate(fn)` achieves the same effect, except that it doesn't use the queue of functions. Instead, it checks the queue of I/O event handlers. If all I/O events in the current snapshot are processed, it executes the callback. It queues them immediately after the last I/O handler somewhat like process.nextTick. This is faster than `setTimeout(fn, 0)`.
+
+So, the above code can be written in Node as:
+
+```javaScript
+console.log("first");
+setImmediate(function(){
+    console.log("second");
+});
+console.log("third");
+```
+
+### Q: what is the Preferred Method of Resolving Unhandled Exceptions in Node.js?
+
+#### Answer
+
+Unhandled exceptions in Node.js can be caught at the Process level by attaching a handler for uncaughtException event.
+
+```javaScript
+process.on('uncaughtException', function(err) {
+  console.log('Caught exception: ' + err);
+});
+```
+
+However, uncaughtException is a very crude mechanism for exception handling and may be removed from Node.js in the future. An exception that has bubbled all the way up to the Process level means that your application, and Node.js may be in an undefined state, and the only sensible approach would be to restart everything.
+
+The preferred way is to add another layer between your application and the Node.js process which is called the domain.
+
+Domains provide a way to handle multiple different I/O operations as a single group. So, by having your application, or part of it, running in a separate domain, you can safely handle exceptions at the domain level, before they reach the Process level.
+
+## Fun Questions
+
+- What will happen if we cloned you as your manager?
+- What will happen if we put a mirror in the scanner?
+- Why are you a developer not a ….?
+
+## Personality
+
+- How you keep yourself updated with the latest technology?
+- You have to finish a job that will take you one month, but you ONLY have 72 hours
+- What is the last course you attended? Book you read? Meetup attended?
+- What are some of your best soft skills?
+- When have you solved a problem that didn't involve you coding?
+- How would the developers/project managers you've worked with describe you?
+- You can't work out how to solve a coding problem. What do you do to find the answer?
+- What do you think of pair programming? And have you ever done it?
+- Have you ever worked directly with clients or have been in a customer-facing role in the past? If not, would you like to?
+- Can you tell me briefly about some projects you've worked on and the approach you took from start to finish?
+- Have you ever given a presentation?
+- What are your personal development goal for this year Tech / soft skills?
+- Do you have any projects that you work on (or have worked on) in your spare time?
+- Tell me about a time you've had to respond to negative feedback.
+- Have you ever been blamed for something that wasn't your fault?
+- Which benefits of this job are you most excited about?
+- Tell me about a situation when you had to deal with conflict.
+- Can you give an example of when you achieved results against all odds?
+- Tell us about the most difficult change you have had to deal with in your professional life.
+
+## Introduction
+
+- Tell me about a project you're particularly proud of. What did you do that worked out well?
+- Tell me about a project that disappointed you. What would you change?
+- What's hard about coding?
+
+## General Tech
+
+- In as much detail as you can, tell us what happens when you hit the Enter key to navigate to a domain in a web browser.
+- What are the mean characteristics of functional programming? <https://goo.gl/LRiXSB>
+  - Pure functions
+  - Function composition
+  - Avoid shared state
+  - Avoid mutating state
+  - Avoid side effects
+- What is the DRY principle? (Don't Repeat Yourself)
+- What's a stub? Name a use case.
+  - Stubs are functions/programs that simulate the behaviours of components/modules. Stubs provide canned answers to function calls made during test cases. Also, you can assert on with what these stubs were called.
+- What tools do you use to find a performance bug?
+- What are the differences of using HTTP/2 as opposed to HTTP 1.1?
+  - HTTP/2 provides decreased latency to improve page load speed by supporting:
+    - Data compression of HTTP headers
+    - Server push technologies
+    - Loading of page elements in parallel over a single TCP connection
+    - Prioritization of requests
+    - An important operational benefit of HTTP/2 is that it avoids the head-of-line blocking problem in HTTP 1.
+- Pretend I'm a 10 years old. Can you explain to me what **\_\_\_\_** is in plain English?
+  - microservice architecture, service mesh, istio, buffers, CQRS, …
+- Software Architecture:
+  - The 5 Patterns You Need to Know <https://dzone.com/articles/software-architecture-the-5-patterns-you-need-to-k?fromrel=true>
+- What is Istio? <https://istio.io/docs/concepts/what-is-istio/>
+- How do you do testing? And what do you think about this? How would you improve QA?
+- What is testing pyramid?
+- SOLID principles - describe each of them
+- How to build a good unit or integration test.
+- Test coverage.
+- Performance optimisation.
+- SSR.
+- Logging / Error handling.
+- Monitoring.
+
+## Javascript
+
+- What is callback hell? How do you prevent/fix callback hell?
+- What is a “closure” in JavaScript?
+  - A closure is an inner function that has access to the variables in the outer (enclosing) function's scope chain. The closure has access to variables in three scopes; specifically: (1) variable in its own scope, (2) variables in the enclosing function's scope, and (3) global variables.
+- Scope and hoisting
+  - What will you see in the console for the following example ?
+  - Primitive type (string, number, etc.) are passed by value and objects are passed by reference. If you change a property of the passed object, the change will be affected. However, you assign a new object to the passed object, the changes will not be reflected.
+- explain how javascript event loop works. <http://latentflip.com/loupe/>
+
+## Node.JS
+
+- What are the features of Node.js?
+  - Node.js is a single-threaded but highly scalable system that utilizes JavaScript as its scripting language. It uses asynchronous, event-driven I/O instead of separate processes or threads. It is able to achieve high output via single-threaded event loop and non-blocking I/O.
+- What are “streams” in Node.js? Explain the different types of streams present in Node.js.
+- How does Node.js support multi-processor platforms, and does it fully utilize all processor resources?
+  - Since Node.js is by default a single thread application, it will run on a single processor core and will not take full advantage of multiple core resources. However, Node.js provides support for deployment on multiple-core systems, to take greater advantage of the hardware. The Cluster module is one of the core Node.js modules and it allows running multiple Node.js worker processes that will share the same port.
+- What is the difference between process.nextTick() and setImmediate() ?
+  - The difference between process.nextTick() and setImmediate() is that process.nextTick() defers the execution of an action till the next pass around the event loop or it simply calls the callback function once the ongoing execution of the event loop is finished whereas setImmediate() executes a callback on the next cycle of the event loop and it gives back to the event loop for executing any I/O operations.
+- How Node.js overcomes the problem of blocking of I/O operations?
+  - Node.js solves this problem by putting the event based model at its core, using an event loop instead of threads.
+- Why `npm shrinkwrap` is useful?
+  - This command locks down the versions of a package's dependencies so that you can control exactly which versions of each dependency will be used when your package is installed.
+  - It is useful when you are deploying your Node.js applications - with it you can be sure which versions of your dependencies are going to be deployed.
+
+## Microservices
+
+- What are the advantages of microservices?
+- What are the characteristics of Microservices?
+  - Essential messaging frameworks
+  - Decentralized Governance
+  - Easy Infrastructure automation
+  - Design for failure
+  - Infrastructure automation
+- What Is CQRS?
+  - CQRS stands for Command, Query, Responsibility, and Segregation. In CQRS, we divide our read and write operations into two parts one is Command side and another one is Query side. command side handles create, update, and delete. basically command side is used to when data changes and query side is used to get data from the database by executing the query against one or more materialized view.
+- When Do We Use CQRS?
+  - When there are multiple operations are performed in parallel on the same data.
+  - Scenarios when the number of the read operation is higher than the write operation in this situation we need horizontal scaling. In this type of situation, we prefer CQRS.
+  - Situations when one team of developers can focus on the write side and another team of developers can focus on the read side and user interface.
+- Benefits of CQRS
+  - The main and most useful feature of CQRS is that we can do independently scaling ie both horizontal and vertical.
+  - By using CQRS it is very easy to maintain the security of the database ie. because there are some people who have only read rights and some people who have only write rights and some of the people have both read and write rights. so, In CQRS it 's very easy to maintain security.
+  - CQRS is also helping us to maintain consistency throughout the independent systems.
+  - CQRS also help in a situation when the read side is available in case of failure if your write side is down then you can read the last update in the database.
+- When CQRS Is Not Recommend
+  - When the domain or the business rules are simple.
+  - Where a simple crud style user interface and the related data access operation are sufficient.
+  - When there is less amount of read and write operations are performed and the database is not too large.
+  - When our database is not distributed.
+- What is Docker Swarm?
+  - Docker Swarm is native clustering for Docker. It turns a pool of Docker hosts into a single, virtual Docker host. Docker Swarm serves the standard Docker API, any tool that already communicates with a Docker daemon can use Swarm to transparently scale to multiple hosts.  
+    Behavioural questions:
+- Tell me about a time when you were faced with a problem that had a number of possible solutions. What was the problem and how did you determine the course of action? What was the outcome of that choice?
+- When have you ever taken a risk, made a mistake or failed? How did you respond and how did you learn from that experience?
+- Describe a time when you took the lead on a project
+- What did you do when you needed to motivate a group of individuals or encourage collaboration during a particular project?
+- How have you leveraged data to develop a strategy?
+
+## Sql
+
+- What is the difference between timestamp and datetime data types
+  - One of the main differences between DATETIME and TIMESTAMP is that MySQL converts TIMESTAMP values from the current time zone to UTC for storage, and back from UTC to the current time zone for retrieval. It does not do so for DATETIME values.
+
+## Redis
+
+- What are Redis Data Types?
+  - Strings - Hashes - Lists - Sets - Sorted Sets
+
+## Elastic search
+
+- Update 10M documents with a new field called \_updatedAt.
+- Which language used for scripts in Elastic search?
+- Q. Does ElasticSearch have a schema ?
+  - Yes, ElasticSeach can have mappings which can be used to enforce schema on documents.
+- Q.What is a replica in ElasticSearch ?
+  - Each shard in ElasticSearch has 2 copy of the shard. These copies are called replicas. They serve the purpose of high-availability and fault-tolerance.
+
+## Technical Proplems
+
+- FizzBuzz problem:
+  - "Write a program that prints the numbers from 1 to 100. But for multiples of three print “Fizz” instead of the number and for the multiples of five print “Buzz”. For numbers which are multiples of both three and five print “FizzBuzz”
+- How would you implement backend storage for Facebook-messenger-like application (with similar scale), i.e. how would you store chat related data? Main point is to describe the data structures, not hardware/db details. Use pictures if you like. Take approx. 15 minutes to answer this.
+
+## Dev Ops
+
+- What would you say is a high load average?
+- If you are assigned to work in an organization with a mix of new and legacy applications and technologies, what is the first thing you would do as the new DevOps engineer?
+- If the organization had fully adopted a continuous integration tool and a competitor came out with a slightly better product, what would you recommend that the organization do? Stay with the current tool or switch to the competitor?
+- What does the perfect release look like? Who is involved, and what is your role?
+- If you could improve one thing about the deployment process at your last job, what would it be?
+- When you are committing a new feature, how do you make sure that it will work in production? And, in case something goes wrong, how do you make sure you can detect and solve the issue quickly?
+- What is the best method to deploy software?
+- What's the best way to get five 9s with AWS?
+- A deployment just failed. What steps will you take to remediate the situation?
+- What are the best DevOps tools, and which ones have you used?
+- Do you think it's possible that developers manage the production environment?
+- Discuss your experience building bridges between IT Ops, QA, and development.
+- Are you familiar with just Linux or have you worked with Windows environments as well?
+- Explain what would you check If a Linux-build-server suddenly starts getting slow.
+
+1. System Level troubleshooting  
+   a. RAM related issues  
+   b. Disk Space related Issues  
+   c. Disk I/O read write issues  
+   d. Network Hardware issues  
+   e. Mount issues  
+   f. Too Many process running in the machine
+2. Application Level troubleshooting  
+   a. Application is not behaving properly. Hit to Application log file OR application server log file OR web server Log file and try to understand the issues.  
+   b. zombie process issues – Find out if any as such process which is causing the system performance issues.  
+   c. Application Log – depends on the application installed, this can be referred and make use of the experience with the project and troubleshoot.  
+   d. Web Server Log – we can check http, tomcat log as well.  
+   e. Application Server Log – We can see jboss, weblogic logs to see if the application server response/receive time is the issues for slowness.  
+   f. Memory Leak of any application – This is one of well known issues in lunux based server due to bad application coding. Many times this can be resolved either by fixing the code or rebooting. But many other solutions are there to apply.
+3. Dependent Services troubleshooting  
+   a. SMTP Response time – SMTP server is not responding faster which is causing delay in response and queue up many processes.  
+   b. Network issues – There are many System performance issues is dependent on network or service which is depends on the network.  
+   c. Firewall related issues  
+   d. Antivirus related issues  
+   Some of the useful commands for troubleshooting are..
+   1. df –k
+   2. du –sh
+   3. top
+   4. uptime
+   5. ps –eaf | grep
+   6. vmstat
+   7. ping
+   8. tail –f < logfile >
+   9. iostat  
+      1.free  
+      2.kill -9  
+      3.mount  
+      4.sar  
+      5.ifconfig eth0 | enable | disable  
+      6.traceroute  
+      7.netstat -r  
+      8.nslookup  
+      9.route
+
+- How will you secure Jenkins?  
+  The way I secure Jenkins is mentioned below. If you have any other way of doing it, please mention it in the comments section below:  
+  Ensure global security is on.  
+  Ensure that Jenkins is integrated with my company's user directory with appropriate plugin.  
+  Ensure that matrix/Project matrix is enabled to fine tune access.  
+  Automate the process of setting rights/privileges in Jenkins with custom version controlled script.  
+  Limit physical access to Jenkins data/folders.  
+  Periodically run security audits on same.
+
+- What are the advantages that Containerization provides over virtualization?  
+  Below are the advantages of containerization over virtualization:  
+  Containers provide real-time provisioning and scalability but VMs provide slow provisioning  
+  Containers are lightweight when compared to VMs  
+  VMs have limited performance when compared to containers  
+  Containers have better resource utilization compared to VMs
+
+- Discuss your experience building bridges between IT Ops, QA and development.  
+  DevOps is all about effective communication and collaboration. I've been able to deal with production issues from the development and operations sides, effectively straddling the two worlds. I'm less interested in finding blame or playing the hero than I am with ensuring that all of the moving parts come together.
+
+- What is the one most important thing DevOps helps do?  
+  The most important thing DevOps helps do is to get the changes into production as quickly as possible while minimizing risks in software quality assurance and compliance. That is the primary objective of DevOps. However, there are many other positive side-effects to DevOps. For example, clearer communication and better working relationships between teams which creates a less stressful working environment.
+
+- What testing is necessary to ensure that a new service is ready for production?  
+  DevOps is all about continuous testing throughout the process, starting with development through to production. Everyone shares the testing responsibility. This ensures that developers are delivering code that doesn't have any errors and is of high quality, and it also helps everyone leverage their time most effectively.
+
+- What's a PTR in DNS?  
+  Pointer records are used to map a network interface (IP) to a host name. These are primarily used for reverse DNS. Reverse DNS is setup very similar to how normal (forward) DNS is setup. When you delegate the DNS forward, the owner of the domain tells the registrar to let your domain use specific name servers.
+
+- Describe two-factor authentication?  
+  Two-factor authentication is a security process in which the user provides two means of identification from separate categories of credentials; one is typically a physical token, such as a card, and the other is typically something memorized, such as a security code.
+
+- How would you prepare for a migration?  
+  Tips to answer: This question evaluates your experience of real projects with all the awkwardness and complexity they bring. Include terms like cut-over, dress rehearsals, roll-back and roll-forward, DNS solutions, feature toggles, branch by abstraction, and automation in your answer. Developing greenfield systems with little or no existing technology in place is always easier than having to deal with legacy components and configuration. As a candidate if you appreciate that any interesting software system will in effect be under constant migration, you will appear suitable for the role.
+
+- Are you familiar with just Linux or have you worked with Windows environments as well?  
+  Tips to answer: Demonstrate as much as you can, a clear understanding of both the environments including the key tools.
+
+- How can you reduce load time of a dynamic website?  
+  Tips to answer: Talk about Webpage optimization, cached web pages, quality web hosting , compressed text files, Apache fine tuning.
+
+- Describe your experience implementing continuous deployment?  
+  Tips to answer: Answer with a comprehensive list of all the tools that you used. Include inferences of the challenges you faced and how you tackled them.
+
+- How would you ensure traceability?  
+  Tips to answer: This question probes your attitude to metrics, logging, transaction journeys, and reporting. You should be able to identify that metric, monitoring and logging needs to be a core part of the software system, and that without them, the software is essentially not going to be able to appear maintained and diagnosed. Include words like SysLog, Splunk, error tracking, Nagios, SCOM, Avicode in your answer.
+
+- What problems did you face and how did you solve them in a way that met the team's goals?  
+  Tips to answer: This questions aims to find out how much you can handle stress and non-conformity at work. Talk about your leadership skills to handle and motivate the team to solve problems together.Talk about CI, release management and other tools to keep interdisciplinary projects on track.
+
+## Company's Task
+
+### Devops Tech case Zoover & Weeronline
+
+Using Google Container Engine, deploy an application using Helm. The application can be written in any language and/or framework/technology, and has to SECURELY expose the following paths:
+
+- Path: /example-proxy  
+  Content: the proxied content from <http://example.com/>
+- Path: /metrics  
+  Content: prometheus access metrics (latency and number of requests)  
+  BONUS: Install prometheus on the kubernetes cluster and scrape the applications metrics.  
+  Please push all your code to a public git repository with a README.md on how to use/install.
+
+Write code on the whiteboard that could take user input and determine if it is a palindrome. 1 Answer  
+Take two arrays and compare them to find duplicates. Only list each duplicate once. 3 Answers  
+What is the importance of CSS selectors? Where do you use them? 1 Answer  
+Write a tool that will display a todo list that is pulled from a database. When an item is checked off the list, have some action happen to indicate that item is done. Answer Question  
+Make an accordion where when clicked, text expands from it and when another item is clicked, the first one collapses and the second one expands.  
+Asynchronous & Synchronous web pages and functionalities onto web pages. Give examples.
+
+Tell me about the factors that determine which technologies you'll use on a project. Answer Question  
+In the phone screen I was asked to write a framework (I won't give away what kind, but it wasn't easy). In retrospect, they did not expect me to finish, just to convince them that I could. Answer Question  
+My algorithm questions were presented as DOM traversals. Using CS concepts here is the key. Casually refer to an array as a stack or queue depending on how you're using it, mention why you're using breadth first instead of depth, etc. Answer Question  
+How would you make this markup more accessible for a visually impaired person? Hearing impaired? How about a person on a slow network?  
+Write code on the whiteboard that could take user input and determine if it is a palindrome. 1 Answer  
+Take two arrays and compare them to find duplicates. Only list each duplicate once. 3 Answers  
+What is the importance of CSS selectors? Where do you use them? 1 Answer  
+Write a tool that will display a todo list that is pulled from a database. When an item is checked off the list, have some action happen to indicate that item is done. Answer Question  
+Make an accordion where when clicked, text expands from it and when another item is clicked, the first one collapses and the second one expands.
+
+There were a lot but one of the generic questions was: Implement a SortedMap in JavaScript
+
+In one hour, implement a web service that can read a file &gt; 10GB and store all the distinct words in it and the number of times they occur and do it in O(N) or less complexity. Then write all the code on the client (browser) side to allow anyone to search for all words beginning with what the user inputs, uses AJAX to pull the results into the page, and deals with a lot of results with pagination or infinite scrolling of some type.
+
+Vertically and horizontally center an element on the screen using css.
+
+Outline how you would implement a chess game in a language of your choice.
+
+Write a JS code to travers the DOM and find an element with a specified class name 1 Answer  
+A simple CSS positioning question that starts with an independent widget (like a start rating widget)
+
+How would you implement integer division if your language did not offer it.
+
+How would you reverse a linked list?
+
+What are the three principles that Redux follows?
+
+1. Single source of truth: The state of the entire application is stored in an object/ state tree within a single store. The single state tree makes it easier to keep track of changes over time and debug or inspect the application.
+2. State is read-only: The only way to change the state is to trigger an action. An action is a plain JS object describing the change. Just like state is the minimal representation of data, the action is the minimal representation of the change to that data.
+3. Changes are made with pure functions: In order to specify how the state tree is transformed by actions, you need pure functions. Pure functions are those whose return value depends solely on the values of their arguments.
+
+## Ref
+
+- [https://github.com/DopplerHQ/awesome-interview-questions](https://github.com/DopplerHQ/awesome-interview-questions)
+- Backend Task: [https://onecompiler.com/java/3y59ssr48](https://onecompiler.com/java/3y59ssr48)
+- Frontend Task: [https://codepen.io/wellcosta/pen/OJQRzVb](https://codepen.io/wellcosta/pen/OJQRzVb)
+- Easy Problem: <https://leetcode.com/problems/majority-element/>
+- Medium Problem: [https://leetcode.com/problems/integer-to-roman/](https://leetcode.com/problems/integer-to-roman/)

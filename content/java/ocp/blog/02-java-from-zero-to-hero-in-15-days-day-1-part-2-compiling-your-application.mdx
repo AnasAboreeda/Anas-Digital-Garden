@@ -1,0 +1,37 @@
+---
+id: 2023-01-18-02-java-from-zero-to-hero-in-15-days-day-1-part-2-compiling-your-application
+title: 02 java from zero to hero in 15 days day 1 part 2 compiling your application
+metaTitle: 02 Java From Zero To Hero In 15 Days Day 1 Part 2 Compiling Your Application | Anas's Digital Garden
+metaDescription: 02 java from zero to hero in 15 days day 1 part 2 compiling your application | Anas's Digital Garden
+createdDate: 2023-01-18
+updatedDate: 2023-01-18
+weekNumber: 202303
+category: java/ocp/blog
+tags: ["blog", "02-java-from-zero-to-hero-in-15-days-day-1-part-2-compiling-your-application"]
+---
+
+# 02 Java — from Zero to Hero in 15 Days — Day 1 - part 2 - Compiling Your Application
+
+## Compiling with Jar Files
+
+You can also specify the location of the other files explicitly using a classpath. This technique is useful when the class files are located elsewhere or in special JAR files.
+
+    # On Windows, you type the following:
+    java -cp ".;C:\temp\someOtherLocation;c:\temp\myJar.jar" myPackage.MyClass
+
+    # And on macOS/Linux, you type this:
+    java -cp ".:/tmp/someOtherLocation:/tmp/myJar.jar" myPackage.MyClass
+
+The period (.) indicates that you want to include the current directory in the classpath. Just like when you're compiling, you can use a wildcard (*) to match all the JARs in a directory.
+
+## Creating a Jar File
+
+A *Java archive* (JAR) file is like a ZIP file of mainly Java class files. You can create a Jar file using the jar command
+
+    # You can use the short or long form for each option.
+    jar -cvf myNewFile.jar .
+    jar --create --verbose --file myNewFile.jar .
+
+    # Alternatively, you can specify a directory
+    # instead of using the current directory.
+    jar -cvf myNewFile.jar -C dir .

@@ -1,0 +1,32 @@
+---
+id: 2023-01-18-design-patterns-questions
+title: design patterns questions
+metaTitle: Design Patterns Questions | Anas's Digital Garden
+metaDescription: design patterns questions | Anas's Digital Garden
+createdDate: 2023-01-18
+updatedDate: 2023-01-18
+weekNumber: 202303
+category: interview_preparation/interview_questions
+tags: ["interview_questions", "design-patterns-questions"]
+---
+
+# Design Patterns Questions
+
+- Transform this code snippet to Singleton class
+
+```java
+//STS client to obtain temp security credentials 
+				AWSSecurityTokenService stsClient = AWSSecurityTokenServiceClientBuilder.standard()
+						.withCredentials(new ProfileCredentialsProvider())
+						.withRegion(Regions.US_EAST_2)
+						.build();
+				
+				
+				
+				//Create/retain Dynamic session credentials, will refresh the credentials when they expire. 
+				STSAssumeRoleSessionCredentialsProvider sessionCredentials = new STSAssumeRoleSessionCredentialsProvider.Builder(roleArn, "dp_session")
+						.withStsClient(stsClient).build();
+				AmazonS3 s3Client = AmazonS3ClientBuilder.standard().withCredentials(sessionCredentials)
+						.withRegion(Regions.US_EAST_2)
+						.build();
+```

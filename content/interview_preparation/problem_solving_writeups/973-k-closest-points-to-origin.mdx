@@ -1,0 +1,101 @@
+---
+id: <% tp.file.creation_date('YYYY-MM-DD') %>-<% tp.file.title %>
+title: <% tp.file.title.replace(/-/g, ' ') %>
+metaTitle: <% tp.file.title.replace(/-/g, ' ').replace(/([^\W_]+[^\s-_]+]*) */g, function (txt) {return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();}) %> | Anas's Digital Garden
+metaDescription: <% tp.file.title.replace(/-/g, ' ') %> | Anas's Digital Garden
+createdDate: <% tp.file.creation_date('YYYY-MM-DD') %>
+updatedDate: <% tp.file.last_modified_date('YYYY-MM-DD') %>
+weekNumber: <% tp.file.creation_date('YYYYww') %>
+category: <% tp.file.folder(true) %>
+tags: ["<% tp.file.folder() %>", "<% tp.file.title %>"]
+---
+# 973 K Closest Points to Origin
+
+---
+Acceptance Rate: 0.66
+Accepted: 623157
+Algorithm: Heap
+By Myself: Yes
+Created At: December 26, 2021 4:58 AM
+Dificulty: medium
+Submissions: 946849
+Submit Count: 1
+Tags: Heap
+Total Time(m): 20
+URL: https://leetcode.com/problems/k-closest-points-to-origin/
+Updated At: December 26, 2021 5:59 AM
+---
+
+
+# 973. K Closest Points to Origin
+
+
+## Problem Statement
+
+Given an array of `points` where `points[i] = [xi, yi]` represents a point on the **X-Y** plane and an integer `k`, return the `k` closest points to the origin `(0, 0)`.
+
+The distance between two points on the **X-Y** plane is the Euclidean distance (i.e., `√(x1 - x2)2 + (y1 - y2)2`).
+
+You may return the answer in **any order**. The answer is **guaranteed** to be **unique** (except for the order that it is in).
+
+**Example 1:**
+
+![https://assets.leetcode.com/uploads/2021/03/03/closestplane1.jpg](https://assets.leetcode.com/uploads/2021/03/03/closestplane1.jpg)
+
+```
+Input: points = [[13-22]], k = 1
+Output: [[22]]
+Explanation:
+The distance between (1, 3) and the origin is sqrt(10).
+The distance between (-2, 2) and the origin is sqrt(8).
+Since sqrt(8) < sqrt(10), (-2, 2) is closer to the origin.
+We only want the closest k = 1 points from the origin, so the answer is just [[22]].
+
+```
+
+**Example 2:**
+
+```
+Input: points = [[335-1-24]], k = 2
+Output: [[33-24]]
+Explanation: The answer [[2433]] would also be accepted.
+
+```
+
+**Constraints:**
+
+- `1 <= k <= points.length <= 104`
+- `104 < xi, yi < 104`
+
+## Solution
+
+```java
+class Solution {
+    public int[][] kClosest(int[][] points, int k) {
+        PriorityQueue<int[]> heap = new PriorityQueue<>(
+					(a, b) -> Double.compare(calculateDistance(a), calculateDistance(b))
+				);
+
+        for(int i = 0; i < points.length; i ++) {
+            heap.add(points[i]);
+        }
+
+        int[][] result = new int[k][];
+
+        k--;
+
+        while(k >=0 && !heap.isEmpty()) {
+            result[k] = heap.remove();
+            k--;
+        }
+
+        return result;
+    }
+
+    private Double calculateDistance(int[] point) {
+        return Math.sqrt(Math.pow(point[0], 2) + Math.pow(point[1], 2));
+    }
+}
+```
+
+## Explanation

@@ -1,10 +1,10 @@
 ---
-id: 2016-02-20-buffer-overflows
+id: 2023-01-11-buffer-overflows
 title: buffer overflows
 metaTitle: Buffer Overflows | Anas's Digital Garden
 metaDescription: buffer overflows | Anas's Digital Garden
-createdDate: 2016-02-20
-updatedDate: 2023-01-15
+createdDate: 2023-01-11
+updatedDate: 2023-01-18
 weekNumber: 202302
 category: security/buffer-overflows
 tags: ["buffer-overflows", "buffer-overflows"]
@@ -14,22 +14,21 @@ tags: ["buffer-overflows", "buffer-overflows"]
 
 Those are the main ways of identifying flaws in applications
 
-- If the source code of the application is available, then source code review is probably the easiest way to identify
+- If the source code of the application is available, then source code review is probably the easiest way to identify  
   bugs.
 - If the application is closed source, you can use reverse engineering techniques, or fuzzing, to find bugs.
 
-## A look inside Stack while a simple app is running
+## A Look inside Stack while a Simple App is Running
 
 ![](./images/inside_stack.png)
 
 ## Fuzzing
 
 - Fuzzing involves sending malformed data into application input and watching for unexpected crashes.
-- An unexpected crash indicates that the application might not filter certain input correctly. This could lead to
+- An unexpected crash indicates that the application might not filter certain input correctly. This could lead to  
   discovering an exploitable vulnerability.
 - Nmap Fuzzers:
-
-  - NMap Fuzzer List
+  - NMap Fuzzer List  
     [https://nmap.org/nsedoc/categories/fuzzer.html](https://nmap.org/nsedoc/categories/fuzzer.html)
 
   - NMap HTTP Form Fuzzer
@@ -41,27 +40,28 @@ Those are the main ways of identifying flaws in applications
     ```
 
   - Nmap DNS Fuzzer
+
     ```
     nmap --script dns-fuzz --script-args timelimit=2h $ip -d
     ```
 
-- MSFvenom
+- MSFvenom  
   [_https://www.offensive-security.com/metasploit-unleashed/msfvenom/_](https://www.offensive-security.com/metasploit-unleashed/msfvenom/)
 
-### A Word About DEP and ASLR
+### A Word about Dep and Aslr
 
-- **DEP** (Data Execution Prevention) is a set of hardware, and software, technologies that perform additional checks on
+- **DEP** (Data Execution Prevention) is a set of hardware, and software, technologies that perform additional checks on  
   memory, to help prevent malicious code from running on a system.
-- The primary benefit of **DEP** is to help prevent code execution from data pages, by raising an exception, when
+- The primary benefit of **DEP** is to help prevent code execution from data pages, by raising an exception, when  
   execution occurs.
-- **ASLR** (Address Space Layout Randomization) randomizes the base addresses of loaded applications, and DLLs, every
+- **ASLR** (Address Space Layout Randomization) randomizes the base addresses of loaded applications, and DLLs, every  
   time the Operating System is booted.
 
 #### Interacting with the POP3 Protocol
 
 > if the protocol under examination was unknown to us, we would either need to look up the RFC of the protocol format, or learn it ourselves, using a tool like Wireshark.
 
-- To reproduce the netcat connection usage performed earlier in the course using a Python script, our code would look
+- To reproduce the netcat connection usage performed earlier in the course using a Python script, our code would look  
   similar to the following
 
 ```python
@@ -97,7 +97,7 @@ except:
   "Could not connect to POP3!"
 ```
 
-- Taking this simple script and modifying it to fuzz the password field during the login process is easy. The resulting
+- Taking this simple script and modifying it to fuzz the password field during the login process is easy. The resulting  
   script would look like the following.
 
 ```python
@@ -125,16 +125,16 @@ for string in buffer:
 ```
 
 - Run this script against your SLMail instance, while attached to **Immunity Debugger**.
-- The results of running this script shows that the **Extended Instruction Pointer (EIP)** register has been overwritten
-  with our input buffer of A’s (the hex equivalent of the letter A is \x41).
+- The results of running this script shows that the **Extended Instruction Pointer (EIP)** register has been overwritten  
+  with our input buffer of A's (the hex equivalent of the letter A is \x41).
 - This is of particular interest to us, as the EIP register also controls the execution flow of the application.
-- This means that if we craft our exploit buffer carefully, we might be able to divert the execution of the program to a
-  place of our choosing, such as a into the memory where we can introduce some reverse shell code, as part of our
+- This means that if we craft our exploit buffer carefully, we might be able to divert the execution of the program to a  
+  place of our choosing, such as a into the memory where we can introduce some reverse shell code, as part of our  
   buffer.
 
 ![Execution Halted in OllyDbg](../../assets/images/posts/buffer_overflow/33.png)
 
-## Check for bad characters
+## Check for Bad Characters
 
 ```bash
 >> python -c \
@@ -157,7 +157,7 @@ for string in buffer:
 "xf1xf2xf3xf4xf5xf6xf7xf8xf9xfaxfbxfcxfdxfexff"'
 ```
 
-## Generate meterpreter bind-tcp payload
+## Generate Meterpreter Bind-tcp Payload
 
 ```bash
 >> msfvenom -p linux/x86/meterpreter/bind_tcp -b="0x00" -f python

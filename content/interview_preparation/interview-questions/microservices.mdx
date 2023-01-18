@@ -1,0 +1,40 @@
+---
+id: 2023-01-18-microservices
+title: microservices
+metaTitle: Microservices | Anas's Digital Garden
+metaDescription: microservices | Anas's Digital Garden
+createdDate: 2023-01-18
+updatedDate: 2023-01-18
+weekNumber: 202303
+category: interview_preparation/interview_questions
+tags: ["interview_questions", "microservices"]
+---
+
+# Microservices
+
+## Microservices
+
+- What are the advantages of microservices?
+- What are the characteristics of Microservices?
+    - Essential messaging frameworks
+    - Decentralized Governance
+    - Easy Infrastructure automation
+    - Design for failure
+    - Infrastructure automation
+- What Is CQRS?
+    - CQRS stands for Command, Query, Responsibility, and Segregation. In CQRS, we divide our read and write operations into two parts one is Command side and another one is Query side. command side handles create, update, and delete. basically command side is used to when data changes and query side is used to get data from the database by executing the query against one or more materialized view.
+- When Do We Use CQRS?
+    - When there are multiple operations are performed in parallel on the same data.
+    - Scenarios when the number of the read operation is higher than the write operation in this situation we need horizontal scaling. In this type of situation, we prefer CQRS.
+    - Situations when one team of developers can focus on the write side and another team of developers can focus on the read side and user interface.
+- Benefits of CQRS
+    - The main and most useful feature of CQRS is that we can do independently scaling ie both horizontal and vertical.
+    - By using CQRS it is very easy to maintain the security of the database ie. because there are some people who have only read rights and some people who have only write rights and some of the people have both read and write rights. so, In CQRS it 's very easy to maintain security.
+    - CQRS is also helping us to maintain consistency throughout the independent systems.
+    - CQRS also help in a situation when the read side is available in case of failure if your write side is down then you can read the last update in the database.
+- When CQRS Is Not Recommend
+    - When the domain or the business rules are simple.
+    - Where a simple crud style user interface and the related data access operation are sufficient.
+    - When there is less amount of read and write operations are performed and the database is not too large.
+    - When our database is not distributed.
+- What is Istio? [https://istio.io/docs/concepts/what-is-istio/](https://istio.io/docs/concepts/what-is-istio/)

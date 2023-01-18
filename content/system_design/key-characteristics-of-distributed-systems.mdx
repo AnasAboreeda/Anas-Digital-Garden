@@ -1,0 +1,61 @@
+---
+id: 2023-01-18-key-characteristics-of-distributed-systems
+title: key characteristics of distributed systems
+metaTitle: Key Characteristics Of Distributed Systems | Anas's Digital Garden
+metaDescription: key characteristics of distributed systems | Anas's Digital Garden
+createdDate: 2023-01-18
+updatedDate: 2023-01-18
+weekNumber: 202303
+category: system_design
+tags: ["system_design", "key-characteristics-of-distributed-systems"]
+---
+
+# Key Characteristics of Distributed Systems
+
+# 1. Scalability
+
+1. **Horizontal vs. Vertical Scaling:**
+    1. **Horizontal scaling** means that you scale by adding more servers into your pool of resources.
+    2. **Vertical scaling** means that you scale by adding more power (CPU, RAM, Storage, etc.) to an existing server.
+- With horizontal-scaling it is often easier to scale **dynamically** by adding more machines into the existing pool
+- Vertical-scaling is usually limited to the capacity of a single server and scaling beyond that capacity often involves downtime and comes with an upper limit.
+- Good examples of **horizontal scaling** are ***Cassandra*** and ***MongoDB*** as they both provide an easy way to scale horizontally by adding more machines to meet growing needs.
+- Similarly, a good example of **vertical scaling** is ***MySQL*** as it allows for an easy way to scale vertically by switching from smaller to bigger machines. However, this process often involves **downtime**.
+
+# 2. Reliability
+
+Reliability is the probability a system will fail in a given period.
+
+A reliable distributed system achieves this through redundancy of both the **software components** and **data**.
+
+Obviously, redundancy has a cost and a reliable system has to pay that to achieve such resilience for services by **eliminating every single point of failure**.
+
+# 3. Availability
+
+Availability is the time a system remains operational to perform its required function in a specific period.
+
+Availability takes into account maintainability, repair time, spares availability, and other logistics considerations.
+
+Reliability is availability over time considering the full range of possible real-world conditions that can occur.
+
+**Reliability Vs. Availability**
+
+If a system is reliable, it is available. However, if it is available, it is not necessarily reliable.
+
+In other words, high reliability contributes to high availability, but it is possible to achieve a high availability even with an unreliable product by minimising repair time and ensuring that spares are always available when they are needed.
+
+# 4. Efficiency
+
+Two standard measures of its efficiency are
+
+1. **The response time (or latency)** that denotes the delay to obtain the first item
+2. **The throughput (or bandwidth)** which denotes the number of items delivered in a given time unit (e.g., a second)
+
+The two measures correspond to the following unit costs:
+
+- Number of messages globally sent by the nodes of the system regardless of the message size.
+- Size of messages representing the volume of data exchanges.
+
+# 5. Serviceability or Manageability
+
+Things to consider for manageability are the ease of diagnosing and understanding problems when they occur, ease of making updates or modifications, and how simple the system is to operate (i.e., does it routinely operate without failure or exceptions?).

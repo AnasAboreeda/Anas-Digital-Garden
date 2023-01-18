@@ -4,11 +4,12 @@ title: quick sort
 metaTitle: Quick Sort | Anas's Digital Garden
 metaDescription: quick sort | Anas's Digital Garden
 createdDate: 2023-01-11
-updatedDate: 2023-01-15
+updatedDate: 2023-01-18
 weekNumber: 202302
 category: algorithms/sort-algorithms
 tags: ["sort-algorithms", "quick-sort"]
 ---
+
 # Quick Sort
 
 - comparison-based algorithm
@@ -16,7 +17,8 @@ tags: ["sort-algorithms", "quick-sort"]
 - efficient in practice
 
 ![](./quick-sort/quick-sort-1.jpeg)
-> Assume that all the elements of A[1 . . . n] are pairwise different. Then the average running time of RandomizedQuickSort(A) is O(n log n) while the worst-case running time is O(n2).
+
+> Assume that all the elements of A[1 … n] are pairwise different. Then the average running time of RandomizedQuickSort(A) is O(n log n) while the worst-case running time is O(n2).
 >
 
 ```java
@@ -45,11 +47,12 @@ void quick_sort ( int A[ ] ,int start , int end ) {
    }
 }
 ```
+
 ![](./quick-sort/quick-sort-2.png)
 
-To handle equal elements, we replace the line `m ← Partition(A, ℓ, r )`
-with the line `(m1,m2) ← Partition3(A, ℓ, r )`
-such that
-for all ℓ ≤ k ≤ m1 − 1, A[k] < x
-for all m1 ≤ k ≤ m2, A[k] = x
+To handle equal elements, we replace the line `m ← Partition(A, ℓ, r )`  
+with the line `(m1,m2) ← Partition3(A, ℓ, r )`  
+such that  
+for all ℓ ≤ k ≤ m1 − 1, A[k] < x  
+for all m1 ≤ k ≤ m2, A[k] = x  
 for all m2 + 1 ≤ k ≤ r , A[k] > x

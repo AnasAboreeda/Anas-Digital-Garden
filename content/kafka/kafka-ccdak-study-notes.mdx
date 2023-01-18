@@ -4,12 +4,13 @@ title: kafka ccdak study notes
 metaTitle: Kafka Ccdak Study Notes | Anas's Digital Garden
 metaDescription: kafka ccdak study notes | Anas's Digital Garden
 createdDate: 2023-01-11
-updatedDate: 2023-01-15
+updatedDate: 2023-01-18
 weekNumber: 202302
 category: kafka
 tags: ["kafka", "kafka-ccdak-study-notes"]
 ---
-# Kafka - CCDAK Study Notes
+
+# Kafka - Ccdak Study Notes
 
 ## Kafka Architecture
 
@@ -113,7 +114,7 @@ By default, all consumers will process all records, but what if you want to scal
 - The leader is dynamically selected and if the leader goes down, the cluster attempts to choose a new leader through a process called **leader election**.
 - Leader is the source of truth.
 
-### In-Sync Replicas
+### In-sync Replicas
 
 - Kafka maintains a list of **In-Sync Replicas (ISR)** for each partition.
 - ISRs are replicas that are up-to-date with the leader.
@@ -131,7 +132,7 @@ By default, all consumers will process all records, but what if you want to scal
 4. Consumers read the message and process it.
 5. When the retention period for the message is reached, the message is deleted. (default retention period is 7 days).
 
-## The Kafka Java APIs
+## The Kafka Java Apis
 
 1. _Producer API_: Allows you to build producers that publish messages to Kafka.
 2. _Consumer API_: Allows you to build consumers that read Kafka messages.
@@ -141,7 +142,7 @@ By default, all consumers will process all records, but what if you want to scal
 
 ## Streams
 
-### What are Streams?
+### What Are Streams?
 
 - So far, we have discussed using Kafka for messaging (reliably passing data between two applications).
 - **Kafka Streams** allows us to build applications that process Kafka data in real-time with ease.
@@ -158,7 +159,7 @@ There are two types of data transformations in Kafka Streams:
 - **Stateless transformations** do not require any additional storage to manage the state.
 - **Stateful transformations** require a state store to manage the state.
 
-### Stateless transformations
+### Stateless Transformations
 
 1. **Branch**: Splits a stream into multiple streams based on a predicate.
 2. **Filter**: Removes messages from the stream based on a condition.
@@ -187,7 +188,7 @@ There are two types of data transformations in Kafka Streams:
 
 Joins are used to combine streams into one new stream.
 
-### Co-Partitioning
+### Co-partitioning
 
 When joining streams, the data must be co-partitioned:
 
@@ -198,10 +199,9 @@ You can avoid the need for co-partitioning by using a _GlobalkTable_.
 
 With _GlobalKTables_, all instances of your streams application will populate the local table with data
 
-### Kafka Streams Join types
+### Kafka Streams Join Types
 
 1. **Inner join**: The new stream will contain only records that have a match in both joined streams.
-
 2. **Left Join**: The new stream will contain all records from the first stream, but only matching records from the joined stream.
 3. **Outer Join**: The new stream will contain all records from both streams.
 
@@ -216,7 +216,7 @@ _Windows_ are similar to groups in that they deal with a set of records with the
 - **Sliding Time Windows**: These windows are dynamically based on the timestamps of records rather than a fixed point in time. They are only used in joins.
 - **Session Windows**: Creates windows based on periods of activity. A group of records around the same timestamp will form a session window, whereas a period of “idle time” with no records in the group will not have a window.
 
-### Late-Arriving Records
+### Late-arriving Records
 
 - In real-world scenarios, it is always possible to receive out-of-order data.
 - When records fall into a time window received after the end of that window's grace period, they become known as _late-arriving records_.
@@ -230,7 +230,7 @@ Kafka Streams models data in two primary ways: _streams_ and _tables_.
 1. **Streams**: Each record is a self-contained piece of data in an unbounded set of data. New records do not replace an existing piece of data with a new value.
 2. **Tables**: Records represent a current state that can be overwritten/ updated.
 
-### example use cases
+### Example Use Cases
 
 #### Stream
 
@@ -240,7 +240,7 @@ Kafka Streams models data in two primary ways: _streams_ and _tables_.
 
 #### Table
 
-- A user’s current available credit card balance.
+- A user's current available credit card balance.
 - A list of conference attendee names with a value indicating whether or not they have checked in.
 - A set of data containing the quantity of each item in a store's inventory.
 
@@ -288,7 +288,7 @@ Some questions to consider when designing your topics:
 3. _How many consumers do you want to place in a consumer group for parallel processing?_ You will need at least as many partitions as the number of consumers you expect to have on a single group.
 4. _How much memory is available on each broker?_ Kafka requires memory to process messages. The configuration setting `replica.fetch.max.bytes` (default ~1 MB) determines the rough amount of memory you will need for each partition on a broker.
 
-## Setting Kafka locally in docker-compose
+## Setting Kafka Locally in Docker-compose
 
 ```docker-compose
 version: '2'
@@ -343,3 +343,18 @@ services:
 ## References
 
 - [Guide to Setting Up Apache Kafka Using Docker](https://www.baeldung.com/ops/kafka-docker-setup)
+- [01_01_setting-up-kafka-servers.pdf](./kafka/01_01_setting-up-kafka-servers.pdf)
+- [01_02_building-a-kafka-cluster.pdf](./kafka/01_02_building-a-kafka-cluster.pdf)
+- [02_02_kafka-from-the-command-line.pdf](./kafka/02_02_kafka-from-the-command-line.pdf)
+- [02_05_partitions-and-replication.pdf](./kafka/02_05_partitions-and-replication.pdf)
+- [03_01_the-kafka-java-apis.pdf](./kafka/03_01_the-kafka-java-apis.pdf)
+- [04_01_what-are-streams_.pdf](./kafka/04_01_what-are-streams_.pdf)
+- [04_02_kafka-streams-stateless-transformations.pdf](./kafka/04_02_kafka-streams-stateless-transformations.pdf)
+- [04_03_kafka-streams-aggregations.pdf](./kafka/04_03_kafka-streams-aggregations.pdf)
+- [04_04_kafka-streams-joins.pdf](./kafka/04_04_kafka-streams-joins.pdf)
+- [04_05_kafka-streams-windowing.pdf](./kafka/04_05_kafka-streams-windowing.pdf)
+- [05_01_kafka-configuration.pdf](./kafka/05_01_kafka-configuration.pdf)
+- [05_03_metrics-and-monitoring.pdf](./kafka/05_03_metrics-and-monitoring.pdf)
+- [admin_certification_sample_questions.pdf](./kafka/admin_certification_sample_questions.pdf)
+- [developer_certification_sample_questions.pdf](./kafka/developer_certification_sample_questions.pdf)
+
