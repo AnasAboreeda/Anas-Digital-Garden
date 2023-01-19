@@ -1,0 +1,69 @@
+---
+id: 2023-01-18-217-contains-duplicate
+title: 217 contains duplicate
+metaTitle: 217 Contains Duplicate | Anas's Digital Garden
+metaDescription: 217 contains duplicate | Anas's Digital Garden
+createdDate: 2023-01-18
+updatedDate: 2023-01-18
+weekNumber: 202303
+category: problems-solutions
+tags: ["problems-solutions", "217-contains-duplicate"]
+---
+
+# 217 Contains Duplicate
+
+---
+Acceptance Rate: 0.6
+Accepted: 1217330
+Algorithm: Iterate, Sort
+By Myself: Yes
+Created At: January 11, 2022 4:54 AM
+Dificulty: very easy
+Related to: 217%20Contains%20Duplicate.md
+Submissions: 2035264
+Submit Count: 2
+Total Time(m): 15
+URL: <https://leetcode.com/problems/contains-duplicate/>
+Updated At: January 11, 2022 5:00 AM
+---
+
+Tags:: #Array, #HashMap, #HashSet, #Sort
+
+# 217. Contains Duplicate
+
+## Problem Statement
+
+## Solution
+
+```java
+class Solution {
+    public boolean containsDuplicate(int[] nums) {
+      if (nums == null || nums.length <= 1) {
+        return false;
+      }
+
+      Arrays.sort(nums);
+
+      for (int i = 1; i < nums.length; i++) {
+        if (nums[i] == nums[i - 1]) {
+          return true;
+        }
+      }
+
+      return false;
+    }
+  }
+```
+
+## Time Complexity
+
+O(n log n)
+
+## Space Complexity
+
+O(1)
+
+## Explanation
+
+- We can use sorting here to keep the memory O(1) and iterate so the time will be O(n log n)
+- OR we can use a frequency hashmap so the runtime will be O(n) and the space will be O(n)

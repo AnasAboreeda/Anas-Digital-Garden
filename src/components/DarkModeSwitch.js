@@ -77,18 +77,19 @@ const StyledSwitch = styled('div')`
   .slider.round:before {
     border-radius: 50%;
   }
+
+  .visually-hidden {
+    display: none;
+  }
 `;
 
 export const DarkModeSwitch = ({ isDarkThemeActive, toggleActiveTheme }) => (
   <StyledSwitch>
-    <label id="switch" className="switch">
-      <input
-        type="checkbox"
-        id="slider"
-        onChange={toggleActiveTheme}
-        checked={!isDarkThemeActive}
-      />
+    <label id="switch" className="switch" aria-label="change theme" htmlFor="slider">
+      <input type="checkbox" id="slider" aria-checked={!isDarkThemeActive} onChange={toggleActiveTheme}
+        checked={!isDarkThemeActive} />
       <span className="slider round" />
+      <span className="visually-hidden">Change the theme</span>
     </label>
   </StyledSwitch>
 );

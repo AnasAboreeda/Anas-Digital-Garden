@@ -1,0 +1,72 @@
+---
+id: 2023-01-18-242-valid-anagram
+title: 242 valid anagram
+metaTitle: 242 Valid Anagram | Anas's Digital Garden
+metaDescription: 242 valid anagram | Anas's Digital Garden
+createdDate: 2023-01-18
+updatedDate: 2023-01-18
+weekNumber: 202303
+category: problems-solutions
+tags: ["problems-solutions", "242-valid-anagram"]
+---
+
+# 242 Valid Anagram
+
+---
+Acceptance Rate: 0.61
+Accepted: 1059545
+Algorithm: Iterate
+By Myself: Yes
+Created At: January 13, 2022 7:58 AM
+Dificulty: very easy
+Submissions: 1745716
+Submit Count: 1
+Total Time(m): 20
+URL: <https://leetcode.com/problems/valid-anagram/>
+Updated At: January 13, 2022 8:00 AM
+---
+
+Tags:: #Array, #Sort
+
+# 242. Valid Anagram
+
+## Problem Statement
+
+## Solution
+
+```java
+class Solution {
+    public boolean isAnagram(String s, String t) {
+
+      if (s.length() != t.length()) {
+        return false;
+      }
+
+      Map<Character, Integer> freq = new HashMap<>();
+      for (int i = 0; i < s.length(); i++) {
+        char sChar = s.charAt(i);
+        char tChar = t.charAt(i);
+
+        int sCharFreq = freq.getOrDefault(sChar, 0);
+        freq.put(sChar, sCharFreq + 1);
+
+        int tCharFreq = freq.getOrDefault(tChar, 0);
+        freq.put(tChar, tCharFreq - 1);
+      }
+
+      long results = freq.values().stream().filter(value -> value != 0).count();
+
+      return results == 0;
+    }
+  }
+```
+
+## Time Complexity
+
+O(n)
+
+## Space Complexity
+
+O(1) as the freq contains max 26 keys (english alphabet)
+
+## Explanation

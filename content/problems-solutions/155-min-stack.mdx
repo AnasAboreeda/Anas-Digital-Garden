@@ -1,0 +1,137 @@
+---
+id: 2023-01-18-155-min-stack
+title: 155 min stack
+metaTitle: 155 Min Stack | Anas's Digital Garden
+metaDescription: 155 min stack | Anas's Digital Garden
+createdDate: 2023-01-18
+updatedDate: 2023-01-18
+weekNumber: 202303
+category: problems-solutions
+tags: ["problems-solutions", "155-min-stack"]
+---
+
+# 155 Min Stack
+
+---
+Acceptance Rate: 0.49
+Accepted: 882279
+Algorithm: Iterate
+By Myself: Yes
+Created At: January 7, 2022 2:04 PM
+Dificulty: very easy
+Submissions: 1791666
+Submit Count: 2
+Total Time(m): 10
+URL: <https://leetcode.com/problems/min-stack/>
+Updated At: January 7, 2022 2:05 PM
+---
+
+Tags:: #Stack
+
+# 155. Min Stack
+
+## Problem Statement
+
+Design a stack that supports push, pop, top, and retrieving the minimum element in constant time.
+
+Implement the `MinStack` class:
+
+- `MinStack()` initializes the stack object.
+- `void push(int val)` pushes the element `val` onto the stack.
+- `void pop()` removes the element on the top of the stack.
+- `int top()` gets the top element of the stack.
+- `int getMin()` retrieves the minimum element in the stack.
+
+**Example 1:**
+
+```
+Input
+["MinStack","push","push","push","getMin","pop","top","getMin"]
+[[20-3]]
+
+Output
+[null,null,null,null,-3,null,0,-2]
+
+Explanation
+MinStack minStack = new MinStack();
+minStack.push(-2);
+minStack.push(0);
+minStack.push(-3);
+minStack.getMin(); // return -3
+minStack.pop();
+minStack.top();    // return 0
+minStack.getMin(); // return -2
+
+```
+
+**Constraints:**
+
+- `231 <= val <= 231 - 1`
+- Methods `pop`, `top` and `getMin` operations will always be called on **non-empty** stacks.
+- At most `3 * 104` calls will be made to `push`, `pop`, `top`, and `getMin`.
+
+## Solution
+
+```java
+/*
+ * @lc app=leetcode id=155 lang=java
+ *
+ * [155] Min Stack
+ */
+
+// @lc code=start
+class MinStack {
+
+    private Deque<Integer> minStack;
+    private Deque<Integer> stack;
+
+    public MinStack() {
+        minStack = new ArrayDeque();
+        stack = new ArrayDeque();
+    }
+
+    public void push(int val) {
+        if(minStack.size() == 0 || val <= minStack.peek()) {
+            minStack.push(val);
+        }
+        stack.push(val);
+    }
+
+    public void pop() {
+        int lastItem = stack.pop();
+
+        if(lastItem == minStack.peek()) {
+            minStack.pop();
+        }
+    }
+
+    public int top() {
+        return stack.peek();
+    }
+
+    public int getMin() {
+        if(minStack.size() > 0) {
+            return minStack.peek();
+        }
+        return -1;
+    }
+}
+
+/**
+ * Your MinStack object will be instantiated and called as such:
+ * MinStack obj = new MinStack();
+ * obj.push(val);
+ * obj.pop();
+ * int param_3 = obj.top();
+ * int param_4 = obj.getMin();
+ */
+// @lc code=end
+```
+
+## Time Complexity
+
+## Space Complexity
+
+O(n)
+
+## Explanation

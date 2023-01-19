@@ -1,0 +1,65 @@
+---
+id: 2023-01-18-ctci-1-1-is-unique
+title: ctci 1 1 is unique
+metaTitle: Ctci 1 1 Is Unique | Anas's Digital Garden
+metaDescription: ctci 1 1 is unique | Anas's Digital Garden
+createdDate: 2023-01-18
+updatedDate: 2023-01-18
+weekNumber: 202303
+category: problems-solutions
+tags: ["problems-solutions", "ctci-1-1-is-unique"]
+---
+
+# Ctci 1 1 is Unique
+
+---
+Acceptance Rate: 0
+Algorithm: Iterate, Sort
+By Myself: Yes
+Created At: January 11, 2022 4:58 AM
+Related to: 217%20Contains%20Duplicate.md
+Submit Count: 1
+Total Time(m): 10
+Updated At: January 11, 2022 5:00 AM
+---
+
+Tags:: #HashMap #HashSet #Sort
+
+# Ctci 1.1. is Unique
+
+## Problem Statement
+
+## Solution
+
+```java
+public class IsUnique {
+
+  public static boolean checkIsUnique(String str) {
+    Map<Character, Boolean> found = new HashMap<>();
+    for (char c : str.toCharArray()) {
+      if (found.containsKey(c)) {
+        return false;
+      }
+      found.put(c, true);
+    }
+
+    return true;
+  }
+
+  public static void main(String[] args) {
+    System.out.println("checkIsUnique(abc)  true == " + checkIsUnique("abc"));
+    System.out.println("checkIsUnique()  true == " + checkIsUnique(""));
+    System.out.println("checkIsUnique(aaa)  false == " + checkIsUnique("aaa"));
+  }
+}
+```
+
+## Time Complexity
+
+O(n)
+
+## Space Complexity
+
+O(n)
+
+## Explanation

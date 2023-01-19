@@ -33,21 +33,16 @@ tags: ["1Z0-819", "chapter-15-functional-programming"]
 
 | Functional interface | Return type | Method name | # of parameters |
 | -------------------- | ----------- | ----------- | --------------- |
-| Supplier<T>          | T           | get()       | 0               |
-| Consumer<T>          | void        | accept(T)   | 1 (T)           |
-| BiConsumer<T, U>     | void        | accept(T,U) | 2 (T, U)        |
-| Predicate<T>         | boolean     | test(T)     | 1 (T)           |
-| BiPredicate<T, U>    | boolean     | test(T,U)   | 2 (T, U)        |
-| Function<T, R>       | R           | apply(T)    | 1 (T)           |
-| BiFunction<T, U, R>  | R           | apply(T,U)  | 2 (T, U)        |
-| UnaryOperator<T>     | T           | apply(T)    | 1 (T)           |
-| BinaryOperator<T>    | T           | apply(T,T)  | 2 (T, T)        |
+| `Supplier<T>`          | T           | get()       | 0               |
+| `Consumer<T>`          | void        | accept(T)   | 1 (T)           |
+| `BiConsumer<T, U>`     | void        | accept(T,U) | 2 (T, U)        |
+| `Predicate<T> `        | boolean     | test(T)     | 1 (T)           |
+| `BiPredicate<T, U>`    | boolean     | test(T,U)   | 2 (T, U)        |
+| `Function<T, R>`       | R           | apply(T)    | 1 (T)           |
+| `BiFunction<T, U, R>`  | R           | apply(T,U)  | 2 (T, U)        |
+| `UnaryOperator<T>`     | T           | apply(T)    | 1 (T)           |
+| `BinaryOperator<T> `   | T           | apply(T,T)  | 2 (T, T)        |
 
-![ConsumerImp](../../my-own-coding-realm/java/playground/src/main/java/com/aboureada/playground/functional_programming/ConsumerImp.java)  
-![FunctionImp](../../my-own-coding-realm/java/playground/src/main/java/com/aboureada/playground/functional_programming/FunctionImp.java)  
-![PredicateImp](../../my-own-coding-realm/java/playground/src/main/java/com/aboureada/playground/functional_programming/PredicateImp.java)  
-![SupplierImp](../../my-own-coding-realm/java/playground/src/main/java/com/aboureada/playground/functional_programming/SupplierImp.java)  
-![UnaryOperatorImp](../../my-own-coding-realm/java/playground/src/main/java/com/aboureada/playground/functional_programming/UnaryOperatorImp.java)
 
 ## Creating Your Own Functional Interfaces
 
@@ -69,7 +64,7 @@ interface TriFunction<T,U,V,R> {
 | Predicate          | Predicate          | negate()    | —                 |
 | Predicate          | Predicate          | or()        | Predicate         |
 
-![](../../my-own-coding-realm/java/playground/src/main/java/com/aboureada/playground/functional_programming/ConvinienceMethods.java)
+![None](../../my-own-coding-realm/java/playground/src/main/java/com/aboureada/playground/functional_programming/convinience-methods.java)
 
 ## Returning an Optional
 

@@ -1,17 +1,16 @@
 ---
-id: <% tp.file.creation_date('YYYY-MM-DD') %>-<% tp.file.title %>
-title: <% tp.file.title.replace(/-/g, ' ') %>
-metaTitle: <% tp.file.title.replace(/-/g, ' ').replace(/([^\W_]+[^\s-_]+]*) */g, function (txt) {return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();}) %> | Anas's Digital Garden
-metaDescription: <% tp.file.title.replace(/-/g, ' ') %> | Anas's Digital Garden
-createdDate: <% tp.file.creation_date('YYYY-MM-DD') %>
-updatedDate: <% tp.file.last_modified_date('YYYY-MM-DD') %>
-weekNumber: <% tp.file.creation_date('YYYYww') %>
-category: <% tp.file.folder(true) %>
-tags: ["<% tp.file.folder() %>", "<% tp.file.title %>"]
+id: 2023-01-18-terraform
+title: terraform
+metaTitle: Terraform | Anas's Digital Garden
+metaDescription: terraform | Anas's Digital Garden
+createdDate: 2023-01-18
+updatedDate: 2023-01-18
+weekNumber: 202303
+category: terraform
+tags: ["terraform", "terraform"]
 ---
-# Terraform
 
-## Table of content
+# Terraform
 
 ## Introduction
 
@@ -19,7 +18,7 @@ tags: ["<% tp.file.folder() %>", "<% tp.file.title %>"]
 
 Terraform is a tool for building, changing, and versioning infrastructure safely and efficiently.
 
-## Two parts of Terraform
+## Two Parts of Terraform
 
 Terraform is actually split into two parts:
 
@@ -28,20 +27,20 @@ Terraform is actually split into two parts:
 
 Due to the clever way Terraform is split, there are providers available for practically anything you can think of.
 
-## Terraform language
+## Terraform Language
 
 Terraform uses a language called Hashicorp Markup Language, or HCL as it is known. HCL is a very simple, easy-to-read syntax that is understandable even to people looking at it for the first time.
 
-## Terraform security
+## Terraform Security
 
 Terraform allows you to see a preview of what it is going to do (plan) and awaits your confirmation before it actually makes any changes. This is a great safety net in case you made an accidental change.
 
-## Add Terraform to an existing infrastructure
+## Add Terraform to an Existing Infrastructure
 
 - You can do this simply by importing your infrastructure into Terraform.
 - This is great as it allows you to move your infrastructure from being manually set up to be defined in code.
 
-## Terraform vs. CloudFormation
+## Terraform vs. Cloudformation
 
 There are several reasons why Terraform is a better choice than CloudFormation for your project.
 
@@ -69,7 +68,7 @@ There are several reasons why Terraform is a better choice than CloudFormation f
 - Terraform, on the other hand, sits above that at the abstraction layer and is designed to set up all of the infrastructures that make up your system, such as load balancers, servers, DNS records, etc.
 - In other words, Puppet and Chef are used to configure servers, while Terraform is used to create the server itself.
 
-## First project
+## First Project
 
 main.tf
 
@@ -96,7 +95,7 @@ $ terraform destroy
 
 ## Resources in Detail
 
-### Terraform resources
+### Terraform Resources
 
 - Resources in Terraform represent things in the real world. For example, a resource could be an AWS Load Balancer, an alarm in PagerDuty, a policy in Vault, etc.
 - Remember, you can create resources representing things from multiple vendors (for example, multiple clouds) in a single project.
@@ -121,7 +120,7 @@ resource "postgresql_role" "my_role" {
 }
 ```
 
-The `my_role`  resource above will create a login on a Postgres database, with login name `my_role`  and password `password123` . The resource name starts with `postgresql_`  as every resource for the Postgres provider will.
+The `my_role` resource above will create a login on a Postgres database, with login name `my_role` and password `password123` . The resource name starts with `postgresql_` as every resource for the Postgres provider will.
 
 - Check the documentation to get all the resource properties e.g.
 
@@ -131,7 +130,7 @@ The `my_role`  resource above will create a login on a Postgres database, with l
 
 It's important to use the resource output to help terraform define the dependencies.
 
-### Useful resource output
+### Useful Resource Output
 
 - Once a resource is created, it returns a number of attributes.
 - The attributes a resource returns can be found in the “*Attributes Reference*” section on the documentation page for any resource.
@@ -172,11 +171,11 @@ resource "aws_security_group_rule" "http_in" {
 
 - This project creates an AWS VPC with CIDR block `10.0.0.0/16`.
 - Then it defines a security group (`aws_security_group`).
-- Notice that the value of `vpc_id` is set to `aws_vpc.my_vpc.id`  in the definition of the security group.
+- Notice that the value of `vpc_id` is set to `aws_vpc.my_vpc.id` in the definition of the security group.
 - The value of `aws_vpc.my_vpc.id` is not known before we run the project, since AWS will randomly assign it when we create the VPC.
 - By referencing the VPC we created, we can use this value even though we do not know what it will be until we run the project.
 
-### Output attribute
+### Output Attribute
 
 - The format for using an output attribute from a resource is
 
@@ -193,20 +192,20 @@ resource "aws_security_group_rule" "http_in" {
 
 ## Providers in Detail
 
-### Terraform providers
+### Terraform Providers
 
 - A provider in Terraform is a connection that allows Terraform to manage infrastructure using a pre-defined interface.
 - This abstraction means the provider is completely separate from the Terraform engine - which understands how to read state from a provider, read HCL code, and work out how to get to the desired state.
 - This allows you to write a provider to connect to anything that has a programmable way to talk to it.
 - All the writer of a provider has to do for each resource they want Terraform to control is provide Terraform with a way to create it, read it, and delete it.
 
-### Provider model
+### Provider Model
 
 - Due to the provider model that Terraform employs, providers are not part of the main Terraform source code.
 - They are separate binaries that live in their own repositories and can move at their own speed.
 - This means that if a provider needs to release a bug fix or new feature, they can release it. They do not need to coordinate a release of the main Terraform code base.
 
-### Where Terraform puts the provider
+### Where Terraform Puts the Provider
 
 What happens to the provider then? Terraform simply puts it inside the project where you are currently working in a special folder called `.terraform`.
 
@@ -216,11 +215,12 @@ The provider is actually a separate binary that Terraform calls out at a run tim
 
 - Commit `.terraform.lock.hcl` file to the git to lock the versions.
 
-> Terraform has created a lock file .terraform.lock.hcl to record the provider
-selections it made above. Include this file in your version control repository
-so that Terraform can guarantee to make the same selections by default when
+> Terraform has created a lock file .terraform.lock.hcl to record the provider  
+selections it made above. Include this file in your version control repository  
+so that Terraform can guarantee to make the same selections by default when  
 you run "terraform init" in the future.
 >
+
 - You can control the version of the providers like this
 
 ```bash
@@ -237,7 +237,7 @@ terraform {
 }
 ```
 
-### Creating multiple instances of the same provider
+### Creating Multiple Instances of the Same Provider
 
 ```bash
 provider "aws" {
@@ -260,12 +260,12 @@ resource "aws_vpc" "london_vpc" {
 
 ```
 
-- Alias is a property you can set on any provider block.  What this gives us is a way to distinguish between the two providers.
+- Alias is a property you can set on any provider block. What this gives us is a way to distinguish between the two providers.
 - Once you define two or more instances of the same provider, every definition must have an alias set after the first.
 
 ## Data Sources in Detail
 
-### Terraform data source
+### Terraform Data Source
 
 - A data source in Terraform is used to fetch data from a resource that is not managed by the current Terraform project.
 - This allows it to be used in the current project.
@@ -303,19 +303,19 @@ resource "aws_iam_policy" "my_bucket_policy" {
 ```
 
 - As you can see from the above project, a data source block starts with the word “data”.
-- The next word is the type of data source. We are using an `aws_s3_bucket`  data source, which is used to lookup an S3 bucket.
+- The next word is the type of data source. We are using an `aws_s3_bucket` data source, which is used to lookup an S3 bucket.
 - After the data source type, we give the data source an identifier, in this case `"bucket"`.
 - The identifier is used to reference the data source inside the Terraform project.
 - The data source block is opened with a `{`. You then specify any properties you want Terraform to use to search for the resource. We are using the complete name of the S3 bucket we are looking for. You then close the data source block with `}`.
 
-### Referencing a bucket
+### Referencing a Bucket
 
 - Rather than creating the bucket as we did before, here we are referencing a bucket that already exists.
 - So, before you run the above project, you will need to create an S3 bucket with the name that you specify inside the data block.
 - In the example above, the bucket would be called `kevholditch-already-exists`.
 - Name the bucket anything you want, but make sure to paste the name into the bucket property in the data source.
 
-### AWS IAM policy
+### Aws Iam Policy
 
 - At the bottom of this project, we create an AWS IAM policy that gives permissions to list the bucket that we looked up in the data source.
 - There are a couple of new concepts in the `aws_iam_policy` resource that we first need to introduce.
@@ -326,7 +326,7 @@ resource "aws_iam_policy" "my_bucket_policy" {
 > 📝**Note**: The closing marker must be at the start of a new line. Otherwise, it is a syntax error.
 >
 
-### Terraform data source advantages
+### Terraform Data Source Advantages
 
 - As your Terraform project grows it can be sensible to break it up into smaller projects to make for easier maintenance
     - Imagine you want to create a new AWS EC2 instance using an AMI image from a private repository.
@@ -344,7 +344,7 @@ resource "aws_iam_policy" "my_bucket_policy" {
 
 ## Outputs Explained
 
-### Terraform project output
+### Terraform Project Output
 
 - Output in your Terraform project shows a piece of data after Terraform successfully completed.
 - Outputs are useful as they allow you to echo values from the Terraform run to the command line.
@@ -377,13 +377,13 @@ output "all" {
 }
 ```
 
-### Exporting all Attributes
+### Exporting All Attributes
 
 As of Terraform version `1.0.0`, Terraform allows you to output an entire resource or data block. To do this, we'll take the example that we just had in the last lesson and added the `output "all"` block
 
 ## Locals in Detail
 
-### Terraform local
+### Terraform Local
 
 - A local is Terraform's representation of a normal programming language variable.
 - Confusingly, Terraform also has a concept called a variable which is really an input.
@@ -407,9 +407,9 @@ resource "aws_s3_bucket" "bucket" {
 
 ## Files
 
-## Terraform files
+## Terraform Files
 
-- We have seen in the **[Data Sources in Detail](Terraform.md)** how you can place a multi-line string as a value for a property. This is useful for something like an IAM policy.
+- We have seen in the **[Data Sources in Detail](terraform.md)** how you can place a multi-line string as a value for a property. This is useful for something like an IAM policy.
 - It can be even cleaner to move the value out into a file and then reference that file from your project. Doing this may remove the clutter from your project and make it much more readable.
 
 ```bash
@@ -457,7 +457,7 @@ hello there kevin
 there are 7 things to say
 ```
 
-You can see that Terraform replaced the placeholders in our template with the values that we provided to the `templatefile`  function. Thus, we see the message with `Kevin`  and `7`  in it rather than the placeholders.
+You can see that Terraform replaced the placeholders in our template with the values that we provided to the `templatefile` function. Thus, we see the message with `Kevin` and `7` in it rather than the placeholders.
 
 ### Loops in a Template
 
@@ -486,7 +486,7 @@ backend 10.0.0.1:8080
 backend 10.0.0.2:8080
 ```
 
-### Combine loops
+### Combine Loops
 
 The fact that we can combine loops with interpolated values means that you can write some quite elaborate templates. These can be useful for programmatically generating things like IAM policies, where you can pass in the ARN of resources that Terraform creates and use as part of the template
 
@@ -508,7 +508,7 @@ resource "aws_s3_bucket" "bucket" {
 }
 ```
 
-> 📝**Note**: It is often a good idea to provide a `description` as it gives the user some indication as to what values to use and what the `variable`  is used for.
+> 📝**Note**: It is often a good idea to provide a `description` as it gives the user some indication as to what values to use and what the `variable` is used for.
 >
 
 ### Variable Defaults
@@ -531,7 +531,7 @@ resource "aws_s3_bucket" "bucket" {
 }
 ```
 
-### Setting a variable using command line
+### Setting a Variable Using Command line
 
 ```bash
 $ terraform apply -var bucket_name=kevholditch -var bucket_suffix=foo
@@ -566,7 +566,7 @@ bucket_suffix = "from-file"
 - To set the value of the variable you simply put the variable identifier, an equals sign, and the value you want to give it.
 - We are setting the value of both `bucket_name` and `bucket_suffix` in our file. Now when we run the project, Terraform will use those values for the variables and not ask us for them.
 
-### Another file name
+### Another File name
 
 - The other way we could have named our file is by using anything ending in `.auto.tfvars`.
 - Terraform examines files with that ending for set variables. It is also possible to define multiple files and put the value for different variables in each of them.
@@ -638,7 +638,7 @@ output "c" {
 }
 ```
 
-### Using type constraint
+### Using Type Constraint
 
 - By using a type constraint, we make it illegal to set the variable to anything other than the type defined.
 - So, for example, if we try to set `b` to `"hello"` or `123` and run Terraform, it will print an error saying that the value we have provided is not compatible with the type constraint.
@@ -657,11 +657,11 @@ There are a few interesting quirks with how the value you give is interpreted th
 - If you specify quotes then you are essentially defining a string. As long as the string only contains digits, Terraform will realise this and implicitly convert the value to a number.
 - With a string, any value in quotes will be allowed.
 
-### Why use type constraint
+### Why Use Type Constraint
 
 The fact that Terraform coalesces variables (attempts to see what a variable is) is one of the reasons that it's a good idea to use a type constraint. Another reason is that it guides the person using the Terraform code as to what value to use for the variable and improves code readability.
 
-## Complex types
+## Complex Types
 
 In addition to the three simple types above, these types can be combined into the following more complex types:
 

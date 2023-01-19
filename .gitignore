@@ -486,3 +486,7 @@ hs_err_pid*
 replay_pid*
 
 .env
+tools/links.mdx
+
+cypress/screenshots/
+cypress/videos/

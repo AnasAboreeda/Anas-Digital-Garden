@@ -1,0 +1,70 @@
+---
+id: 2023-01-18-896-monotonic-array
+title: 896 monotonic array
+metaTitle: 896 Monotonic Array | Anas's Digital Garden
+metaDescription: 896 monotonic array | Anas's Digital Garden
+createdDate: 2023-01-18
+updatedDate: 2023-01-18
+weekNumber: 202303
+category: problems-solutions
+tags: ["problems-solutions", "896-monotonic-array"]
+---
+
+# 896 Monotonic Array
+
+---
+Acceptance Rate: 0.58
+Accepted: 182011
+Algorithm: Iterate
+By Myself: Yes
+Created At: January 6, 2022 4:39 PM
+Dificulty: very easy
+Submissions: 312052
+Submit Count: 2
+Tags: Array
+Total Time(m): 15
+URL: <https://leetcode.com/problems/monotonic-array/>
+Updated At: January 6, 2022 4:40 PM
+---
+
+# 896. Monotonic Array
+
+## Problem Statement
+
+## Solution
+
+```java
+class Solution {
+    public boolean isMonotonic(int[] nums) {
+
+        boolean isIncreasing = false;
+        boolean isDecreasing = false;
+
+        for (int i = 1; i < nums.length; i++) {
+            if (nums[i] > nums[i - 1]) {
+                isIncreasing = true;
+            } else if (nums[i] < nums[i - 1]) {
+                isDecreasing = true;
+            }
+        }
+
+        if(isDecreasing && isIncreasing) {
+            return false;
+        } else if(!isDecreasing && !isIncreasing) {
+            return true;
+        }
+
+        return isDecreasing || isIncreasing;
+    }
+}
+```
+
+## Time Complexity
+
+*O*(*n*)
+
+## Space Complexity
+
+O(1)
+
+## Explanation

@@ -35,7 +35,7 @@ How network is connected together? via cables or wireless
 ##### Bus Topology
 
 - All systems are attached to the same cable segment.
-- Rarely used today because of fault tolerance, poor reliability, poor traffic isolation capability and limited  
+- Rarely used today because of fault tolerance, poor reliability, poor traffic isolation capability and limited
   scalability.
 - It's very hard to secure because all devices can see all the traffic.
 
@@ -50,7 +50,7 @@ How network is connected together? via cables or wireless
 - The most common used topology today.
 - All systems are connected to a central device (hub or switch).
 - Sender --> Center Point --> Receiver
-- **Switched star network** is the only topology that can prevent other users from eavesdropping on traffic sent between  
+- **Switched star network** is the only topology that can prevent other users from eavesdropping on traffic sent between
   two hosts.
 
 ### Logical Topologies
@@ -76,18 +76,18 @@ There are two general ways systems can communicate on a network:
 
 #### Token Ring
 
-![Token Ring](./images/Token_ring.svg)
+![Token Ring](./images/token_ring.svg)
 
 #### Fddi
 
-![](./images/FDDI_Dual_Token_Ring.jpg)  
-![](./images/fddi_basic2.gif)
+![None](./images/fddi_dual_token_ring.jpg)
+![None](./images/fddi_basic2.gif)
 
 #### Asynchronous Transfer Mode (ATM)
 
-Establishing a channel for each connection allows ATM to provide Quality of Service (QoS). When setting up a virtual  
-circuit, switches along the path can be requested to allocate the desired amount of bandwidth " I need 1MB to support a  
-video conference, Do you have that much available?" If answer is "Yes" then a virtual circuit is created, if the answer  
+Establishing a channel for each connection allows ATM to provide Quality of Service (QoS). When setting up a virtual
+circuit, switches along the path can be requested to allocate the desired amount of bandwidth " I need 1MB to support a
+video conference, Do you have that much available?" If answer is "Yes" then a virtual circuit is created, if the answer
 is "No" we search for another switch.
 
 - Expensive to set up.
@@ -112,7 +112,7 @@ Is established automatically on the fly
 - high cost.
 - Confident as you run solely on the line.
 
-Allowing n sites to directly communicate with each one another would require n+1 links. In such situation it's better to  
+Allowing n sites to directly communicate with each one another would require n+1 links. In such situation it's better to
 use **Packet-Switched** technology. e.g Frame Relay
 
 ### Frame Relay
@@ -140,7 +140,7 @@ Lowering the costs of the WAN instead of using dedicated direct links between si
 #### Dsl (Digital Subscriber Line)
 
 - High-speed network access over traditional telephone lines.
-- Operates on regular telephone line with a different modulation frequency, so it can be used in the same time with the  
+- Operates on regular telephone line with a different modulation frequency, so it can be used in the same time with the
   telephone service.
 
 #### Cable Modems
@@ -152,8 +152,8 @@ Lowering the costs of the WAN instead of using dedicated direct links between si
 
 ### Cabling
 
-![](./images/cable_categories.png)  
-![](./images/cable_categories_2.png)
+![None](./images/cable_categories.png)
+![None](./images/cable_categories_2.png)
 
 Todays the standard for the modern ethernet networks is to use **CAT 5** or **CAT 6** cables
 
@@ -170,20 +170,20 @@ Better option will be a device that operates on the cable level to sniff all the
 - Works on coaxial cable that uses 10Base5 cabling category.
 - It allows you to tap all the traffic without reconfigure the switch.
 - Vampire taps allow new connections to be made on a given physical cable while the cable is in use.
-- This allows administrators to expand bus-topology network sections without interrupting communications. Without a  
+- This allows administrators to expand bus-topology network sections without interrupting communications. Without a
   vampire tap, the cable has to be cut and connectors have to be attached to both ends.
 
 ## Network Devices
 
-![](./images/network_device.png)
+![None](./images/network_device.png)
 
-![](./images/new_breed_of_swithces.png)
+![None](./images/new_breed_of_swithces.png)
 
-![](./images/vlan_nac.png)
+![None](./images/vlan_nac.png)
 
 ## Network Design
 
-![](./images/network_design.png)
+![None](./images/network_design.png)
 
 ---
 
@@ -191,37 +191,37 @@ Better option will be a device that operates on the cable level to sniff all the
 
 ## Osi Model
 
-![](./images/osi_model.jpg)
+![None](./images/osi_model.jpg)
 
 ## TCP/IP Model
 
-![](./images/osi_vs_tcp_ip.png)  
-![](./images/osi_tcp_models.png)
+![None](./images/osi_vs_tcp_ip.png)
+![None](./images/osi_tcp_models.png)
 
 ## How Protocol Stacks Communicate
 
-![](./images/how_protocal_stacks_communicate.png)
+![None](./images/how_protocal_stacks_communicate.png)
 
-The basic principle of stack based communication is that: **Data from one layer of the stack can only be understood by  
+The basic principle of stack based communication is that: **Data from one layer of the stack can only be understood by
 the corresponding layer from the remote computer**
 
-This layer independence does have a security implications: for example giving a wrong ip address for a specific dns  
-service, id IP and DNS layers work together they would probably notice the fake IP, but because they work independently  
-from each other they will not notice that. You need security software to check all the layer and make sure the headers  
+This layer independence does have a security implications: for example giving a wrong ip address for a specific dns
+service, id IP and DNS layers work together they would probably notice the fake IP, but because they work independently
+from each other they will not notice that. You need security software to check all the layer and make sure the headers
 are showing the correct info.
 
 ## How Tcp Packets Are Created
 
-![](./images/how_tcp_packets_are_created.png)  
-![](./images/encapsulation_decapcultations.png)
+![None](./images/how_tcp_packets_are_created.png)
+![None](./images/encapsulation_decapcultations.png)
 
 ### Ip V4 Header
 
-![](./images/IP-Header.png)
+![None](./images/ip-header.png)
 
 ### Ip V6 Header
 
-![](./images/ip_v6_header.png)
+![None](./images/ip_v6_header.png)
 
 ### Ip Fragment Attacks
 
@@ -235,48 +235,48 @@ are showing the correct info.
 
 Not used any more as it's a waste of ips. It has been supplanted by CIDR
 
-![](./images/subnet_classes.png)
+![None](./images/subnet_classes.png)
 
 ### Cidr (ClassLess Inter-domain Routing)
 
 - Uses VLSM (Variable Length Subnet Masks) to allocate IPs to subnets according to the individual needs.
 - The network/host division can occur at any bit boundary in the address.
 
-![](./images/cidr.png)
+![None](./images/cidr.png)
 
 ### Broadcast Addresses
 
-![](./images/broadcast_addresses.png)
+![None](./images/broadcast_addresses.png)
 
 Limited broadcasts are used when computers boot so they can obtain DHCP lease or otherwise configure network interfaces.
 
 ### Private Addresses
 
-![](./images/private_addresses.png)  
-![](./images/private_addresses.png)
+![None](./images/private_addresses.png)
+![None](./images/private_addresses.png)
 
 ### Ip v6
 
-![](./images/ip6_addressing.png)  
-![](./images/ip_v6_addressing.png)  
-![](./images/ip6_features.png)  
-![](./images/ip6_vs_ip4.png)  
-![](./images/ipv6-ipv4-vs-ipv6-header.png)
+![None](./images/ip6_addressing.png)
+![None](./images/ip_v6_addressing.png)
+![None](./images/ip6_features.png)
+![None](./images/ip6_vs_ip4.png)
+![None](./images/ipv6-ipv4-vs-ipv6-header.png)
 
 ### Mac and Ip Address
 
-![](./images/mac_ip_1.png)  
-![](./images/mac_ip_2.png)
+![None](./images/mac_ip_1.png)
+![None](./images/mac_ip_2.png)
 
 ### Arp (Address Resolution Protocol)
 
 - ARP is a layer 2 broadcast
 
-![](./images/arp.png)
+![None](./images/arp.png)
 
 ## Ports and Protocols
 
-![](./images/ports_protocols.png)
+![None](./images/ports_protocols.png)
 
 ---
 
@@ -284,17 +284,17 @@ Limited broadcasts are used when computers boot so they can obtain DHCP lease or
 
 - static host table:
   - in unix systems: /etc/hosts
-  - in windows systems: `%systemroot%\system32\drivers\etc\hosts` with a second similar file in the same directory  
+  - in windows systems: `%systemroot%\system32\drivers\etc\hosts` with a second similar file in the same directory
     called `lmhosts` that contains additional mappings for NetBIOS to lP address translations.
 
-![](./images/dns.png)  
-![](./images/dns_hierarchy.png)
+![None](./images/dns.png)
+![None](./images/dns_hierarchy.png)
 
 ### Types of Dns Queries
 
 - Gethostbyname - forward lookup
   - Maps fully qualified domain name (FQDN) to IP address
-  - e.g. maps <www.sans.org> to its IP address
+  - e.g. maps (www.sans.org) to its IP address
 - Gethostbyaddr - reverse lookup
   - Maps IP address to FQDN
 
@@ -309,14 +309,14 @@ $ nslookup 216.109.118.72
 
 ### Dns Security Attacks
 
-![](./images/dns_security.png)
+![None](./images/dns_security.png)
 
 #### Cache Poisoning
 
 - DNS cache poisoning attacks involve returning extra data along with the results of a query.
-- This extra data contains invalid information, which on vulnerable DNS servers will be written to the DNS cache, thus  
+- This extra data contains invalid information, which on vulnerable DNS servers will be written to the DNS cache, thus
   poisoning the DNS cache for the server.
-- The end result is that any traffic for a server with a poisoned entry could be redirected to a server the attacker  
+- The end result is that any traffic for a server with a poisoned entry could be redirected to a server the attacker
   controls.
 
 ##### Defense against Cache Poisoning
@@ -351,91 +351,91 @@ $ nslookup 216.109.118.72
 
 ## Ip Protocols and the Osi
 
-![](./images/ip_osi.png)
+![None](./images/ip_osi.png)
 
 ## Udp (User Diagram Protocol)
 
-![](./images/udp.png)  
-![](./images/upd_uses.png)
+![None](./images/udp.png)
+![None](./images/upd_uses.png)
 
 Other important UDP-based protocols include:
 
 - Network Time Protocol (NTP)-Synchronizes time.
-- BOOTP/DHCP protocols-Automatically configures network interfaces and load operating systems via the network when they  
+- BOOTP/DHCP protocols-Automatically configures network interfaces and load operating systems via the network when they
   start up.
 - Network File System (NFS)-Supports file sharing for Unix-based networks.
-- Simple Network Management Protocol (SNMP)-Used as a management tool to query networkand server-based devices for  
+- Simple Network Management Protocol (SNMP)-Used as a management tool to query networkand server-based devices for
   monitoring or troubleshooting purposes.
-- Trivial File Transfer Protocol (TFTP)-Used as a method to transfer files from one device to another without requiring  
+- Trivial File Transfer Protocol (TFTP)-Used as a method to transfer files from one device to another without requiring
   authentication. TFTP's most common use is in updating code on network-based devices.
 
-![](./images/udp_header_2.png)  
-![](./images/UDP-Header.png)
+![None](./images/udp_header_2.png)
+![None](./images/udp-header.png)
 
 ## Tcp (Transmission Control protocol)
 
-![](./images/tcp.png)
+![None](./images/tcp.png)
 
-TCP often is a network programmer's protocol of choice. It is probably the easier of the two protocols to program for,  
+TCP often is a network programmer's protocol of choice. It is probably the easier of the two protocols to program for,
 because most of the error handling is down inside the transport layer and out of sight from the application code.
 
-![](./images/tcp_uses.png)
+![None](./images/tcp_uses.png)
 
 ## Establishing a Tcp Connection
 
-![](./images/tcp_connection.png)
+![None](./images/tcp_connection.png)
 
-- After a connection is established, the ACK flag is set for every packet. As a result, the presence of the ACK can  
+- After a connection is established, the ACK flag is set for every packet. As a result, the presence of the ACK can
   indicate whether a connection has been established or not.
-- In fact, simple packet filters allow all packets with ACK set and assume that they are part of an established  
+- In fact, simple packet filters allow all packets with ACK set and assume that they are part of an established
   connection.
-- It is trivial to circumvent such a filter by crafting a packet with the ACK bit set. This technique is often used to  
+- It is trivial to circumvent such a filter by crafting a packet with the ACK bit set. This technique is often used to
   probe a network behind a filtering device and called an **ACK scan**.
-- To minimize traffic, ACKs are "piggy-backed" (as frequently as possible) onto packets containing data, as opposed to  
+- To minimize traffic, ACKs are "piggy-backed" (as frequently as possible) onto packets containing data, as opposed to
   sending a packet with just an ACK.
 - The ACKs confirm to the client and server that both ends are still using the connection.
 
 ## Closing a Tcp Connection
 
-![](./images/tcp_close_connection.png)
+![None](./images/tcp_close_connection.png)
 
 ## Tcp Header
 
-![](./images/TCP-Header.png)  
-![](./images/tcp_header_2.png)
+![None](./images/tcp-header.png)
+![None](./images/tcp_header_2.png)
 
 ## Tcp Vs Udp
 
-![](./images/tcp_vs_udp.png)
+![None](./images/tcp_vs_udp.png)
 
 ## Ftp (File Transfer Protocol)
 
-![](./images/ftp.png)
+![None](./images/ftp.png)
 
 ### Ftp Security Issues
 
-- Blind FTP configurations will prevent all or certain users (especially anonymous ones) from being able to list the  
+- Blind FTP configurations will prevent all or certain users (especially anonymous ones) from being able to list the
   files or even folders in a directory.
-- In order to avoid becoming a warez site, the anonymous user can be permitted to upload into a directory that allows  
-  only Put access. ln other words, one anonymous user can upload a file, but another anonymous user will be unable to  
+- In order to avoid becoming a warez site, the anonymous user can be permitted to upload into a directory that allows
+  only Put access. ln other words, one anonymous user can upload a file, but another anonymous user will be unable to
   download the file.
-- Another issue to consider with FTP is that all traffic that passes as part of an FTP connection passes in clear text.  
-  This means that even with username and password security, an FTP connection or server is only as secure as the network  
+- Another issue to consider with FTP is that all traffic that passes as part of an FTP connection passes in clear text.
+  This means that even with username and password security, an FTP connection or server is only as secure as the network
   it traverses.
-- A potential attacker who has the ability to sniff traffic on a network has the ability to capture username and  
-  passwords and even to stealthily obtain files that were transmitted by the FTP server while they were sniffing the  
+- A potential attacker who has the ability to sniff traffic on a network has the ability to capture username and
+  passwords and even to stealthily obtain files that were transmitted by the FTP server while they were sniffing the
   network.
-- Another common issue with FTP revolves around one specific feature commonly referred to as the `PORT` command. The  
-  effect is that a user can cause an FTP server to open a connection from the FTP server directly based upon commands  
+- Another common issue with FTP revolves around one specific feature commonly referred to as the `PORT` command. The
+  effect is that a user can cause an FTP server to open a connection from the FTP server directly based upon commands
   entered through an FTP command/control channel.
-- The end result is that a user can effectively bypass firewall controls to port scan a network behind a firewall, where  
-  they can connect to an FTP server. They can also obscure their identity by using an FTP server to scan other hosts on  
+- The end result is that a user can effectively bypass firewall controls to port scan a network behind a firewall, where
+  they can connect to an FTP server. They can also obscure their identity by using an FTP server to scan other hosts on
   the Internet for them.
 - In most cases, it is advisable to disable the PORT command entirely to prevent this type of problem.
 
 ### Active Vs Passive Ftp
 
-![](./images/active_passive_ftp.png)
+![None](./images/active_passive_ftp.png)
 
 - An ephemeral port === a port greater than 1023.
 
@@ -443,7 +443,7 @@ because most of the error handling is down inside the transport layer and out of
 
 ##### A Stateless Firewall
 
-that will have no knowledge about the mechanics of the different ports being requested to be opened for FTP. This type  
+that will have no knowledge about the mechanics of the different ports being requested to be opened for FTP. This type
 of firewall will require the following ports to be opened for FTP to function:
 
 - Active/Passive FTP Command Channel:
@@ -458,23 +458,23 @@ of firewall will require the following ports to be opened for FTP to function:
 
 That's a lot of traffic to be permitted through a firewall.
 
-The high traffic essentially provides a mechanism for unauthorized services to be accessible to or from the FTP server  
+The high traffic essentially provides a mechanism for unauthorized services to be accessible to or from the FTP server
 that may have nothing to do with FTP at all.
 
-This loose security model can magnify the problems mentioned previously with respect to bounce scans with the `PORT`  
-command and can provide a mechanism for a potentially infected FTP server to have a backdoor installed that is listening  
+This loose security model can magnify the problems mentioned previously with respect to bounce scans with the `PORT`
+command and can provide a mechanism for a potentially infected FTP server to have a backdoor installed that is listening
 on an obscure high port.
 
-If you are stuck with such a firewall, it would be better to disable passive FTP altogether, as active ftp is much less  
+If you are stuck with such a firewall, it would be better to disable passive FTP altogether, as active ftp is much less
 permissive in what it permits through the firewall.
 
 ##### A Stateful Firewall
 
-It would be better, however, to use a stateful firewall that has additional knowledge of the FTP protocol and can  
+It would be better, however, to use a stateful firewall that has additional knowledge of the FTP protocol and can
 dynamically open ports for the data channel based upon reading into command channel packets.
 
-This type of firewall will always permit 21/TCP inbound (and the stateful replies outbound) for valid connections and  
-will prevent the need to leave all of the ephemeral ports wide open at all times, either from 20/TCP or from all  
+This type of firewall will always permit 21/TCP inbound (and the stateful replies outbound) for valid connections and
+will prevent the need to leave all of the ephemeral ports wide open at all times, either from 20/TCP or from all
 ephemeral ports.
 
 ## Icmp (Internet Control Message Protocol)
@@ -491,16 +491,16 @@ Purposes:
 
 ### Icmp Header
 
-![](./images/icmp_header_2.png)  
-![](./images/ICMP-Header.png)
+![None](./images/icmp_header_2.png)
+![None](./images/icmp-header.png)
 
 ### Ping
 
-![](./images/ping.png)
+![None](./images/ping.png)
 
 ## Traceroute
 
-![](./images/traceroute.png)
+![None](./images/traceroute.png)
 
 ### Unix and Windows Traceroute
 
@@ -509,8 +509,8 @@ Works differently; might produce different results
 - Unix `traceroute` uses UDP packets
 - Windows `tracert` uses ICMP packets
 
-Not only is traceroute a great tool for determining paths through the network, but it is also a pretty decent network  
+Not only is traceroute a great tool for determining paths through the network, but it is also a pretty decent network
 mapper.
 
-By carefully examining the output of several runs to different hosts on the same remote network, you can start to notice  
+By carefully examining the output of several runs to different hosts on the same remote network, you can start to notice
 similarities and differences.

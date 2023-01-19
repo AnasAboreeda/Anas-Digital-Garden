@@ -1,0 +1,85 @@
+---
+id: 2023-01-18-factory
+title: factory
+metaTitle: Factory | Anas's Digital Garden
+metaDescription: factory | Anas's Digital Garden
+createdDate: 2023-01-18
+updatedDate: 2023-01-18
+weekNumber: 202303
+category: design_patterns/creational
+tags: ["creational", "factory"]
+---
+
+# Factory
+
+## Uml
+
+![None](../umls/factory.png)
+
+## Implementation
+
+1. Interface
+
+```java
+public interface Person {
+    String wish(String message);
+}
+```
+
+1. implement the interface
+
+```java
+public class Female implements Person {
+    @Override
+    public String wish(String message) {
+        return "I am a female, and my wish is: " + message;
+    }
+
+}
+```
+
+```java
+public class Male implements Person {
+
+    @Override
+    public String wish(String message) {
+        return "I am a male, and my wish is: " + message;
+    }
+}
+```
+
+1. Implement the FACTORY
+
+```java
+public class PersonFactory {
+
+    public static Person getPerson(String gender) {
+        if (gender.equals("male")) {
+            return new Male();
+        } else if (gender.equals("female")) {
+            return new Female();
+        }
+        return null;
+    }
+}
+```
+
+1. Test
+
+```java
+public class PersonFactoryTest {
+
+    public static void main(String[] args) {
+        Person malePerson = PersonFactory.getPerson("male");
+        System.out.println(malePerson.wish("I wish I can fly"));
+
+        Person femalePerson = PersonFactory.getPerson("female");
+        System.out.println(femalePerson.wish("I wish I can fly"));
+    }
+
+}
+
+
+// I am a male, and my wish is: I wish I can fly
+// I am a female, and my wish is: I wish I can fly
+```
