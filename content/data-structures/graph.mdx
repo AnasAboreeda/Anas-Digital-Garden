@@ -16,29 +16,29 @@ tags: ["data_structures", "graph"]
 
 A tree is a special graph: a *connected* *acyclic* (cycle-less) graph. A graph may contain cycle(s) and nodes could be disconnected.
 
-![Untitled](./graph/untitled.png)
+![Untitled](graph/untitled.png)
 
 ## Graph Terminologies
 
 A graph consists of **vertices** (“nodes” in trees) and **edges**. Vertices are connected by edges. Two vertices connected by an edge are called **neighbors** and are adjacent (“children” and “parents” in trees).
 
-![Untitled](./graph/untitled-1.png)
+![Untitled](graph/untitled-1.png)
 
 Edges can be undirected or directed. For most interview problems, we will deal with undirected graphs. A tree is also an undirected graph. We'll discuss directed graphs in the [course schedule](https://www.educative.io/collection/page/5187571686572032/5949303171317760/6328838970671104) module.
 
-![Untitled](./graph/untitled-2.png)
+![Untitled](graph/untitled-2.png)
 
 A path is a sequence of vertices. A cycle is a path that starts and ends at the same vertex.
 
-![Untitled](./graph/untitled-3.png)
+![Untitled](graph/untitled-3.png)
 
 An undirected graph is connected if every vertex is joined by a path to another vertex. Otherwise, it's disconnected.
 
-![Untitled](./graph/untitled-4.png)
+![Untitled](graph/untitled-4.png)
 
 A graph is most commonly stored as a map of adjacency lists: for each vertex, store a list of its neighbors.
 
-![Untitled](./graph/untitled-5.png)
+![Untitled](graph/untitled-5.png)
 
 Note that even though a graph is represented as an adjacency list, we don't actually have to create it upfront. What we really need is a function to get a vertex's neighbors. We'll see that in the next module.
 

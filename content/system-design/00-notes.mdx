@@ -1,0 +1,77 @@
+---
+id: 2023-01-18-notes
+title: Notes
+metaTitle: Notes | Anas's Digital Garden
+metaDescription: notes | Anas's Digital Garden
+createdDate: 2023-01-19
+updatedDate: 2023-01-26
+weekNumber: 202303
+category: system_design
+tags: ["system_design", "notes"]
+aliases: [Notes]
+---
+
+# Notes
+
+Some important questions to ask ourselves when searching for the right systems and components include the following:
+
+- What’s the size of the data right now?
+- At what rate is the data expected to grow over time?
+- How will the data be consumed by other subsystems or end users?
+- Is the data read-heavy or write-heavy?
+- Do we need strict consistency of data, or will eventual consistency work?
+- What’s the durability target of the data?
+- What privacy and regulatory requirements do we require for storing or transmitting user data?
+
+## Non Functional Requirements
+
+1. [availability](non-functional-system-characteristics/availability.md)
+2. [reliability](non-functional-system-characteristics/reliability.md)
+3. [scalability](non-functional-system-characteristics/scalability.md)
+4. [maintainability](non-functional-system-characteristics/maintainability.md)
+5. [fault-tolerance](non-functional-system-characteristics/fault-tolerance.md)
+
+- [consistency](consistency.md)
+- [back-of-the-envelope-calculations](back-of-the-envelope-calculations.md)
+- [load-balancing](load-balancing.md)
+- 
+
+## Numbers to Remember
+
+### Database Queries per Second
+
+|                                | QPS         |
+| ------------------------------ | ----------- |
+| QPS handled by MySQL           | 1000        |
+| QPS handled by key-value store | 10,000      |
+| QPS handled by cache server    | 100,000–1 M |
+
+### Day Conversions
+
+|       |               |
+| ----- | ------------- |
+| 1 Day | 1440 Minutes  |
+| 1 Day | 86400 Seconds |
+
+## Discuss Trade-offs
+
+Remember that there’s no one correct answer to a design problem. If we give the same problem to two different groups, they might come up with different designs.
+
+These are some of the reasons why such diversity exists in design solutions:
+
+- Different components have different pros and cons. We’ll need to carefully weigh what works for us.
+- Different choices have different costs in terms of money and technical complexity. We need to efficiently utilize our resources.
+- Every design has its weaknesses. As designers, we should be aware of all of them, and we should have a follow-up plan to tackle them.
+We should point out weaknesses in our design to our interviewer and explain why we haven’t tackled them yet. An example could be that our current design can’t handle ten times more load, but we don’t expect our system to reach that level anytime soon. We have a monitoring system to keep a very close eye on load growth over time so that a new design can be implemented in time. This is an example where we intentionally had a weakness to reduce system cost.
+
+Something is always failing in a big system. We need to integrate fault tolerance and security into our design.
+
+## Algorithms You Should Know for System Design Interviews
+
+![None](attachements/system-design-algorithms.jpeg)
+
+## Ref
+
+- [The Reactive Principles](https://principles.reactive.foundation/principles/index.html)
+- [Cassandra use cases: when to use and when not to use Cassandra](https://blog.pythian.com/cassandra-use-cases/)
+- [System Design](https://www.karanpratapsingh.com/courses/system-design)

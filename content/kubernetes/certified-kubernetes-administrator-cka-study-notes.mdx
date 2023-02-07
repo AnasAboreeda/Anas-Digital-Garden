@@ -21,11 +21,11 @@ tags: ["kubernetes", "certified-kubernetes-administrator-cka-study-notes"]
 
 ## K8s Cluster
 
-![control plane](./images/k8s-cluster.jpg)
+![control plane](images/k8s-cluster.jpg)
 
 ### K8s Control Plane
 
-![control plane](./images/k8s-control-plane.jpg)
+![control plane](images/k8s-control-plane.jpg)
 
 #### The Control Plane
 
@@ -59,7 +59,7 @@ tags: ["kubernetes", "certified-kubernetes-administrator-cka-study-notes"]
 
 ### K8s Nodes
 
-![K8s Nodes](./images/k8s-nodes.jpg)
+![K8s Nodes](images/k8s-nodes.jpg)
 
 - are the machines where the containers managed by the cluster run. A cluster can have any number of nodes.
 - Various node components manage containers on the machine and communicate with the control plane.
@@ -300,22 +300,22 @@ $kubectl get pods --all-namespaces
 
 ### High Availability Control Plane
 
-![h8s-cluster-high-availability.jpg](./images/h8s-cluster-high-availability.jpg)
+![h8s-cluster-high-availability.jpg](images/h8s-cluster-high-availability.jpg)
 
 When using multiple control planes for high availability, you will likely need to communicate with the Kubernetes API
 through a **load balancer**. This includes clients such as **kubelet** instances running on worker nodes.
 
 ### Stacked Etcd
 
-![stacked-etcd.jpg](./images/stacked-etcd.jpg)
+![stacked-etcd.jpg](images/stacked-etcd.jpg)
 
-![stacked-etcd-2.jpg](./images/stacked-etcd-2.jpg)
+![stacked-etcd-2.jpg](images/stacked-etcd-2.jpg)
 
 ### External Etcd
 
-![external-etcd.jpg](./images/external-etcd.jpg)
+![external-etcd.jpg](images/external-etcd.jpg)
 
-![external-etcd-2.jpg](./images/external-etcd-2.jpg)
+![external-etcd-2.jpg](images/external-etcd-2.jpg)
 
 ## K8s Management Tools
 
@@ -586,9 +586,9 @@ If they show a `NotReady` status, run the command again after a minute or so. Th
 
 ## REF
 
-- [01-building-a-kubernetes-cluster.pdf](./k8s-study-notes/01-building-a-kubernetes-cluster.pdf)
+- [01-building-a-kubernetes-cluster.pdf](k8s-study-notes/01-building-a-kubernetes-cluster.pdf)
 - [certified-kubernetes-administrator-all-sections-combined.pdf](./k8s-study-notes/certified-kubernetes-administrator-all-sections-combined.pdf)
-- [s01-introduction.pdf](./k8s-study-notes/s01-introduction.pdf)
-- [s03-l04-safely-draining-a-k8s-node.pdf](./k8s-study-notes/s03-l04-safely-draining-a-k8s-node.pdf)
-- [s03-l05-upgrading-k8s-with-kubeadm.pdf](./k8s-study-notes/s03-l05-upgrading-k8s-with-kubeadm.pdf)
-- [s03-l06-backing-up-and-restoring-etcd-cluster-data.pdf](./k8s-study-notes/s03-l06-backing-up-and-restoring-etcd-cluster-data.pdf)
+- [s01-introduction.pdf](k8s-study-notes/s01-introduction.pdf)
+- [s03-l04-safely-draining-a-k8s-node.pdf](k8s-study-notes/s03-l04-safely-draining-a-k8s-node.pdf)
+- [s03-l05-upgrading-k8s-with-kubeadm.pdf](k8s-study-notes/s03-l05-upgrading-k8s-with-kubeadm.pdf)
+- [s03-l06-backing-up-and-restoring-etcd-cluster-data.pdf](k8s-study-notes/s03-l06-backing-up-and-restoring-etcd-cluster-data.pdf)

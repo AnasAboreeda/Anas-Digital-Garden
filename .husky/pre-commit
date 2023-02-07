@@ -1,4 +1,11 @@
 #!/usr/bin/env sh
 . "$(dirname -- "$0")/_/husky.sh"
 
+# Check if node is installed
+if ! command -v node &> /dev/null
+then
+    echo "node could not be found"
+    exit
+fi
+
 npm test

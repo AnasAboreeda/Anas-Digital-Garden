@@ -1,0 +1,879 @@
+---
+tags: [testing, cypress]
+title: Automation Testing Using Cypress
+createdDate: 2023-02-04
+updatedDate: 2023-02-06
+marp: true
+---
+
+# Automation Testing Using Cypress
+
+By: Anas Aboureada
+
+Feb, 2023
+
+---
+
+## General Notes
+
+- If your application runs in a browser, Cypress can test it no matter the scope or functionality.
+- You can control the viewport with Cypress, which lets you test your web application in mobile view.
+
+---
+
+## Testing Type Comparison
+
+|                        |                       E2E                        |                   Component                   |
+| ---------------------- | :----------------------------------------------: | :-------------------------------------------: |
+| What's Tested          |                  All app layers                  |             Individual component              |
+| Characteristics        | Comprehensive, slower,match the user experience, can be used for integration, more susceptible to flake |         Specialized, quick, reliable          |
+| Used For               |     Verifying app works as a cohesive whole      | Testing functionality of individual component |
+| Written By             |            Developers, QA Team, SDETs            |             Developers, Designers             |
+| CI Infrastructure      |           Often requires complex setup           |                  None needed                  |
+| Initialization Command |                 `cy.visit(url)`                  |          `cy.mount(<MyComponent />)`          |
+
+---
+
+## TODO
+
+- How to test in the mobile view
+- Actions should be at the end of chains, not the middle[​](https://docs.cypress.io/guides/core-concepts/retry-ability#Actions-should-be-at-the-end-of-chains-not-the-middle "Direct link to heading")
+
+---
+
+## Cypress’s Tools
+
+- Cypress is an all-in-one tool.
+- We don’t need to install any tools or libraries to get our test suite up and running Cypress provides all of this in one go. Let’s see what is included in Cypress.
+
+---
+
+### 1. Mocha
+
+- Mocha[^1] is a BDD testing framework (Behavior-driven Development)
+- Cypress uses Mocha syntax for outlining test cases
+- Mocha also supports async functions by adding an argument, i.e., `done` to the `it` function and call it when the event completes.
+- We can also use the async/await keywords to achieve a similar behavior before using the expect statements
+
+---
+
+```javascript
+describe('Describe your E2E test', () => {
+    beforeEach(() => {
+        // Code that should run before each test
+        cy.log('Running before test case.');
+    });
+
+    afterEach(() => {
+        // Code that should run after each test
+        cy.log('Running after test case.');
+    });
+
+    // async functions
+    it('Should log the user in', done => {
+        httpService.post('login', userData).then(response => {
+            done(response); // done tells Mocha that the request is done
+        });
+    });
+
+    // async/await keyword
+    it('should remove the user on account delete', () => {
+        httpService.delete('deleteUser', userId).then(async () => {
+            let user;
+
+            await userService.getUser(userId).then(response => user = response);
+
+            expect(user).to.deep.equal({name: 'Adam'});
+        });
+    });
+});
+```
+
+---
+
+## 2. Chai
+
+- Mocha provides overall structure for test cases
+- Chai offers easy-to-read BDD-style assertions [^2]
+- Cypress includes Chai-jQuery for easy DOM interaction.
+
+```javascript
+describe('Chai', () => {
+    it('Should expect values to match', () => {
+        const answer = 42;
+        expect(true).to.be.true;
+        expect(answer).to.equal(42);
+    });
+});
+```
+
+---
+
+## 3. Sinon.JS
+
+- Cypress includes Sinon.js library to make it easy to stub, spy, or mock functions.
+- Force impure functions to behave consistently for deterministic tests.
+- Access Sinon using `Cypress.sinon` object
+- 2 methods available: cy.stub()[^3] and cy.spy() [^4]
+- Sinon extended with Sinon-Chai for assertions about stubs/spies
+- Cypress also bundles other tools under the global Cypress object for easy access.
+
+---
+
+```javascript
+cy.stub(object, method, replaceFunction);
+
+// Stubbing a function
+user.add = cy.stub();
+expect(user.add).to.be.called;
+
+// Stubbing a method
+cy.stub(user, 'add');
+expect(user.add).to.be.called;
+
+// Stubbing with a callback
+let userAdded = false;
+
+cy.stub(user, 'add', () => {
+    userAdded = true;
+});
+
+// This will trigger the stub, instead of the actual function
+user.add();
+
+expect(userAdded).to.be.true;
+```
+
+---
+
+## 4. Lodash
+
+Lodash ,[^5] the popular JavaScript utility library, is included and exposed through Cypress._
+
+```Javascript
+Cypress._.keys(obj);
+Cypress._.flattenDeep(array);
+```
+
+---
+
+## 5. jQuery
+
+- jQuery[^6] can be used to query DOM elements and access utility methods like `$.ajax` and `$.getJSON`
+- jQuery is exposed in Cypress through `Cypress.$(selector)`
+
+---
+
+## 6. minimatch.js
+
+- Minimatch.js is a matching utility that works by converting glob expressions into regex.
+- It is exposed through `Cypress.minimatch`
+
+```Javascript
+Cypress.minimatch(target: string, pattern: string, options?: MinimatchOptions);
+
+// For example:
+Cypress.minimatch('users/1/comments', 'users/*/comments');
+```
+
+---
+
+## Blob Utils
+
+- Cypress also includes the Blob-util library that can convert base64 strings to Blob objects.
+- This can be useful if we need to test, for example, a file upload.
+- This library is exposed through `Cypress.Blob`
+
+```javascript
+Cypress.Blob.base64StringToBlob(base64String);
+```
+
+---
+
+## Bluebird
+
+- Cypress also comes with Bluebird, which is a full-featured promise library.
+- We can access it through Cypress.Promise
+
+```Javascript
+new Cypress.Promise((resolve, reject) => { ... })
+```
+
+---
+
+## The Architecture of Cypress vs. Selenium
+
+- Cypress differs from Selenium in terms of architecture
+- Selenium runs outside the browser, Cypress runs in the same run loop as the web app
+- Cypress powered by a Node server process
+- Cypress has control inside the browser, network layer, and outside the browser
+- Cypress operates on network layer, accesses incoming/outgoing requests, alters traffic as needed.
+- Has access to events in real-time and network requests
+- Installed locally for direct communication with the operating system
+  - Enables taking screenshots, recording videos, and file system operations.
+
+---
+
+```javascript
+// cy.intercept(url, handler);
+// cy.intercept(method, url, handler);
+
+describe('Intercept', () => {
+    it('Should intercept network requests', () => {
+        // Intercept the 3rd-party request,
+        // and return a mock response from fake-response.json
+        cy.intercept('https://3rd-party.com/**',
+          { fixture: 'fake-response.json' });
+    });
+});
+```
+
+---
+
+```javascript
+// Use a JSON file as a mocked response
+cy.intercept('/lessons', { fixtures: 'response.json' });
+
+cy.get('.lessons')
+  .should('contain', 'What Makes Cypress Different?')
+  .and('contain', 'The Architecture of Cypress')
+  .and('contain', 'The Testing Approach');
+```
+
+---
+
+## Advantages of Cypress Testing Approach
+
+- Control of inside and outside browser allows new testing approach
+- Cypress has control over almost everything
+- Alters every aspect of application behavior during testing
+- Creates robust and stable test cases
+- Runs independently of number of async functions or network connection.
+
+---
+
+## Controlling Time with cy.clock
+
+- Use cy.clock to control timing functions like setTimeout, setInterval, or Date objects synchronously.
+- Call `cy.clock` first to set up a clock and then use `cy.tick` to trigger the setTimeout.
+- The clock starts at Unix epoch (0 timestamp) meaning that a new Date object will read "January 1st, 1970."
+
+```javascript
+
+setTimeout(() => { ... }, 5000); // A setTimeout in your code set to 1000ms
+
+cy.clock();
+cy.tick(5000); // Triggers the setTimeout
+```
+
+---
+
+## Shortcuts in Cypress
+
+- Cypress lets us skip steps that slow us down.
+For example, we may want to test a dashboard behind a login screen. This means, to start testing the dashboard, we need to type our credentials and log in each time before actually testing things. - We are executing commands to recreate a given situation.
+- Cypress commands such as `cy.intercept` or `cy.request` let us programmatically build up a state for our application without interacting with it like a user.
+
+```javascript
+// Hitting a login endpoint to log the user in
+cy.request('POST', '/api/login', { username: 'John', password: 'password' }).then(response => { ... });
+```
+
+---
+
+## Goodbye Flaky Tests
+
+- Cypress has control over browser and network layer
+- Cypress waits for pages to load, elements to be visible and enabled, and elements to stop animating
+- Cypress can be told to wait for a specified time with
+
+```javascript
+cy.wait(1000)
+```
+
+---
+
+## Limitations
+
+- Cypress specializes in end-to-end testing and is not suitable for tasks like indexing the web or spidering links.
+- Cypress only supports JavaScript and doesn't support multiple languages because Cypress commands run inside the browser.
+- Cypress does not support multiple browser tabs, and the use case for testing an application in multiple tabs should be evaluated.
+- Cypress does not support controlling more than one browser at a time.
+- Each test in Cypress is limited to a single origin and different domains must be tested in separate tests.
+
+---
+
+## Debugging
+
+- There are multiple ways to debug your tests
+
+### 1. DevTools
+
+- DevTools can be used to interact with each command and log useful metadata to the console.
+---
+
+### 2. Debugger
+
+- The debugger keyword can be used to stop at a certain point during debugging, but it must be attached in callbacks due to the asynchronous nature of Cypress commands.
+
+```javascript
+// ❌ Don't
+cy.get('.element');
+debugger; // Won't wort
+
+// ✔️ Do
+cy.get('.element').then(() => {
+    debugger; // Will work
+});
+```
+
+---
+
+### 3. debug() Command
+
+- The `.debug()` command can be used to hit a breakpoint and yields the previous command it is attached to.
+
+```javascipt
+// Note that this time, you don't need a then clause
+cy.get('.element').debug();
+```
+
+---
+
+### 4. pause() Command
+
+- The `.pause()` command can be used to pause after each command and inspect the state of the application.
+
+```javascript
+cy.pause();
+cy.get('.element');
+```
+
+---
+
+## ## Stubbing functions
+
+- The most common way to modify a function’s behavior is by using stubs.
+- They are most commonly used in unit tests, but they can still be useful for some cases in integration or end-to-end testing.
+- We can stub functions using the `cy.stub` command:
+
+```javascript
+// Replace user.get() with a stubbed function
+
+// The two examples are equivalent.
+user.get = cy.stub();
+cy.stub(user, 'get');
+```
+
+---
+- We can also force functions to have a return value of our choice:
+
+```javascript
+const user = {
+  get(field) {
+    return field;
+  }
+};
+
+// Force user.get to return "John Doe"
+cy.stub(user, 'get').returns('John Doe');
+
+// Force user.get called with 'age' to return 30
+cy.stub(user, 'get')
+  .withArgs('age')
+  .returns(30);
+```
+
+---
+
+Apart from controlling the return values of functions, we can also control promises using the following way:
+
+```javascript
+// Force a promise to be resolved with a given value
+cy.stub(user, 'get').resolves('John');
+
+// Force a promise to be rejected with a given error
+cy.stub(user, 'get').rejects(new Error('User does not exist.'))
+```
+
+---
+
+## Spying on Functions
+
+In other cases, we may not want to modify the behavior of our functions, but we are still interested in them.
+
+For example, we want to test whether they were called, if they were called with the right arguments, or how many times they were called. This is where spies are useful. We can spy on a function in the following ways:
+
+```javascript
+// Spy on the user.get() method
+const spy = cy.spy(user, 'get');
+
+// Test whether the function was called
+expect(spy).to.be.called;
+```
+
+---
+
+For assertions, anything can be used that is supported by Sinon-Chai. For example:
+
+```javascript
+expect(spy).to.have.calledOnce
+expect(spy).to.have.calledTwice
+expect(spy).to.have.calledCount(n)
+expect(spy).to.have.calledWith(args)
+expect(spy).to.have.returned(val)
+```
+
+> Unlike stub, spy does not modify the behavior of our functions.
+
+---
+
+## Controlling Date and time
+
+- To use cy.tick(), a clock must be set up using cy.clock before visiting the application with cy.visit.
+
+```javascript
+describe('Time', () => {
+    it('Should tick the timer', () => {
+        cy.clock();
+        cy.visit('https://google.com');
+
+        // Invoke `setTimeout`
+        setTimeout(() => {
+            console.log('I will be logged to the console instantly.');
+        }, 5000);
+
+        cy.tick(5000); // Tick time ahead by 5000ms
+    });
+});
+```
+
+Later, we can restore clocks if we want the application to continue in a normal state by using clock.restore.
+
+```javascript
+// You can use both ways to restore a clock
+cy.clock().invoke('restore');
+cy.clock().then(clock => clock.restore());
+```
+
+---
+
+## Flaky Tests
+
+### Common Causes of Flaky Tests
+
+- Half-loaded pages
+- Animations
+- Invisible elements
+- Disabled elements
+- Covered inputs
+
+### Cypress Handling of Flaky Tests
+
+- Cypress waits for elements to stop animating
+- Determines if an element is visible by checking CSS properties
+- Verifies if an element is disabled by checking disabled property
+
+### Manually Troubleshoot Flaky Tests
+
+- Pass force: true to event to force interaction
+- Tells Cypress to not perform other steps such as scrolling element into viewport, checking if element is animated, visible, not disabled, covered, etc.
+
+```javascript
+// Pass force: true if you want to force a command
+cy.get('button').click({ force: true });
+```
+
+---
+
+## Cross-Browser Testing
+
+- Cypress supports multiple Chromium-based browsers, including Electron, Chrome, Firefox, and Edge
+- Currently, IE and Safari are unsupported, but updates on cross-browser support can be found on GitHub
+- Browsers must be installed locally or in CI environment (excluding Electron)
+- Browsers can be selected in the test runner, located in the upper-right corner.
+- Tests can be run in a specific browser using the "--browser" flag in the CLI
+- The following scripts can be set up in package.json to run test cases in multiple browsers in the pipeline.
+
+```json
+{
+    "scripts": {
+        "cypress:run:chrome": "cypress run --browser chrome",
+        "cypress:run:firefox": "cypress run --browser firefox",
+    }
+}
+```
+
+---
+
+- Cypress allows for running specific test cases in different browsers
+Example: specifying that a certain part of the application is prone to malfunction in Firefox in a test case.
+
+```javascript
+describe('Feature works property on Firefox',
+      { browser: 'firefox' }, () => {
+    it('...');
+    it('...');
+})
+
+// You can also pass this to an `it` call
+it('Should work properly in Chrome',
+   { browser: 'chrome' }, () => { ... });
+```
+
+---
+
+### Testing through Screenshots and Videos
+
+- Cypress provides visual cues by generating screenshots and videos for better understanding of failed tests
+- Screenshots are automatically generated for failed tests and can be turned off or customized through configuration file
+- Videos are recorded for each spec file and can also be turned off or configured in the configuration file, with options for video compression and clearing existing videos and screenshots before re-running the test suite.
+
+```javascript
+cy.screenshot();
+cy.screenshot(fileName);
+cy.screenshot(fileName, options);
+```
+
+---
+
+- You can control the schreenshot and videos in config
+
+```json
+{    "screenshotOnRunFailure": false, // Turn off screenshots
+    "screenshotsFolder": "cypress/screenshots", // Default location for generating screenshots
+    "video": false, // Turn off recording
+    "videosFolder": "cypress/videos", // Default location for generating videos
+    "videoCompression": 32, // The compression of the video
+    "trashAssetsBeforeRuns": true // Remove previous records
+}
+
+```
+
+---
+
+## Fixtures and Integration
+
+### What Are Fixtures?
+
+- Fixtures are static data used in test cases to stub network requests. They are stored in the fixtures folder and can be accessed using the cy.fixture command.
+- Fixtures eliminate side effects and ensure deterministic results.
+- They allow matching data against fixed sets without cluttering test cases.
+- The "fixtures" folder is used in Cypress to store pieces of static data that can be used to stub network requests in test cases.
+- To use fixtures, the data is saved as a JSON file in the fixtures folder and can be accessed using the cy.fixture command.
+- The "integration" folder is used to group all test cases in one place and can be configured with the integrationFolder property in the cypress.json file.
+- Test files can be written in various programming languages and can be organized in any way that is comfortable for the developer.
+
+```javascript
+// Accessing fixture data
+cy.fixture('users.json').then((users) => {
+    // Do something with users
+});
+it('should log the user in', () => {
+    cy.intercept('/login', { fixture: 'login.json' }, request => {
+        cy.url().should('include', 'dashboard');
+    });
+});
+```
+
+---
+
+## Integration
+
+The purpose of the “integration” folder is to group all of our test cases into one single place. By default, all of our test files are located under this folder:
+
+---
+
+The most basic building blocks of a test are selectors. In our test cases, we select elements for two main reasons:
+
+- Verifying their presence
+- Interacting with them
+
+There are many different ways to query and interact with elements in Cypress. In this lesson, we will look at the most commonly used selectors and Cypress commands.
+
+---
+
+## Selecting Elements
+
+When we want to select an element in Cypress, we will need to use the `cy.get` command.
+
+We’ve looked into selecting elements in the previous lesson using the `cy.get` command. The command works in the following way:
+
+```javascript
+cy.get(selector);
+```
+
+The `selector` works similarly to a jQuery selector. Essentially, we can use any selector we normally would when querying the DOM. For example, the following are all valid selectors:
+
+```javascript
+cy.get('.class-selector');cy.get('#id');cy.get('[data-attribute="selector"]');cy.get('ul > li');
+```
+
+___
+
+## Interacting with Selected Elements
+
+To interact with the selected elements, Cypress provides a similar interface to the DOM API.
+
+### Clicks
+
+The most common scenario where we interact with elements is simply triggering a click event. We can achieve this using the `.click` command:
+
+```javascript
+// Make sure you trigger the click event after getting the DOM element with`cy.get`
+cy.get('button').click();
+```
+
+We can also do double and right clicks, if needed, with the following commands:
+
+```javascript
+cy.get('button').dblclick();
+cy.get('button').rightclick();
+```
+
+---
+
+### Typing
+
+We may also want to test inputs by typing into them. For this, we can use the `.type` command:
+
+```
+cy.get('input[type="email"]').type('john@doe.com');
+```
+
+The `.type` command also supports some special characters to trigger non-character keyboard keys. For example, to press enter, we would:
+
+```javascript
+cy.get('input[type="email"]').type('{enter}');
+```
+
+---
+
+Some other common use cases include:
+
+```javascript
+cy.get('input').type('{backspace}');
+cy.get('input').type('{del}');
+cy.get('input').type('{selectall}');
+```
+
+You can find the full list of available special characters inside the official documentation of Cypress.
+
+We can use the `.clear` command to clear our input fields. It essentially empties an input field so it returns to its initial state:
+
+```javascript
+// The two are equivalent
+cy.get('input[type="email"]').clear();
+cy.get('input[type="email"]').type('{selectall}{backspace}');
+```
+
+----
+
+### Checks
+
+Checking and unchecking checkboxes is just as easy with the `.check` and `.uncheck` commands:
+
+```javascript
+cy.get('[type="checkbox"]').check();
+cy.get('[type="checkbox"]').uncheck();
+```
+
+> Note that the elements must be an `input` with a type of either `checkbox` or `radio`.
+
+---
+
+### Select
+
+Cypress also provides the possibility of interacting with `select` elements, using the `.select` command:
+
+```javascript
+// You need to pass either the value or the text content of the `option` you want to select.
+cy.get('select').select('value');
+```
+
+---
+
+### Trigger
+
+Lastly, we have the `.trigger` utility, which we can use to trigger DOM events. Any event that we can trigger on a DOM element is a valid argument for `.trigger`:
+
+```javascript
+cy.get('button').trigger('click');
+cy.get('area').trigger('mouseover');
+cy.get('input').trigger('keyup');
+```
+
+---
+
+### `trigger('click')` Vs. `click()`
+
+Let’s look at the difference between the two.
+
+```javascript
+cy.get('button').trigger('click');
+cy.get('button').click();
+```
+
+Both will trigger the event. The only difference is that `.trigger` will only fire the event and nothing else.
+
+However, using the corresponding Cypress command also performs low-level actions to fully implement the default browser action, and fulfill the specification.
+
+___
+
+## Dismissing the Cookie Policy
+
+To practice everything we’ve discussed in this lesson, let’s write a simple test case for dismissing the cookie policy on the home page. We’ve already created an empty `it` block for it. Let’s also add a couple of steps:
+
+```javascript
+import {
+    verifyCookiePolicyPresence,
+    dismissCookiePolicy
+} from '../steps/cookiePolicy'
+
+it('Should show dismissible cookie policy banner', () => {
+    verifyCookiePolicyPresence();
+    dismissCookiePolicy();
+});
+```
+
+---
+
+Don’t forget to create a `cookiePolicy.js` file inside the “steps” folder with the two exported function:
+
+```javascript
+export const verifyCookiePolicyPresence = () => {
+    ...
+};
+
+export const dismissCookiePolicy = () => {
+    ...
+};
+```
+
+First, select the cookie policy, so we can verify its presence. For this, we can use `cy.get`:
+
+```javascript
+cy.get('#onetrust-banner-sdk');
+```
+
+> Note that you don’t need to chain anything after the `.get` function. By simply selecting the element, we verify its presence. If it’s not there, the test suite will fail.
+
+If we want to be more verbose, we can chain a `.should` command:
+
+```javascript
+cy.get('#onetrust-banner-sdk').should('exist');
+```
+
+After that, we need to find the button on the banner and trigger a click. Then we can verify if it removed the cookie policy banner. This is what we will need to write in the `dismissCookiePolicy` step.
+
+```javascript
+export const verifyCookiePolicyPresence = () => {
+    // Note that no cookie policy banner is shown on the virtual machine
+    // So instead, we can test if the styles associated with it are present
+    cy.get('#onetrust-style').should('exist');
+};
+
+export const dismissCookiePolicy = () => {
+
+};
+```
+
+---
+
+We’ve looked at how to select elements in the previous lesson using the `cy.get` command. However, there’s one problem with this.Selectors are bound to change from time to time, and using the same selectors in different places means we have to update the test suite in multiple places to avoid flakes. This is what aliases aim to solve.
+
+___
+
+## What Are Aliases?
+
+Aliasing selectors is a way to assign a name to an element that can be referenced for later use. This way, we only need to query using the selector once, but can use the alias throughout the test multiple times. If we need to update the selector, we will only have to do it in one place.
+
+___
+
+## Creating Aliases
+
+To create aliases in Cypress, we can use the `.as` command on an element:
+
+```javascript
+cy.get('.download').as('downloadButton');
+```
+
+Later in the test cases, we can reference the alias by prefixing it with an `@` symbol:
+
+```javascript
+cy.get('@downloadButton').click();cy.get('@downloadButton').should('be.disabled');
+```
+
+___
+
+## Further Improving on Selectors
+
+There are two more ways to enhance our tests so we can improve on our selectors.
+
+### Outsourcing Selectors
+
+First, we can outsource our selectors to the top of the test files:
+
+```javascript
+const selectors = {
+downloadBanner: '.download-banner',
+downloadButton: '.download'};
+```
+
+We can also outsource them to an entirely new configuration file, and import the necessary selectors from there:
+
+```javascript
+export const downloadBanner = '.download-banner';export const downloadButton = '.download';// Later in your test cases, you can import the necessary selectors:import {
+downloadBanner,
+downloadButton} from 'selectors'
+```
+
+### Referencing `data` Attributes
+
+To reduce the likelihood of flakes, it’s recommended to use `data` attributes as selectors. These are less likely to change. For the sake of testing, we can also create custom `data` attributes that we know won’t change in the future. A common convention is to use `data-test-id` or `data-testid` attributes.
+
+```javascript
+const selectors = {
+downloadButton: [data-key="1"]
+// Even better to use a custom `data` attribute for the purpose of testing
+downloadButton: [data-testid="downloadButton"]};
+```
+
+## Testing Elements Using Aliases
+
+Let’s put theory into practice and expand our previous cookie policy test with the `dissmissCookiePolicy` step.
+
+First, let’s create a selectors object at the top of the step file so we can reference everything in one place.
+
+```javascript
+const selectors = {
+cookiePolicyBanner: '#onetrust-banner-sdk',
+cookiePolicyBannerButton: '#onetrust-accept-btn-handler'};export const verifyCookiePolicyPresence = () => {
+cy.get(selectors.cookiePolicyBanner).as('cookiePolicyBanner');};
+```
+
+We have now also introduced a selector for the banner’s button. This is what we want to press in the next step to verify if the banner is dismissible. We’ve also aliased the banner itself, so we can use a shorter and readable version for any further `cy.get` command. Putting this all together, we get the following:
+
+```javascript
+export const dismissCookiePolicy = () => {
+cy.get(selectors.cookiePolicyBannerButton).click();
+cy.get('@cookiePolicyBanner').should('not.be.visible');};
+```
+
+> Note that the element will still exist in the DOM. We can call `not.be.visible` to check visibility.
+
+---
+
+## References
+
+[^1]: [Mocha - the fun, simple, flexible JavaScript test framework](https://mochajs.org/#table-of-contents)
+
+[^2]: [Assertion Styles - Chai](https://www.chaijs.com/guide/styles/#expect)
+
+[^3]: [Stubs - Sinon.JS](https://sinonjs.org/releases/v15/stubs/)
+
+[^4]: [Spies - Sinon.JS](https://sinonjs.org/releases/v15/spies/)
+
+[^5]: [Lodash Documentation](https://lodash.com/docs/4.17.15)
+
+[^6]: [jQuery Selectors](https://www.w3schools.com/jquery/jquery_ref_selectors.asp)

@@ -14,7 +14,7 @@ tags: ["kafka", "kafka-ccdak-study-notes"]
 
 ## Kafka Architecture
 
-![Kafka Architecture](./images/kafka-architecture.jpg)
+![Kafka Architecture](images/kafka-architecture.jpg)
 
 ### Brokers
 
@@ -82,7 +82,7 @@ By default, all consumers will process all records, but what if you want to scal
 - With consumer groups, Kafka dynamically assigns each partition to exactly one consumer in the groups.
 - If you have more consumers than partitions, some of the consumers will be idle and will not process records.
 
-![bg right:35% contain](./images/topic-topic-log-partitions.jpg)
+![bg right:35% contain](images/topic-topic-log-partitions.jpg)
 
 ### Terms
 
@@ -105,7 +105,7 @@ By default, all consumers will process all records, but what if you want to scal
 - In Kafka, every topic is given a configurable replication factor.
 - The replication factor is the number of replicas that will be kept on _different brokers_ for each partition in the topic.
 
-![bg right contain](./images/replication.jpg)
+![bg right contain](images/replication.jpg)
 
 ### Leaders
 
@@ -124,7 +124,7 @@ By default, all consumers will process all records, but what if you want to scal
 
 ## The Life of a Message
 
-![bg right:45% contain](./images/the-life-of-a-message.jpg)
+![bg right:45% contain](images/the-life-of-a-message.jpg)
 
 1. Producer publishes a message to a partition within a topic.
 2. The message is added to the partition on the leader.
