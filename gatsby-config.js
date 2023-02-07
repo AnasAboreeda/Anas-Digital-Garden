@@ -33,9 +33,9 @@ const plugins = [
             sizeByPixelDensity: true
           }
         },
-        {
-          resolve: 'gatsby-remark-copy-linked-files'
-        },
+        // {
+        //   resolve: 'gatsby-remark-copy-linked-files'
+        // },
         { resolve: 'remark-math' }
       ],
       remarkPlugins: [require("remark-math")],
