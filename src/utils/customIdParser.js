@@ -22,13 +22,15 @@ export const customIdParser = (content) => {
       if (typeof content === 'object') {
         customIdParser(content.props.children);
       }
-      const [text, id] = content.split("{#");
 
+      if (typeof content === 'string') {
+        const [text, id] = content.split("{#");
 
-      if (!!text && !!id) {
-        resultId = id.replace('}', '').replace(/\s+/g, '').toLowerCase();
-      } else {
-        resultId = content.replace(/\s+/g, '').toLowerCase();
+        if (!!text && !!id) {
+          resultId = id.replace('}', '').replace(/\s+/g, '').toLowerCase();
+        } else {
+          resultId = content.replace(/\s+/g, '').toLowerCase();
+        }
       }
     } catch (error) {
       console.error('Error in customIdParser');
@@ -44,9 +46,10 @@ export const customIdParser = (content) => {
     }
 
   }
-    return {
-      content,
-      id: resultId
-    }
+  return {
+    content,
+    id: resultId
+  }
 
 }
+
