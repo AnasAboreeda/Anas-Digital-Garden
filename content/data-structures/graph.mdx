@@ -51,7 +51,7 @@ Very often, graph problems are represented as matrices. For example:
 
 A matrix translates to a graph (adjacency list):
 
-![2022-07-17_13-11-07](./graph/2022-07-17_13-11-07.jpg)
+![2022-07-17_13-11-07](./graph/2022-07-17-13-11-07.jpg)
 ---
 
 When we code the problem, we have to build the graph as we go. Nodes/vertices are represented by coordinates of matrix entries.
@@ -60,7 +60,7 @@ When we code the problem, we have to build the graph as we go. Nodes/vertices ar
 
 The core of BFS/DFS is to add neighbors of the current vertex to a queue/stack. The `get_neighbors` function returns all 4 coordinates of neighboring nodes (or 8 if you are allowed to go diagonal).
 
-![2022-07-17_13-11-11](./graph/2022-07-17_13-11-11.jpg)  
+![2022-07-17_13-11-11](./graph/2022-07-17-13-11-11.jpg)  
 One way to get each neighbor's coordinates is to keep each neighbor's horizontal and vertical offsets in a list and adding them to the each vertex's coordinates.
 
 ```java

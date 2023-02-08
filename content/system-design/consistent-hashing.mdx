@@ -31,7 +31,7 @@ As stated above, the act of distributing data across a set of nodes is called da
 
 A naive approach will use a suitable hash function to map the data key to a number. Then, find the server by applying modulo on this number and the total number of servers. For example:
 
-![Untitled](./consistent_hashing/untitled.png)
+![Untitled](./consistent-hashing/untitled.png)
 
 he scheme described in the above diagram solves the problem of finding a server for storing/retrieving the data. **But when we add or remove a server, all our existing mappings will be broken.**
 
@@ -126,7 +126,7 @@ Vnodes gives the following advantages:
 > In eventually consistent systems, copies of data don't always have to be identical as long as they are designed to eventually become consistent. In distributed systems, eventual consistency is used to achieve high availability.
 >
 
-![Untitled](./consistent_hashing/untitled-6.png)
+![Untitled](./consistent-hashing/untitled-6.png)
 
 ## Consistent Hashing in System Design Interviews
 

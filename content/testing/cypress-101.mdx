@@ -2,7 +2,7 @@
 tags: [testing, cypress]
 title: Automation Testing Using Cypress
 createdDate: 2023-02-04
-updatedDate: 2023-02-06
+updatedDate: 2023-02-07
 marp: true
 ---
 
@@ -270,7 +270,7 @@ cy.tick(5000); // Triggers the setTimeout
 
 ## Shortcuts in Cypress
 
-- Cypress lets us skip steps that slow us down.
+- Cypress lets us skip steps that slow us down.  
 For example, we may want to test a dashboard behind a login screen. This means, to start testing the dashboard, we need to type our credentials and log in each time before actually testing things. - We are executing commands to recreate a given situation.
 - Cypress commands such as `cy.intercept` or `cy.request` let us programmatically build up a state for our application without interacting with it like a user.
 
@@ -400,9 +400,12 @@ cy.stub(user, 'get').rejects(new Error('User does not exist.'))
 
 ## Spying on Functions
 
-In other cases, we may not want to modify the behavior of our functions, but we are still interested in them.
+Why Spying?
 
-For example, we want to test whether they were called, if they were called with the right arguments, or how many times they were called. This is where spies are useful. We can spy on a function in the following ways:
+1. Interest in functions without modifying their behavior.
+2. Testing function call.
+3. Testing if called with correct arguments.
+4. Counting number of calls.
 
 ```javascript
 // Spy on the user.get() method
@@ -506,7 +509,7 @@ cy.get('button').click({ force: true });
 
 ---
 
-- Cypress allows for running specific test cases in different browsers
+- Cypress allows for running specific test cases in different browsers  
 Example: specifying that a certain part of the application is prone to malfunction in Firefox in a test case.
 
 ```javascript
@@ -750,6 +753,8 @@ export const dismissCookiePolicy = () => {
 };
 ```
 
+---
+
 First, select the cookie policy, so we can verify its presence. For this, we can use `cy.get`:
 
 ```javascript
@@ -757,6 +762,8 @@ cy.get('#onetrust-banner-sdk');
 ```
 
 > Note that you don’t need to chain anything after the `.get` function. By simply selecting the element, we verify its presence. If it’s not there, the test suite will fail.
+
+---
 
 If we want to be more verbose, we can chain a `.should` command:
 
@@ -801,7 +808,8 @@ cy.get('.download').as('downloadButton');
 Later in the test cases, we can reference the alias by prefixing it with an `@` symbol:
 
 ```javascript
-cy.get('@downloadButton').click();cy.get('@downloadButton').should('be.disabled');
+cy.get('@downloadButton').click();
+cy.get('@downloadButton').should('be.disabled');
 ```
 
 ___
@@ -816,8 +824,9 @@ First, we can outsource our selectors to the top of the test files:
 
 ```javascript
 const selectors = {
-downloadBanner: '.download-banner',
-downloadButton: '.download'};
+	downloadBanner: '.download-banner',
+	downloadButton: '.download'
+};
 ```
 
 We can also outsource them to an entirely new configuration file, and import the necessary selectors from there:
@@ -827,6 +836,8 @@ export const downloadBanner = '.download-banner';export const downloadButton = '
 downloadBanner,
 downloadButton} from 'selectors'
 ```
+
+---
 
 ### Referencing `data` Attributes
 
@@ -838,6 +849,8 @@ downloadButton: [data-key="1"]
 // Even better to use a custom `data` attribute for the purpose of testing
 downloadButton: [data-testid="downloadButton"]};
 ```
+
+---
 
 ## Testing Elements Using Aliases
 
@@ -851,6 +864,8 @@ cookiePolicyBanner: '#onetrust-banner-sdk',
 cookiePolicyBannerButton: '#onetrust-accept-btn-handler'};export const verifyCookiePolicyPresence = () => {
 cy.get(selectors.cookiePolicyBanner).as('cookiePolicyBanner');};
 ```
+
+---
 
 We have now also introduced a selector for the banner’s button. This is what we want to press in the next step to verify if the banner is dismissible. We’ve also aliased the banner itself, so we can use a shorter and readable version for any further `cy.get` command. Putting this all together, we get the following:
 
