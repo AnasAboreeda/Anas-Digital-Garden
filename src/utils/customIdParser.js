@@ -5,7 +5,7 @@
 export const customIdParser = (content) => {
   let resultId = '#';
 
-  if (content !== undefined) {
+  if (content !== undefined && content) {
     try {
       if (Array.isArray(content)) {
         content = content.map((item) => {
