@@ -45,7 +45,7 @@ This is because the total number of servers will be changed, which was used to f
 - Each node in the ring is assigned a range of data.
 - Here is an example of the consistent hash ring:
 
-![Consistent Hashing ring](./consistent_hashing/untitled-1.png)
+![Consistent Hashing ring](./consistent-hashing/untitled-1.png)
 
 Consistent Hashing ring
 
@@ -93,7 +93,7 @@ Whenever the system needs to read or write data,
 - Each of these subranges is considered a Vnode.
 - With Vnodes, instead of a node being responsible for just one token, it is responsible for many tokens (or subranges).
 
-![Untitled](./consistent_hashing/untitled-4.png)
+![Untitled](./consistent-hashing/untitled-4.png)
 
 - Practically, Vnodes are **randomly distributed** across the cluster and are generally **non-contiguous** so that no two neighboring Vnodes are assigned to the same physical node or rack.
 - Additionally, nodes do carry replicas of other nodes for fault tolerance.
