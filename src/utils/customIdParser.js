@@ -19,6 +19,9 @@ export const customIdParser = (content) => {
         }).join(' ');
       }
 
+      if (typeof content === 'object') {
+        customIdParser(content.props.children);
+      }
       const [text, id] = content.split("{#");
 
 
@@ -28,7 +31,10 @@ export const customIdParser = (content) => {
         resultId = content.replace(/\s+/g, '').toLowerCase();
       }
     } catch (error) {
-      console.error(typeof content, Array.isArray(content), content)
+      console.error('Error in customIdParser');
+      console.error(`typeof content: ${typeof content}`);
+      console.error(`content`);
+      console.error(JSON.stringify(content, null, 2));
       console.error(error);
     }
 
